@@ -16,7 +16,7 @@ export default function Login(){
                     <input placeholder='Password' className={style.input}/>
                     <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
                         <p style={{fontSize: '16px', cursor: 'pointer'}} onClick={()=> navigate('/signup')}>Don't have an account?</p>
-                        <p style={{fontSize: '16px', cursor: 'pointer'}} onClick = {()=> navigate('/forgotpassword')}>Forgot password?</p>
+                        <p style={{fontSize: '16px', cursor: 'pointer', textAlign: 'end'}} onClick = {()=> navigate('/forgotpassword')}>Forgot password?</p>
                     </div>
                     <button className={style.btn}>Login</button>
                 </div>
