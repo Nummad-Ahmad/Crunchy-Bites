@@ -54,7 +54,7 @@ export default function Home() {
                 <img src={Win} />
                 <p className={style.prizetitle}>Win exciting prizes !!!</p>
                 
-                <p className={style.prizedesc}>Buy your favorite snacks and get a chance to win exciting prizes! The more you buy, the higher your chances of winning in our weekly lucky draw. Delicious treats and amazing rewards—don’t miss out!</p>
+                <p className={style.prizedesc}>Buy your favorite snacks and get a chance to win exciting prizes! The more you buy, the higher your chances of winning in our bi-weekly lucky draw. Delicious treats and amazing rewards—don’t miss out!</p>
             </div>
                 <img src={Happy} className={style.happyface}/>
             </div>
