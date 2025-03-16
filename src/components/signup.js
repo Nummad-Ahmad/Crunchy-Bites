@@ -18,7 +18,7 @@ export default function Signup(){
             </div>
             <div className={style.darkarea}>
                 <img src={Robot} className={style.robot}/>
-                <p style={{fontSize: '20px', fontWeight: 'bold', margin: '0px 0px'}}>Create an account</p>
+                <p style={{fontSize: '30px', fontWeight: 'bold', margin: '0px 0px', color: '#FFDC5A'}}>Create an account</p>
             </div>
         </div>
     );

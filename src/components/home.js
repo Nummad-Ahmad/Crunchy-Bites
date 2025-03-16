@@ -59,6 +59,8 @@ export default function Home() {
             </div>
                 <img src={Happy} className={style.happyface}/>
             </div>
+            
+            <p className={style.tagline}>Our Perks</p>
             <div className={style.foodboxcontainer}>
                 <div className={style.advantagediv}>
                     <p style={{fontSize: '20px', fontWeight: 'bold', color: '#FFDC5A'}}>Quick & Satisfying</p>
