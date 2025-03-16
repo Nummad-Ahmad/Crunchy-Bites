@@ -11,6 +11,7 @@ import FrenchFries from '../images/frenchfries.jpg';
 import Roll from '../images/roll.jpg';
 import Samosa from '../images/samosa.jpg';
 import Win from '../images/win.png';
+import { FaRegCircleCheck } from "react-icons/fa6";
 
 export default function Home() {
     const [index, setIndex] = useState(0);
@@ -57,6 +58,40 @@ export default function Home() {
                 <p className={style.prizedesc}>Buy your favorite snacks and get a chance to win exciting prizes! The more you buy, the higher your chances of winning in our bi-weekly lucky draw. Delicious treats and amazing rewards—don’t miss out!</p>
             </div>
                 <img src={Happy} className={style.happyface}/>
+            </div>
+            <div className={style.foodboxcontainer}>
+                <div className={style.advantagediv}>
+                    <p style={{fontSize: '20px', fontWeight: 'bold', color: '#FFDC5A'}}>Quick & Satisfying</p>
+                    <p style={{fontSize: '14px'}}>Need a quick bite? Grab our delicious, crispy snacks made fresh and fast and enjoy a tasty treat anytime, anywhere. Perfect for your cravings on the go!</p>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <p style={{fontSize: '30px', color: '#FFDC5A', fontWeight: 'bold'}}>1</p>
+                    <FaRegCircleCheck color='#FFDC5A' size={35}/>
+                    </div>
+                </div>
+                <div className={style.advantagediv}>
+                    <p style={{fontSize: '20px', fontWeight: 'bold', color: '#FFDC5A'}}>Fresh & Hygienic</p>
+                    <p style={{fontSize: '14px'}}>Looking for a healthy and hygienic snack? Enjoy our fresh, clean, and delicious treats made with the finest ingredients. Eat fresh, stay healthy</p>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <p style={{fontSize: '30px', color: '#FFDC5A', fontWeight: 'bold'}}>2</p>
+                    <FaRegCircleCheck color='#FFDC5A' size={35}/>
+                    </div>
+                </div>
+                <div className={style.advantagediv}>
+                    <p style={{fontSize: '20px', fontWeight: 'bold', color: '#FFDC5A'}}>Crispy & Delicious</p>
+                    <p style={{fontSize: '14px'}}>Craving something crispy and delicious? Try our perfectly golden, crunchy snacks that are bursting with flavor. Freshly made and irresistibly tasty!</p>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <p style={{fontSize: '30px', color: '#FFDC5A', fontWeight: 'bold'}}>3</p>
+                    <FaRegCircleCheck color='#FFDC5A' size={35}/>
+                    </div>
+                </div>
+                <div className={style.advantagediv}>
+                    <p style={{fontSize: '20px', fontWeight: 'bold', color: '#FFDC5A'}}>Eat & Win Prizes</p>
+                    <p style={{fontSize: '14px'}}>Win exciting prizes. Buy your favorite crispy snacks and get a chance to win amazing rewards every week! The more you buy, the better your chances.</p>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <p style={{fontSize: '30px', color: '#FFDC5A', fontWeight: 'bold'}}>4</p>
+                    <FaRegCircleCheck color='#FFDC5A' size={35}/>
+                    </div>
+                </div>
             </div>
             <Footer />
         </div>
