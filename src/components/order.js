@@ -5,10 +5,10 @@ import Roll from '../images/roll.jpg';
 import Samosa from '../images/samosa.jpg';
 import Navbar from './navbar';
 import { useSelector, useDispatch } from "react-redux";
-import { setAllItems, setCheesyFries, setFries, setRoll, setSamosa } from '../redux/slice';
+import { setCheesyFries, setFries, setRoll, setSamosa } from '../redux/slice';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { replace, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Order() {
     const navigate = useNavigate();
