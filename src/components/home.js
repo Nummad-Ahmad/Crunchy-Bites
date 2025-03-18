@@ -12,6 +12,7 @@ import Roll from '../images/roll.jpg';
 import Samosa from '../images/samosa.jpg';
 import Win from '../images/win.png';
 import { FaRegCircleCheck } from "react-icons/fa6";
+import Cookies from 'js-cookie';
 
 export default function Home() {
     const [index, setIndex] = useState(0);

@@ -1,0 +1,167 @@
+import style from '../styles/order.module.css';
+import CheesyFries from '../images/chessyfries.jpg';
+import FrenchFries from '../images/frenchfries.jpg';
+import Roll from '../images/roll.jpg';
+import Samosa from '../images/samosa.jpg';
+import Navbar from './navbar';
+import { useSelector, useDispatch } from "react-redux";
+import { setAllItems, setCheesyFries, setFries, setRoll, setSamosa } from '../redux/slice';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+
+export default function Order() {
+    const itemQuantities = useSelector((state) => state.items);
+    const dispatch = useDispatch();
+    const [inputValues, setInputValues] = useState({
+        samosa: 0,
+        fries: 0,
+        cheesyFries: 0,
+        roll: 0,
+    });
+    function calculateTotal(){
+        var sum = (inputValues.samosa * 50) + (inputValues.fries * 100) + (inputValues.cheesyFries * 150) + (inputValues.roll * 40);
+        return sum;
+    }
+    function getItems(){
+        var sum = (inputValues.samosa) + (inputValues.fries) + (inputValues.cheesyFries) + (inputValues.roll);
+        return sum;
+    }
+    const increment = (name) => {
+        if (name == 'samosa') {
+            var prevValue = inputValues.samosa;
+            setInputValues({ ...inputValues, [name]: prevValue + 1 });
+            dispatch(setSamosa(prevValue + 1));
+        } else if (name == 'fries') {
+            var prevValue = inputValues.fries;
+            setInputValues({ ...inputValues, [name]: prevValue + 1 });
+            dispatch(setFries(prevValue + 1));
+        } else if (name == 'cheesyFries') {
+            var prevValue = inputValues.cheesyFries;
+            setInputValues({ ...inputValues, [name]: prevValue + 1 });
+            dispatch(setCheesyFries(prevValue + 1));
+        } else if (name == 'roll') {
+            var prevValue = inputValues.roll;
+            setInputValues({ ...inputValues, [name]: prevValue + 1 });
+            dispatch(setRoll(prevValue + 1));
+        }
+    };
+    const decrement = (name) => {
+        if (name == 'samosa') {
+            var prevValue = inputValues.samosa;
+            if (prevValue > 0) {
+                setInputValues({ ...inputValues, [name]: prevValue - 1 });
+                dispatch(setSamosa(prevValue - 1));
+            }
+        } else if (name == 'fries') {
+            var prevValue = inputValues.fries;
+            if (prevValue > 0) {
+                setInputValues({ ...inputValues, [name]: prevValue - 1 });
+                dispatch(setFries(prevValue - 1));
+            }
+        } else if (name == 'cheesyFries') {
+            var prevValue = inputValues.cheesyFries;
+            if (prevValue > 0) {
+                setInputValues({ ...inputValues, [name]: prevValue - 1 });
+                dispatch(setFries(prevValue - 1));
+            }
+        } else if (name == 'roll') {
+            var prevValue = inputValues.roll;
+            if (prevValue > 0) {
+                setInputValues({ ...inputValues, [name]: prevValue - 1 });
+                dispatch(setRoll(prevValue - 1));
+            }
+        }
+    };
+    function handleOrder(){
+        if(calculateTotal() > 0)
+            toast.success("Ordered");
+        else
+            toast.error("additems")
+    }
+    return (
+        <div className={style.order}>
+            <Navbar />
+            <div className={style.foodboxcontainer}>
+                <div className={style.foodbox}>
+                    <img src={Samosa} className={style.foodimg} />
+                    <p className={style.itemname}>Samosa</p>
+                    <p className={style.itemdesc}>Crispy and flavorful samosas filled with spiced potatoes, wrapped in a golden, flaky crust. A perfect snack.</p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
+                        <p style={{ fontWeight: 'bold' }}>Price</p>
+                        <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{inputValues.samosa > 0 ? inputValues.samosa * 50 : 50} Rs</p>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
+                        <p style={{ fontWeight: 'bold' }}>Quantity</p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <p style={{cursor: 'pointer'}} onClick={() => decrement("samosa")}>-</p>
+                            <p style={{ fontWeight: 'bold' }}>{inputValues.samosa}</p>
+                            <p style={{cursor: 'pointer'}} onClick={() => increment("samosa")}>+</p>
+                        </div>
+                    </div>
+                </div>
+                <div className={style.foodbox}>
+                    <img src={CheesyFries} className={style.foodimg} />
+                    <p className={style.itemname}>Cheesy Fries</p>
+                    <p className={style.itemdesc}>Our cheesy and crispy fries loaded with rich, melted cheese and creamy mayo. A perfect cheesy snack.</p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
+                        <p style={{ fontWeight: 'bold' }}>Price</p>
+                        <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{inputValues.cheesyFries > 0 ? inputValues.cheesyFries * 150 : 150} Rs</p>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
+                        <p style={{ fontWeight: 'bold' }}>Quantity</p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <p style={{cursor: 'pointer'}} onClick={() => decrement("cheesyFries")}>-</p>
+                            <p style={{ fontWeight: 'bold' }}>{inputValues.cheesyFries}</p>
+                            <p style={{cursor: 'pointer'}} onClick={() => increment("cheesyFries")}>+</p>
+                        </div>
+                    </div>
+                </div>
+                <div className={style.foodbox}>
+                    <img src={FrenchFries} className={style.foodimg} />
+                    <p className={style.itemname}>French Fries</p>
+                    <p className={style.itemdesc}>Crispy and golden, our French fries are perfectly seasoned and fried to perfection. Light, crunchy and quick snack.</p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
+                        <p style={{ fontWeight: 'bold' }}>Price</p>
+                        <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{inputValues.fries > 0 ? inputValues.fries * 100 : 100} Rs</p>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
+                        <p style={{ fontWeight: 'bold' }}>Quantity</p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <p style={{cursor: 'pointer'}} onClick={() => decrement("fries")}>-</p>
+                            <p style={{ fontWeight: 'bold' }}>{inputValues.fries}</p>
+                            <p style={{cursor: 'pointer'}} onClick={() => increment("fries")}>+</p>
+                        </div>
+                    </div>
+                </div>
+                <div className={style.foodbox}>
+                    <img src={Roll} className={style.foodimg} />
+                    <p className={style.itemname}>Roll</p>
+                    <p className={style.itemdesc}>Crispy and delicious potato rolls are packed with spiced mashed potatoes, wrapped in a golden and crunchy layer.</p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
+                        <p style={{ fontWeight: 'bold' }}>Price</p>
+                        <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{inputValues.roll > 0 ? inputValues.roll * 40 : 40} Rs</p>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
+                        <p style={{ fontWeight: 'bold' }}>Quantity</p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <p style={{cursor: 'pointer'}} onClick={() => decrement("roll")}>-</p>
+                            <p style={{ fontWeight: 'bold' }}>{inputValues.roll}</p>
+                            <p style={{cursor: 'pointer'}} onClick={() => increment("roll")}>+</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className={style.quantityandprice}>
+                <div className={style.price}>
+                    <p>Total price</p>
+                    <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)', fontSize: '18px' }}>{calculateTotal()} Rs</p>
+                </div>
+                <div className={style.quantity}>
+                    <p>Total items</p>
+                    <p>{getItems()}</p>
+                </div>
+                <btn onClick={handleOrder} className={style.btn}>Order</btn>
+            </div>
+        </div>
+    );
+}

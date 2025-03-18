@@ -6,19 +6,15 @@ const userModel = require('./models/users');
 const bcrypt = require('bcrypt');
 const { sendVerificationCode, sendFeedback } = require('./email');
 const mongoURI = 'mongodb://localhost:27017/users';
-// const multer = require('multer');
-// const cloudinary = require('./cloudinaryConfig');
-const imageModel = require('./models/image.js');
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage: storage });
 require('dotenv').config();
+const jwt = require('jsonwebtoken')
 
 dotenv.config();
 const app = express();
 const port = 3000;
 
 const corsOptions = {
-    origin: '*', // Allow only frontend domain
+    origin: process.env.REACT_APP_FRONT_END, // Allow only frontend domain
     methods: ["GET", "POST", "PUT", "DELETE"],
 };
 
@@ -38,7 +34,6 @@ app.get('/history', async (req, res) => {
         res.status(500).json({ message: 'Server error', error: e.message });
     }
 });
-
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -77,17 +72,6 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-app.post('/feedback', async (req, res) => {
-    const { email, message, name } = req.body;
-    try {
-        await sendFeedback(email, message, name);
-        res.status(200).json({ message: "Feedback sent" });
-    } catch (e) {
-        res.status(500).json({ error: 'An error occurred while processing your request' });
-
-    }
-});
-
 app.post('/verify', async (req, res) => {
     const { email, verificationCode } = req.body;
     try {
@@ -105,46 +89,7 @@ app.post('/verify', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while processing your request' });
     }
 });
-// app.post("/upload", upload.single("file"), async (req, res) => {
-//     try {
-//         const file = req.file;
-//         const email = req.body.email;
-//         const title = req.body.title;
-//         if (!file) {
-//             return res.status(400).json({ message: "No file uploaded" });
-//         }
-//         console.log("File received:", file);
-//         const filename = file.originalname || `image_${Date.now()}`;
-//         const result = await new Promise((resolve, reject) => {
-//             const uploadStream = cloudinary.uploader.upload_stream(
-//                 {
-//                     folder: "fyp_storage",
-//                     resource_type: "image",
-//                     public_id: filename,
-//                     chunk_size: 20 * 1024 * 1024,
-//                 },
-//                 (error, result) => (error ? reject(error) : resolve(result))
-//             );
-//             uploadStream.end(file.buffer);
-//         });
-//         const newImage = new imageModel({
-//             url: result.secure_url,
-//             sender: email,
-//             title: title,
-//             date: new Date(),
-//         });
-//         await newImage.save();
-//         res.status(201).json({
-//             success: true,
-//             message: "Image uploaded successfully",
-//             imageUrl: result.secure_url,
-//             filename,
-//         });
-//     } catch (error) {
-//         console.error("Upload error:", error);
-//         res.status(500).json({ success: false, message: "Server Error", error: error.message });
-//     }
-// });
+
 app.post('/forgotpassword', async (req, res) => {
     try {
         const { email } = req.body;
