@@ -8,8 +8,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { setAllItems, setCheesyFries, setFries, setRoll, setSamosa } from '../redux/slice';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { replace, useNavigate } from 'react-router-dom';
 
 export default function Order() {
+    const navigate = useNavigate();
     const itemQuantities = useSelector((state) => state.items);
     const dispatch = useDispatch();
     const [inputValues, setInputValues] = useState({
@@ -73,8 +75,10 @@ export default function Order() {
         }
     };
     function handleOrder(){
-        if(calculateTotal() > 0)
+        if(calculateTotal() > 0){
             toast.success("Ordered");
+            navigate('/');
+        }
         else
             toast.error("additems")
     }
