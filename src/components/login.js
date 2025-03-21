@@ -57,7 +57,7 @@ export default function Login() {
           if (response.status === 200) {
             toast.success(response.data.message || 'Account verified successfully!');
             setShowVerification(false);
-            navigate('/chat', { replace: true });
+            navigate('/', { replace: true });
           }
         })
         .catch((error) => {

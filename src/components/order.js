@@ -9,11 +9,17 @@ import { setCheesyFries, setFries, setRoll, setSamosa } from '../redux/slice';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export default function Order() {
+    const [send, isSending] = useState(false);
+    const user = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null;
     const navigate = useNavigate();
     const itemQuantities = useSelector((state) => state.items);
     const dispatch = useDispatch();
+    const date = new Date().toISOString();
+    const formattedDate = date.split("T")[0];
     const [inputValues, setInputValues] = useState({
         samosa: 0,
         fries: 0,
@@ -23,6 +29,25 @@ export default function Order() {
     function calculateTotal(){
         var sum = (inputValues.samosa * 50) + (inputValues.fries * 100) + (inputValues.cheesyFries * 150) + (inputValues.roll * 40);
         return sum;
+    }
+    
+    function sendOrder(){
+        if(calculateTotal() > 0){
+        const loadingToast = toast.loading("Ordering ...");
+        axios.post('http://localhost:3000/order', { items: inputValues, email: user.email, date: formattedDate})
+        .then(res => {
+            if(res.status == 201){
+                toast.dismiss(loadingToast);
+                toast.success(res.data.message);
+                console.log(res);
+            }
+        }).catch(e =>{
+            toast.dismiss(loadingToast);
+            toast.error("An error occured");
+            console.log(e);
+        })}else{
+            toast.error('Add items first');
+        }
     }
     function getItems(){
         var sum = (inputValues.samosa) + (inputValues.fries) + (inputValues.cheesyFries) + (inputValues.roll);
@@ -74,14 +99,6 @@ export default function Order() {
             }
         }
     };
-    function handleOrder(){
-        if(calculateTotal() > 0){
-            toast.success("Ordered");
-            navigate('/');
-        }
-        else
-            toast.error("additems")
-    }
     return (
         <div className={style.order}>
             <Navbar />
@@ -164,7 +181,7 @@ export default function Order() {
                     <p>Total items</p>
                     <p>{getItems()}</p>
                 </div>
-                <btn onClick={handleOrder} className={style.btn}>Order</btn>
+                <btn onClick={sendOrder} className={style.btn}>Order</btn>
             </div>
         </div>
     );

@@ -4,6 +4,9 @@ import Signup from "./signup";
 import Login from "./login";
 import Forgotpassword from "./forgotpassword";
 import Order from "./order";
+import Notifications from "./notifications";
+import Customers from "./customers";
+import Settings from "./settings";
 export default function App() {
     return (
             <Router>
@@ -13,6 +16,9 @@ export default function App() {
                 <Route element = {<Login />} path="/login"/>
                 <Route element = {<Forgotpassword />} path="/forgotpassword"/>
                 <Route element = {<Order />} path="/order"/>
+                <Route element = {<Customers />} path="/customers"/>
+                <Route element = {<Notifications />} path="/notiifcations"/>
+                <Route element = {<Settings />} path="/settings"/>
                 </Routes>
             </Router>
     );

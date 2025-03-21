@@ -4,6 +4,7 @@ import { FaRegBell } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
+import { IoSettingsOutline } from "react-icons/io5";
 
 export default function Navbar() {
     const user = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null;
@@ -12,17 +13,31 @@ export default function Navbar() {
         <div className={style.navbar}>
             <img src={Logo} height={100}></img>
             <div className={style.optionsdiv}>
-                <div style={{ cursor: 'pointer' }}>
-                    <FaRegBell color='white' size={20} />
+            {
+                user == null ?
+                <div onClick={() => navigate('/notiifcations')} style={{ cursor: 'pointer' }}> 
+                        <IoSettingsOutline color='white' size={20} />
+                </div> :
+                user.email != "nummad222@gmail.com" ?
+                <div onClick={() => navigate('/notiifcations')} style={{ cursor: 'pointer' }}> 
+                        <FaRegBell color='white' size={20} />
+                </div> :
+                <div onClick={() => navigate('/settings')} style={{ cursor: 'pointer' }}> 
+                        <IoSettingsOutline color='white' size={20} />
                 </div>
+            }
                 {
                     user == null ?
                         <div className={style.orderbtn} onClick={() => navigate('/login')}>
                             Login
                         </div> :
-                        <div className={style.orderbtn} onClick={() => navigate('/order')}>
-                            Order
-                        </div>
+                        user.email == "nummad222@gmail.com" ?
+                            <div className={style.orderbtn} onClick={() => navigate('/customers')}>
+                                Customers
+                            </div> :
+                            <div className={style.orderbtn} onClick={() => navigate('/order')}>
+                                Order
+                            </div>
                 }
             </div>
         </div>

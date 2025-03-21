@@ -3,11 +3,13 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const userModel = require('./models/users');
+const orderModel = require('./models/order');
 const bcrypt = require('bcrypt');
 const { sendVerificationCode, sendFeedback } = require('./email');
 const mongoURI = 'mongodb://localhost:27017/users';
 require('dotenv').config();
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const moment = require("moment");
 
 dotenv.config();
 const app = express();
@@ -24,14 +26,29 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'Backend deployed successfully' });
 });
-app.get('/history', async (req, res) => {
-    try {
-        const email = req.query.email;
-        const data = await imageModel.find({ sender: email });
-        res.status(200).json({ message: 'Data found.', data: data });
-    } catch (e) {
+app.get('/data', async(req, res)=>{
+    const {email, date} = req.query;
+    const endDate = moment(date, "YYYY-MM-DD").endOf("day").toDate(); 
+    const startDate = moment(date, "YYYY-MM-DD").subtract(6, "days").startOf("day").toDate(); 
+    console.log(startDate);
+    console.log(endDate);
+    try{
+        const data = await orderModel.find({
+        sender: email,
+        date: { $gte: startDate, $lte: endDate } 
+    });
+    res.status(200).json({data});
+    }catch(e){
+        res.status(500).json({message: "An error occured"});
+    }
+});
+app.get('/customerdata', async(req, res)=>{
+    try{
+        const data = await userModel.find({});
+        res.status(200).json({data: data});
+    }catch(e){
         console.log(e);
-        res.status(500).json({ message: 'Server error', error: e.message });
+        res.status(500).json({message: "An error occured"});
     }
 });
 
@@ -63,7 +80,7 @@ app.post('/signup', async (req, res) => {
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
-        const newUser = await userModel.create({ email, password: hashedPassword, name, isVerified: false, verificationCode });
+        const newUser = await userModel.create({ email, password: hashedPassword, name, isVerified: false, verificationCode, orders: 0, wins: 0 });
         await sendVerificationCode(email, verificationCode);
         res.status(201).json(newUser);
     } catch (error) {
@@ -127,14 +144,25 @@ app.post('/verifyforgotpassword', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while processing your request' });
     }
 });
-
+app.post('/order', async(req, res)=>{
+    const {email, date, items} = req.body;
+    const sum = items.samosa + items.fries + items.cheesyFries + items.roll;
+    console.log(items);
+    try{
+        const newOrder = await orderModel.create({sender: email, date, items, total: sum });
+        res.status(201).json({message: "Ordered successfully"});
+    }catch(e){
+        console.log(e);
+        res.status(500).json({ error: 'An error occurred while processing your request' });
+    }
+})
 
 mongoose.connect(mongoURI).then(console.log("Connected")).catch(e => {
     console.log(e);
 })
 
 app.listen(port, () => {
-    console.log('server started');
+    console.log('server started', port);
 })
 
 
