@@ -4,31 +4,28 @@ import Navbar from './navbar';
 import { FaRegEnvelope } from "react-icons/fa";
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
+const moment = require('moment');
 
 export default function Notifications() {
-    const data = [
-        "Hello",
-        "Hello",
-        "Hello",
-        "Hello",
-        "Hello",
-        "Hello",
-        "Hello",
-
-    ];
-    var user;
+    const user = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null;
+    const [winner, setWinner] = useState({});
     const [historyData, setHistoryData] = useState([]);
     const date = new Date().toISOString();
     const formattedDate = date.split("T")[0];
+    var day = moment(date).format('DD');
+    const month = moment(date).format('MM');
+    const year = moment(date).format('YYYY');
+    const nextMonth = moment(date).add(1, 'month').format('MMMM');
     function sortByDateDescending(data) {
         return data.sort((a, b) => new Date(b.date) - new Date(a.date));
     }
+    var totalCounts;
+    var mostOrderedItem = [];
     function getData(email) {
         axios.get(`http://localhost:3000/data?email=${email}&date=${formattedDate}`)
             .then(res => {
                 if (res.status == 200) {
                     setHistoryData(sortByDateDescending(res.data.data));
-                    console.log(res.data.data);
                 }
             })
             .catch(e => {
@@ -67,8 +64,7 @@ export default function Notifications() {
         }
         return orderedItems;
     }
-    function getFormattedDate(date){
-        console.log(typeof(date));
+    function getFormattedDate(date) {
         date = new Date(date);
         const formattedDate = date.toLocaleDateString("en-GB", {
             year: "numeric",
@@ -77,12 +73,40 @@ export default function Notifications() {
         });
         return (formattedDate);
     }
-
+    function getWinner() {
+        axios.get('http://localhost:3000/winner')
+            .then(res => {
+                if (res.status == 200) {
+                    setWinner(res.data.winner);
+                } else if (res.status == 404) {
+                    console.log(res.data);
+                }
+            })
+            .catch(e => {
+                console.log(e);
+            })
+    }
     useEffect(() => {
-        user = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null;
         if (user) {
             getData(user.email);
         }
+    }, []);
+    totalCounts = historyData.reduce((acc, order) => {
+        for (const [item, count] of Object.entries(order.items)) {
+            acc[item] = (acc[item] || 0) + count;
+        }
+        return acc;
+    }, {});
+    mostOrderedItem = Object.entries(totalCounts).reduce(
+        (max, curr) => (curr[1] > max[1] ? curr : max),
+        ["", -Infinity]
+    );
+    let nextLuckyDraw;
+    if (day > 1) {
+        nextLuckyDraw = `1 ${nextMonth}`;
+    } 
+    useEffect(() => {
+            getWinner();
     }, []);
     return (
         <div className={style.notifications}>
@@ -91,49 +115,64 @@ export default function Notifications() {
             <div className={style.uprDiv}>
                 <div className={style.dataDiv}>
                     <p>Orders this month</p>
-                    <p>100</p>
+                    <p>{historyData.length}</p>
                 </div>
                 <div className={style.dataDiv}>
                     <p>Most ordered item </p>
-                    <p>Fries</p>
+                    <p>{
+                        mostOrderedItem[0] == "" ?
+                        "No data" :
+                        mostOrderedItem[0].charAt(0).toUpperCase() + mostOrderedItem[0].slice(1)
+                    }</p>
                 </div>
             </div>
             <div className={style.uprDiv}>
                 <div className={style.dataDiv}>
-                    <p>Overall most sold item</p>
-                    <p>Cheesy Fries</p>
+                    <p>Prizes won</p>
+                    <p>{user.wins}</p>
                 </div>
                 <div className={style.dataDiv}>
                     <p>Next lucky draw</p>
-                    <p>22 April</p>
+                    <p>{nextLuckyDraw}</p>
                 </div>
             </div>
             <p className={style.title}>Notifications</p>
             <div className={style.notificationscontainer}>
+                {
+                    winner &&
+                    winner.email == user.email &&
+                    <div className={style.notification}>
+                    <FaRegEnvelope color="rgb(240, 99, 49)" />
+                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <p style={{ maxWidth: '60%' }}>
+                            Congrats {winner.name}. You won this month's lucky draw 🎉🎊🥳
+                        </p>
+                        <p>{day}/{month}/{year}</p>
+                    </div>
+                </div>
+                }
                 {
                     historyData && historyData.length > 0 ? (
                         historyData.map((item, index) => {
                             return (
                                 <div key={index} className={style.notification}>
                                     <FaRegEnvelope color="rgb(240, 99, 49)" />
-                                    <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                                    <p style={{maxWidth: '70%'}}>
-                                        You ordered {getOrderedItems(item)}
-                                    </p>
-                                    <p>{getFormattedDate(item.date)}</p>
-                                </div>
+                                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <p style={{ maxWidth: '60%' }}>
+                                            You ordered {getOrderedItems(item)}
+                                        </p>
+                                        <p>{getFormattedDate(item.date)}</p>
+                                    </div>
                                 </div>
                             );
                         })
                     ) : (
                         <div className={style.notification}>
-                            <FaRegEnvelope color="white" />
-                            <p>Hello</p>
+                        <FaRegEnvelope color="rgb(240, 99, 49)" />
+                            <p>No notifications</p>
                         </div>
                     )
                 }
-
-
             </div>
         </div>
     );

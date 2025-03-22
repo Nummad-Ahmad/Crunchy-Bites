@@ -21,72 +21,27 @@ export default function Customers() {
             <Navbar />
             <div className={style.customerscontainer}>
                 <div className={style.customerdata}>
-                    <div style={{ padding: '10px', boxSizing: 'border-box', backgroundColor: 'rgb(25, 25, 25)', display: 'flex', alignItems: 'center', fontWeight: 'bold', marginBottom: '10px' }}>
+
+                    <div style={{ padding: '10px', boxSizing: 'border-box', backgroundColor: 'rgb(25, 25, 25)', display: 'flex', alignItems: 'center', fontWeight: 'bold' }}>
                         <p className={style.name}>Name</p>
                         <p className={style.email}>Email</p>
                         <p className={style.totalorders}>Total orders</p>
                         <p className={style.money}>Wins</p>
                     </div>
-                    <div className={style.data}>
-                        <p className={style.name}>Name</p>
-                        <p className={style.email}>Email</p>
-                        <p className={style.totalorders}>Total orders</p>
-                        <p className={style.money}>Wins</p>
-                    </div>
-                    <div className={style.data}>
-                        <p className={style.name}>Name</p>
-                        <p className={style.email}>Email</p>
-                        <p className={style.totalorders}>Total orders</p>
-                        <p className={style.money}>Wins</p>
-                    </div>
-                    <div className={style.data}>
-                        <p className={style.name}>Name</p>
-                        <p className={style.email}>Email</p>
-                        <p className={style.totalorders}>Total orders</p>
-                        <p className={style.money}>Wins</p>
-                    </div>
-                    <div className={style.data}>
-                        <p className={style.name}>Name</p>
-                        <p className={style.email}>Email</p>
-                        <p className={style.totalorders}>Total orders</p>
-                        <p className={style.money}>Wins</p>
-                    </div>
-                    <div className={style.data}>
-                        <p className={style.name}>Name</p>
-                        <p className={style.email}>Email</p>
-                        <p className={style.totalorders}>Total orders</p>
-                        <p className={style.money}>Wins</p>
-                    </div>
-                    <div className={style.data}>
-                        <p className={style.name}>Name</p>
-                        <p className={style.email}>Email</p>
-                        <p className={style.totalorders}>Total orders</p>
-                        <p className={style.money}>Wins</p>
-                    </div>
-                    <div className={style.data}>
-                        <p className={style.name}>Name</p>
-                        <p className={style.email}>Email</p>
-                        <p className={style.totalorders}>Total orders</p>
-                        <p className={style.money}>Wins</p>
-                    </div>
-                    <div className={style.data}>
-                        <p className={style.name}>Name</p>
-                        <p className={style.email}>Email</p>
-                        <p className={style.totalorders}>Total orders</p>
-                        <p className={style.money}>Wins</p>
-                    </div>
-                    <div className={style.data}>
-                        <p className={style.name}>Name</p>
-                        <p className={style.email}>Email</p>
-                        <p className={style.totalorders}>Total orders</p>
-                        <p className={style.money}>Wins</p>
-                    </div>
-                    <div className={style.data}>
-                        <p className={style.name}>Name</p>
-                        <p className={style.email}>Email</p>
-                        <p className={style.totalorders}>Total orders</p>
-                        <p className={style.money}>Wins</p>
-                    </div>
+                    {
+                        userData &&
+                        userData.map(item => {
+                            return (
+                            item.email != "nummad222@gmail.com" &&
+                                <div className={style.data}>
+                                    <p className={style.name}>{item.name}</p>
+                                    <p className={style.email}>{item.email.slice(0, 20)}</p>
+                                    <p className={style.totalorders}>{item.orders}</p>
+                                    <p className={style.money}>{item.wins}</p>
+                                </div>
+                            );
+                        })
+                    }
                 </div>
                 <div className={style.mobilecontent}>
                     {
@@ -108,7 +63,7 @@ export default function Customers() {
                     }
                 </div>
                 <div className={style.paginationdata}>
-                    <p>Showing 10 of 10 records</p>
+                    <p>Showing {userData?.length ? userData.length - 1 : 0} of {userData?.length ? userData.length - 1 : 0} records</p>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                         <p>1</p>
                         <p>2</p>

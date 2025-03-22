@@ -1,13 +1,13 @@
 const { transporter } = require("./email.config");
 
-const sendVerificationCode = async (email, verificationCode) => {
+const sendVerificationCode = async (email, content, subject) => {
     try {
         const response = await transporter.sendMail({
             from: '"Crunchy Bites" <nummad222@gmail.com>',
             to: email,
-            subject: 'Verify your email',
-            text: "Verify your email",
-            html: `Verify your email to get started. Your verification code is ${verificationCode}.`,
+            subject: subject,
+            text: subject,
+            html: content,
         });
         console.log('Email sent', response);
     } catch (e) {

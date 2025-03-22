@@ -43,14 +43,11 @@
     margin-top: 10px;
 }
 .quantityandprice{
-    width: 95%;
-    align-self: center;
+    width: 93%;
     display: grid;
-    /* grid-template-columns: repeat(3, 1fr); */
     grid-template-columns: 4fr 7fr 1fr;
-    /* justify-content: space-between; */
-    /* align-items: center; */
-    gap: 15px
+    gap: 15px;
+    margin: 0px auto;
 }
 .price{
     font-weight: bold;
@@ -83,6 +80,7 @@
     justify-content: center;
     padding: 10px 20px;
     border-radius: 10px;
+    font-weight: bold;
 }
 @media(max-width: 800px){
     .foodboxcontainer{
