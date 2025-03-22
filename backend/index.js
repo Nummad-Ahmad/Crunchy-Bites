@@ -79,7 +79,9 @@ cron.schedule("0 8 1 * *", async () => {
 });
 
 
-
+app.get('/', async(req, res) => {
+    res.send('Backend deployed')
+})
 app.get('/data', async (req, res) => {
     const { email, date } = req.query;
     const startDate = moment(date, "YYYY-MM-DD").startOf("month").toDate();
