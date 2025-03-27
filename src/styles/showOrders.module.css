@@ -23,6 +23,7 @@
 }
 .customerdata{
     height: calc(100% - 40px);
+    overflow-y: auto;
 }
 .paginationdata{
     height: 40px;
@@ -37,16 +38,16 @@
     margin-bottom: 0px;
 }
 .name{
-    width: 30%;
+    width: 40%;
 }
 .email{
     width: 30%;
 }
 .totalorders{
-    width: 20%;
+    width: 15%;
 }
 .money{
-    width: 20%;
+    width: 15%;
 }
 .data{
     display: flex;

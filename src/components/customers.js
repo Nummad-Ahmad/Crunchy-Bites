@@ -4,18 +4,38 @@ import Navbar from './navbar';
 import axios from 'axios';
 
 export default function Customers() {
-    const [userData, setUserData] = useState();
+    const [userData, setUserData] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const recordsPerPage = 10;
+    const lastIndex = currentPage * recordsPerPage ;
+    const firstIndex = lastIndex - recordsPerPage; 
+    const records = userData.slice(firstIndex, lastIndex + 1) || [];
+    const nPage = Math.ceil(userData.length / recordsPerPage);
+    const totalPages = [...Array(nPage + 1).keys()].slice(1) || [];
+    console.log(totalPages);
     useEffect(() => {
         axios.get('http://localhost:3000/customerdata').
             then(res => {
                 if (res.status == 200) {
                     setUserData(res.data.data);
-                    console.log(res.data.data);
                 }
             }).catch(e => {
                 console.log(e);
             });
     }, []);
+    function prevPage(){
+        if(currentPage !== 1){
+            setCurrentPage(currentPage - 1);
+        }
+    }
+    function cheangePage(page){
+        setCurrentPage(page);
+    }
+    function nextPage(){
+        if(currentPage !== nPage){
+            setCurrentPage(currentPage + 1);
+        }
+    }
     return (
         <div className={style.customers}>
             <Navbar />
@@ -29,8 +49,8 @@ export default function Customers() {
                         <p className={style.money}>Wins</p>
                     </div>
                     {
-                        userData &&
-                        userData.map(item => {
+                        records &&
+                        records.map((item, index) => {
                             return (
                             item.email != "nummad222@gmail.com" &&
                                 <div className={style.data}>
@@ -45,8 +65,8 @@ export default function Customers() {
                 </div>
                 <div className={style.mobilecontent}>
                     {
-                        userData &&
-                        userData.map(item => {
+                        records &&
+                        records.map((item, index) => {
                             return (
                                 <div className={style.mobiledata}>
                                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '70px' }}>
@@ -63,11 +83,22 @@ export default function Customers() {
                     }
                 </div>
                 <div className={style.paginationdata}>
-                    <p>Showing {userData?.length ? userData.length - 1 : 0} of {userData?.length ? userData.length - 1 : 0} records</p>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                        <p>1</p>
-                        <p>2</p>
-                        <p>3</p>
+                    <p>
+                    Showing {currentPage == nPage ? userData.length - 1 : lastIndex - 1} of {userData?.length - 1
+                    } records
+                    </p>
+                    <div style={{color: 'white', display: 'flex', alignItems: 'center', gap: '15px' }}>
+                    <p onClick={prevPage} className={style.inactiveButton}>Prev</p>
+                        {
+                            totalPages.map((item, index)=>{
+                                return(
+                                <p onClick={()=> cheangePage(item)} className={currentPage == item ? style.activeButton : style.inactiveButton} key={index}>
+                                    {item}
+                                </p>
+                                )
+                            })
+                        }
+                        <p onClick={nextPage} className={style.inactiveButton}>Next</p>
                     </div>
                 </div>
             </div>

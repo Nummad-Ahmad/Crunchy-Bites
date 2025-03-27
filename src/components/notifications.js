@@ -104,10 +104,15 @@ export default function Notifications() {
     let nextLuckyDraw;
     if (day > 1) {
         nextLuckyDraw = `1 ${nextMonth}`;
-    } 
+    }
     useEffect(() => {
-            getWinner();
+        getWinner();
     }, []);
+    historyData.sort((a, b) => {
+        const [ah, am, as] = a.time.split(":").map(Number);
+        const [bh, bm, bs] = b.time.split(":").map(Number);
+        return (bh * 3600 + bm * 60 + bs) - (ah * 3600 + am * 60 + as); // Sort in descending order
+    });
     return (
         <div className={style.notifications}>
             <Navbar />
@@ -121,8 +126,8 @@ export default function Notifications() {
                     <p>Most ordered item </p>
                     <p>{
                         mostOrderedItem[0] == "" ?
-                        "No data" :
-                        mostOrderedItem[0].charAt(0).toUpperCase() + mostOrderedItem[0].slice(1)
+                            "No data" :
+                            mostOrderedItem[0].charAt(0).toUpperCase() + mostOrderedItem[0].slice(1)
                     }</p>
                 </div>
             </div>
@@ -142,14 +147,14 @@ export default function Notifications() {
                     winner &&
                     winner.email == user.email &&
                     <div className={style.notification}>
-                    <FaRegEnvelope color="rgb(240, 99, 49)" />
-                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <p style={{ maxWidth: '60%' }}>
-                            Congrats {winner.name}. You won this month's lucky draw 🎉🎊🥳
-                        </p>
-                        <p>{day}/{month}/{year}</p>
+                        <FaRegEnvelope color="rgb(240, 99, 49)" />
+                        <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <p style={{ maxWidth: '60%' }}>
+                                Congrats {winner.name}. You won this month's lucky draw 🎉🎊🥳
+                            </p>
+                            <p>{day}/{month}/{year}</p>
+                        </div>
                     </div>
-                </div>
                 }
                 {
                     historyData && historyData.length > 0 ? (
@@ -168,7 +173,7 @@ export default function Notifications() {
                         })
                     ) : (
                         <div className={style.notification}>
-                        <FaRegEnvelope color="rgb(240, 99, 49)" />
+                            <FaRegEnvelope color="rgb(240, 99, 49)" />
                             <p>No notifications</p>
                         </div>
                     )

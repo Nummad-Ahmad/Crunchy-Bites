@@ -43,11 +43,10 @@
     margin-top: 10px;
 }
 .quantityandprice{
-    width: 93%;
     display: grid;
     grid-template-columns: 4fr 7fr 1fr;
     gap: 15px;
-    margin: 0px auto;
+    margin: 0px 50px;
 }
 .price{
     font-weight: bold;
@@ -97,6 +96,9 @@
 @media(max-width: 650px){
     .foodboxcontainer{
         padding: 20px;
+    }
+    .quantityandprice{
+        margin: 0px 20px;
     }
 }
 

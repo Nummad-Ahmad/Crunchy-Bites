@@ -25,3 +25,8 @@
     color: white;
 }
 
+@media(max-width: 400px){
+    .optionsdiv{
+        gap: 10px;
+    }
+}

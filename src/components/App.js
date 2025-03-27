@@ -7,6 +7,7 @@ import Order from "./order";
 import Notifications from "./notifications";
 import Customers from "./customers";
 import Settings from "./settings";
+import ShowOrders from "./showOrders";
 export default function App() {
     return (
             <Router>
@@ -17,8 +18,9 @@ export default function App() {
                 <Route element = {<Forgotpassword />} path="/forgotpassword"/>
                 <Route element = {<Order />} path="/order"/>
                 <Route element = {<Customers />} path="/customers"/>
-                <Route element = {<Notifications />} path="/notiifcations"/>
+                <Route element = {<Notifications />} path="/notifications"/>
                 <Route element = {<Settings />} path="/settings"/>
+                <Route element = {<ShowOrders />} path="/showorders"/>
                 </Routes>
             </Router>
     );

@@ -20,6 +20,10 @@ export default function Order() {
     const dispatch = useDispatch();
     const date = new Date().toISOString();
     const formattedDate = date.split("T")[0];
+    const now = new Date();
+    const hours = now.getHours(); 
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
     const [inputValues, setInputValues] = useState({
         samosa: 0,
         fries: 0,
@@ -40,7 +44,7 @@ export default function Order() {
     function sendOrder() {
         if (calculateTotal() > 0) {
             const loadingToast = toast.loading("Ordering ...");
-            axios.post('http://localhost:3000/order', { items: inputValues, email: user.email, date: formattedDate })
+            axios.post('http://localhost:3000/order', { items: inputValues, email: user.email, date: formattedDate, price: calculateTotal(), time: `${hours}:${minutes}:${seconds}` })
                 .then(res => {
                     if (res.status == 201) {
                         toast.dismiss(loadingToast);
@@ -123,7 +127,6 @@ export default function Order() {
     useEffect(()=>{
         getData();
     }, []);
-    console.log(prices);
     return (
         <div className={style.order}>
             <Navbar />

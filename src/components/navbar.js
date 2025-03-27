@@ -13,13 +13,20 @@ export default function Navbar() {
         <div className={style.navbar}>
             <img src={Logo} height={100}></img>
             <div className={style.optionsdiv}>
-                <div onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-                    <IoHomeOutline color='white' size={20} />
-                </div>
+            {
+                    user != null ?
+                        user.email == "nummad222@gmail.com" ?
+                            <div onClick={() => navigate('/showorders')} style={{ cursor: 'pointer' }}>
+                                <FaRegBell color='white' size={20} />
+                            </div> :
+                            <div onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+                                <IoHomeOutline color='white' size={20} />
+                            </div> : null
+                }
                 {
                     user != null ?
                         user.email != "nummad222@gmail.com" ?
-                            <div onClick={() => navigate('/notiifcations')} style={{ cursor: 'pointer' }}>
+                            <div onClick={() => navigate('/notifications')} style={{ cursor: 'pointer' }}>
                                 <FaRegBell color='white' size={20} />
                             </div> :
                             <div onClick={() => navigate('/settings')} style={{ cursor: 'pointer' }}>
@@ -29,7 +36,7 @@ export default function Navbar() {
                 {
                     user == null ?
                         <div className={style.orderbtn} onClick={() => navigate('/login')}>
-                            Login
+                        Order
                         </div> :
                         user.email == "nummad222@gmail.com" ?
                             <div className={style.orderbtn} onClick={() => navigate('/customers')}>
