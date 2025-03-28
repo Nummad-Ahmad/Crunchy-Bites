@@ -1,12 +1,18 @@
-body{
+body {
     margin: 0px;
     font-family: sans-serif;
     font-size: 18px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
-p{
+
+p {
     margin: 0px;
 }
-img{
+
+img {
     margin: 0px;
     padding: 0px;
 }
