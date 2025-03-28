@@ -9,6 +9,7 @@ export default function ShowOrders() {
         const fetchOrders = () => {
             axios.get('http://localhost:3000/showorders')
                 .then(res => {
+                    console.log(res.data.data);
                     if (res.status === 200) {
                         setRecords(res.data.data.sort((a, b) => {
                             const [ah, am] = a.time.split(":").map(Number);
@@ -82,12 +83,14 @@ export default function ShowOrders() {
                             return (
                                 <div className={style.mobiledata}>
                                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '70px' }}>
-                                        <p>{item.name}</p>
-                                        <p>{item.email}</p>
+                                        <p>{item.sender}</p>
+                                        <p>{Object.entries(item.items)
+                                            .filter(([key, value]) => value > 0)
+                                            .map(([key, value]) => `${value} ${changeKey(key)}`)
+                                            .join(', ')}</p>
                                     </div>
                                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '70px' }}>
-                                        <p>{item.orders} Orders</p>
-                                        <p>{item.wins} Wins</p>
+                                        <p>{item.price} Rs</p>
                                     </div>
                                 </div>
                             )
