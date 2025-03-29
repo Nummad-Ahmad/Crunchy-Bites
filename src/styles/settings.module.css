@@ -1,4 +1,4 @@
-.settings{
+.settings {
     width: 100%;
     min-height: 100vh;
     display: flex;
@@ -6,7 +6,8 @@
     gap: 10px;
     background-color: rgb(60, 60, 60);
 }
-.foodboxcontainer{
+
+.foodboxcontainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 1;
@@ -14,7 +15,8 @@
     box-sizing: border-box;
     gap: 20px;
 }
-.foodbox{
+
+.foodbox {
     background-color: #252525;
     padding-bottom: 10px;
     box-sizing: border-box;
@@ -22,26 +24,30 @@
     /* color: #333333; */
     border-radius: 10px;
 }
-.foodimg{
+
+.foodimg {
     height: 250px;
     width: 100%;
     margin-bottom: 20px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
-.itemname{
+
+.itemname {
     text-align: center;
     color: white;
     font-weight: bold;
     font-size: 20px;
 }
-.itemdesc{
+
+.itemdesc {
     color: white;
     font-size: 14px;
     padding: 10px;
     margin-top: 10px;
 }
-.btn{
+
+.btn {
     border: none;
     background-color: rgb(240, 99, 49);
     cursor: pointer;
@@ -59,19 +65,51 @@
     font-size: 16px;
     box-sizing: border-box;
 }
-@media(max-width: 800px){
-    .foodboxcontainer{
+
+.qrdiv {
+    display: none;
+}
+
+.qrscanner {
+    display: none;
+}
+
+@media(max-width: 800px) {
+    .foodboxcontainer {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(2, 1fr);
     }
 }
-@media(max-width: 650px){
-    .foodboxcontainer{
+
+@media(max-width: 650px) {
+    .foodboxcontainer {
         padding: 20px;
     }
+
+    .qrdiv {
+        height: 250px;
+        width: calc(100% - 40px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        margin: 0px auto;
+        margin-bottom: 20px;
+        background-color: rgb(37, 37, 37);
+        border-radius: 10px;
+    }
+    .qrscanner {
+        display: flex;
+        height: 250px;
+        width: calc(100% - 40px);
+        margin: 0px auto;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
 }
-@media(max-width: 500px){
-    .foodboxcontainer{
+
+@media(max-width: 500px) {
+    .foodboxcontainer {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(4, 1fr);
     }

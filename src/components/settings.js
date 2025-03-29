@@ -7,8 +7,93 @@ import samosa from '../images/samosa.jpg';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import QrScanner from "react-qr-scanner";
+import { BsQrCodeScan } from "react-icons/bs";
 
 export default function Settings() {
+    const [check, setChecked] = useState(false);
+    const [scanResult, setScanResult] = useState("");
+
+    const handleScan = (data) => {
+        if (data) {
+            try {
+                const parsedData = JSON.parse(data.text);
+
+                if (typeof(parsedData) !== "object" || parsedData === null || !parsedData.email || !parsedData.verificationCode) {
+                    toast.error("Invalid QR Code. Please scan a valid one.");
+                    setChecked(false);
+                    return;
+                }
+                if (!parsedData.email || !parsedData.verificationCode) {
+                    toast.error("Invalid QR Code. Missing email or verification code.");
+                    setChecked(false);
+                    return;
+                }
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(parsedData.email)) {
+                    toast.error("Invalid QR Code. Email format is incorrect.");
+                    setChecked(false);
+                    return;
+                }
+                if (!/^\d{6}$/.test(parsedData.verificationCode)) {
+                    toast.error("Invalid QR Code. Verification code should be a 6-digit number.");
+                    setChecked(false);
+                    return;
+                }
+
+                console.log("Scanned Email:", parsedData.email);
+                console.log("Verification Code:", parsedData.verificationCode);
+
+                toast.success("Scanned successfully");
+                const loadingToast = toast.loading("Verifying. Please wait");
+
+                axios.post('http://localhost:3000/updatewinner', {
+                    email: parsedData.email,
+                    verificationCode: String(parsedData.verificationCode) // Ensure it's a string
+                })
+                    .then(res => {
+                        toast.dismiss(loadingToast);
+
+                        if (res.status === 200) {
+                            toast.success("Winner verified successfully");
+                        } else {
+                            toast.error("Something went wrong. Try again.");
+                        }
+                    })
+                    .catch(error => {
+                        toast.dismiss(loadingToast);
+
+                        if (error.response) {
+                            console.error("Response Error:", error.response.data);
+                            if (error.response.status === 400) {
+                                toast.error(error.response.data.error);
+                            } else if (error.response.status === 404) {
+                                toast.error("Winner not found.");
+                            } else {
+                                toast.error("Something went wrong.");
+                            }
+                        } else if (error.request) {
+                            console.error("Request Error:", error.request);
+                            toast.error("No response from server. Check your connection.");
+                        } else {
+                            console.error("Axios Error:", error.message);
+                            toast.error("An unexpected error occurred.");
+                        }
+                    });
+                setChecked(false);
+            } catch (error) {
+                toast.error("Invalid QR Code format. Please scan a valid one.");
+                setChecked(false);
+                console.error("QR Parsing Error:", error);
+            }
+        }
+    };
+
+    const handleError = (err) => {
+        setChecked(false);
+        console.error(err);
+    };
+
     const [inputValues, setInputValues] = useState({
         samosa: 50,
         fries: 100,
@@ -53,31 +138,31 @@ export default function Settings() {
             }
         }
     };
-    function updatePrice(name, price){
-        axios.post('http://localhost:3000/updateitem', {name, price})
-        .then(res => {
-            if(res.status == 200){
-                toast.success(res.data.message);
-            }
-        }).catch(e => {
-            console.log(e);
-        })
+    function updatePrice(name, price) {
+        axios.post('http://localhost:3000/updateitem', { name, price })
+            .then(res => {
+                if (res.status == 200) {
+                    toast.success(res.data.message);
+                }
+            }).catch(e => {
+                console.log(e);
+            })
     }
-    function getData(){
+    function getData() {
         axios.get('http://localhost:3000/itemdata')
-        .then(res =>{
-            const formattedValue = res.data.data.reduce((acc, item) => {
-                acc[item.name] = item.price;
-                return acc;
-            }, {});    
-            setInputValues(formattedValue);
-        }
-        )
-        .catch(e => {
-            console.log(e);
-        });
+            .then(res => {
+                const formattedValue = res.data.data.reduce((acc, item) => {
+                    acc[item.name] = item.price;
+                    return acc;
+                }, {});
+                setInputValues(formattedValue);
+            }
+            )
+            .catch(e => {
+                console.log(e);
+            });
     }
-    useEffect(()=>{
+    useEffect(() => {
         getData();
     }, []);
     console.log(inputValues);
@@ -93,11 +178,11 @@ export default function Settings() {
                         <p style={{ fontWeight: 'bold', color: "rgb(240, 99, 49)" }}>Price</p>
                         <div style={{ display: 'flex', gap: '20px', alignItems: 'center', color: 'white' }}>
                             <p style={{ cursor: 'pointer' }} onClick={() => decrement("samosa")}>-</p>
-                            <p style={{ fontWeight: 'bold' }}>{inputValues.samosa }</p>
+                            <p style={{ fontWeight: 'bold' }}>{inputValues.samosa}</p>
                             <p style={{ cursor: 'pointer' }} onClick={() => increment("samosa")}>+</p>
                         </div>
                     </div>
-                    <button onClick={()=> updatePrice('samosa', inputValues.samosa)} className={style.btn}>Change</button>
+                    <button onClick={() => updatePrice('samosa', inputValues.samosa)} className={style.btn}>Change</button>
                 </div>
                 <div className={style.foodbox}>
                     <img src={Cheesyfries} className={style.foodimg} />
@@ -111,7 +196,7 @@ export default function Settings() {
                             <p style={{ cursor: 'pointer' }} onClick={() => increment("cheesyfries")}>+</p>
                         </div>
                     </div>
-                    <button onClick={()=> updatePrice('cheesyfries', inputValues.cheesyfries)} className={style.btn}>Change</button>
+                    <button onClick={() => updatePrice('cheesyfries', inputValues.cheesyfries)} className={style.btn}>Change</button>
                 </div>
                 <div className={style.foodbox}>
                     <img src={Frenchfries} className={style.foodimg} />
@@ -125,7 +210,7 @@ export default function Settings() {
                             <p style={{ cursor: 'pointer' }} onClick={() => increment("fries")}>+</p>
                         </div>
                     </div>
-                    <button onClick={()=> updatePrice('fries', inputValues.fries)} className={style.btn}>Change</button>
+                    <button onClick={() => updatePrice('fries', inputValues.fries)} className={style.btn}>Change</button>
                 </div>
                 <div className={style.foodbox}>
                     <img src={Roll} className={style.foodimg} />
@@ -139,9 +224,24 @@ export default function Settings() {
                             <p style={{ cursor: 'pointer' }} onClick={() => increment("roll")}>+</p>
                         </div>
                     </div>
-                    <button onClick={()=> updatePrice('roll', inputValues.roll)} className={style.btn}>Change</button>
+                    <button onClick={() => updatePrice('roll', inputValues.roll)} className={style.btn}>Change</button>
                 </div>
             </div>
+
+            {
+                check ?
+                    <QrScanner
+                        delay={300}
+                        onError={handleError}
+                        onScan={handleScan}
+                        className={style.qrscanner}
+                    /> :
+                    <div onClick={() => setChecked(true)} className={style.qrdiv}>
+                        <BsQrCodeScan size={100} color='white' />
+                        <p style={{ color: 'white', fontSize: '20px' }}>Scan QR code</p>
+                    </div>
+            }
+
         </div>
     );
 }
