@@ -8,20 +8,24 @@ import Notifications from "./notifications";
 import Customers from "./customers";
 import Settings from "./settings";
 import ShowOrders from "./showOrders";
+import ProtectedRoute from "./protectedRoute";
+
 export default function App() {
     return (
-            <Router>
-                <Routes>
-                <Route element = {<Home />} path="/"></Route>
-                <Route element = {<Signup />} path="/signup"/>
-                <Route element = {<Login />} path="/login"/>
-                <Route element = {<Forgotpassword />} path="/forgotpassword"/>
-                <Route element = {<Order />} path="/order"/>
-                <Route element = {<Customers />} path="/customers"/>
-                <Route element = {<Notifications />} path="/notifications"/>
-                <Route element = {<Settings />} path="/settings"/>
-                <Route element = {<ShowOrders />} path="/showorders"/>
-                </Routes>
-            </Router>
+        <Router>
+            <Routes>
+                <Route element={<Signup />} path="/signup" />
+                <Route element={<Login />} path="/login" />
+                <Route element={<Forgotpassword />} path="/forgotpassword" />
+                <Route element={<Home />} path="/" />
+                <Route element={<ProtectedRoute />}>
+                    <Route element={<Order />} path="/order" />
+                    <Route element={<Customers />} path="/customers" />
+                    <Route element={<Notifications />} path="/notifications" />
+                    <Route element={<Settings />} path="/settings" />
+                    <Route element={<ShowOrders />} path="/showorders" />
+                </Route>
+            </Routes>
+        </Router>
     );
 }
