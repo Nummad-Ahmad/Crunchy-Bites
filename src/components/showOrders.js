@@ -7,7 +7,7 @@ export default function ShowOrders() {
     const [records, setRecords] = useState([]);
     useEffect(() => {
         const fetchOrders = () => {
-            axios.get('http://localhost:3000/showorders')
+            axios.get('https://crunchybitesbackend.vercel.app/showorders')
                 .then(res => {
                     console.log(res.data.data);
                     if (res.status === 200) {
@@ -40,7 +40,7 @@ export default function ShowOrders() {
     records.sort((a, b) => {
         const [ah, am, as] = a.time.split(":").map(Number);
         const [bh, bm, bs] = b.time.split(":").map(Number);
-        return (bh * 3600 + bm * 60 + bs) - (ah * 3600 + am * 60 + as); // Sort in descending order
+        return (bh * 3600 + bm * 60 + bs) - (ah * 3600 + am * 60 + as);
     });
     
     return (

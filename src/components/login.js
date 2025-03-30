@@ -21,7 +21,7 @@ export default function Login() {
       const valid = emailRegex.test(email);
       if (valid && password.length > 7) {
         setLoading(true);
-        axios.post(`${process.env.REACT_APP_BACK_END}/login`, { email, password })
+        axios.post(`https://crunchybitesbackend.vercel.app/login`, { email, password })
           .then(result => {
             Cookies.set('user', JSON.stringify(result.data.user), { expires: 3650 });
             const verified = result.data.user.isVerified;
@@ -35,7 +35,7 @@ export default function Login() {
             }
           })
           .catch(error => {
-            const errorMessage = error?.response?.data?.error || 'Something went wrong!';
+            const errorMessage = error?.response?.data?.error || 'Something went wrong';
             toast.error(errorMessage);
             setLoading(false);
           });
@@ -52,10 +52,10 @@ export default function Login() {
     if (verificationCode.trim().length === 6) {
       setVerify(true);
       console.log('Verification Code:', verificationCode);
-      axios.post(`http://localhost:3000/verify`, { email, verificationCode })
+      axios.post(`https://crunchybitesbackend.vercel.app/verify`, { email, verificationCode })
         .then((response) => {
           if (response.status === 200) {
-            toast.success(response.data.message || 'Account verified successfully!');
+            toast.success(response.data.message || 'Account verified successfully');
             setShowVerification(false);
             navigate('/', { replace: true });
           }

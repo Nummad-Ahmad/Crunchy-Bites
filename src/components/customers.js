@@ -14,7 +14,7 @@ export default function Customers() {
     const totalPages = [...Array(nPage + 1).keys()].slice(1) || [];
     console.log(totalPages);
     useEffect(() => {
-        axios.get('http://localhost:3000/customerdata').
+        axios.get('https://crunchybitesbackend.vercel.app/customerdata').
             then(res => {
                 if (res.status == 200) {
                     setUserData(res.data.data);

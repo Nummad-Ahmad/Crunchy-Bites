@@ -22,7 +22,7 @@ export default function Notifications() {
     var totalCounts;
     var mostOrderedItem = [];
     function getData(email) {
-        axios.get(`http://localhost:3000/data?email=${email}&date=${formattedDate}`)
+        axios.get(`https://crunchybitesbackend.vercel.app/data?email=${email}&date=${formattedDate}`)
             .then(res => {
                 if (res.status == 200) {
                     setHistoryData(sortByDateDescending(res.data.data));
@@ -74,7 +74,7 @@ export default function Notifications() {
         return (formattedDate);
     }
     function getWinner() {
-        axios.get('http://localhost:3000/winner')
+        axios.get('https://crunchybitesbackend.vercel.app/winner')
             .then(res => {
                 if (res.status == 200) {
                     setWinner(res.data.winner);

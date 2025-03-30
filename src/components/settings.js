@@ -47,9 +47,9 @@ export default function Settings() {
                 toast.success("Scanned successfully");
                 const loadingToast = toast.loading("Verifying. Please wait");
 
-                axios.post('http://localhost:3000/updatewinner', {
+                axios.post('https://crunchybitesbackend.vercel.app/updatewinner', {
                     email: parsedData.email,
-                    verificationCode: String(parsedData.verificationCode) // Ensure it's a string
+                    verificationCode: String(parsedData.verificationCode) 
                 })
                     .then(res => {
                         toast.dismiss(loadingToast);
@@ -139,7 +139,7 @@ export default function Settings() {
         }
     };
     function updatePrice(name, price) {
-        axios.post('http://localhost:3000/updateitem', { name, price })
+        axios.post('https://crunchybitesbackend.vercel.app/updateitem', { name, price })
             .then(res => {
                 if (res.status == 200) {
                     toast.success(res.data.message);
@@ -149,7 +149,7 @@ export default function Settings() {
             })
     }
     function getData() {
-        axios.get('http://localhost:3000/itemdata')
+        axios.get('https://crunchybitesbackend.vercel.app/itemdata')
             .then(res => {
                 const formattedValue = res.data.data.reduce((acc, item) => {
                     acc[item.name] = item.price;
@@ -245,3 +245,6 @@ export default function Settings() {
         </div>
     );
 }
+
+
+

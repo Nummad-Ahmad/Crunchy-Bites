@@ -44,7 +44,7 @@ export default function Order() {
     function sendOrder() {
         if (calculateTotal() > 0) {
             const loadingToast = toast.loading("Ordering ...");
-            axios.post('http://localhost:3000/order', { items: inputValues, email: user.email, date: formattedDate, price: calculateTotal(), time: `${hours}:${minutes}:${seconds}` })
+            axios.post('https://crunchybitesbackend.vercel.app/order', { items: inputValues, email: user.email, date: formattedDate, price: calculateTotal(), time: `${hours}:${minutes}:${seconds}` })
                 .then(res => {
                     if (res.status == 201) {
                         toast.dismiss(loadingToast);
@@ -111,7 +111,7 @@ export default function Order() {
         }
     };
     function getData(){
-        axios.get('http://localhost:3000/itemdata')
+        axios.get('https://crunchybitesbackend.vercel.app/itemdata')
         .then(res =>{
             const formattedValue = res.data.data.reduce((acc, item) => {
                 acc[item.name] = item.price;

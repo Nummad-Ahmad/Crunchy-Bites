@@ -18,11 +18,11 @@ export default function Signup(){  const [email, setemail] = useState("")
         var valid = emailRegex.test(email);
         if (valid && password.length > 7 && password == confirmPass) {
           setLoading(true);
-          axios.post(`http://localhost:3000/signup`, { email, password, name }).then(result => {
+          axios.post(`https://crunchybitesbackend.vercel.app/signup`, { email, password, name }).then(result => {
             toast.success('Account created');
             navigate('/login', { replace: true });
           }).catch(error => {
-            const errorMessage = error?.response?.data?.error || 'Something went wrong!';
+            const errorMessage = error?.response?.data?.error || 'Something went wrong';
             toast.error(errorMessage);
             setLoading(false);
           });
@@ -45,12 +45,12 @@ export default function Signup(){  const [email, setemail] = useState("")
                     <p style={{fontSize: '30px', fontWeight: 'bold', margin: '20px 0px'}}>Sign up</p>
                     <input placeholder='Full name' onChange={(e)=> setname(e.target.value)} className={style.input}/>
                     <input placeholder='Email' onChange={(e)=> setemail(e.target.value)} className={style.input}/>
-                    <input placeholder='Password' onChange={(e)=> {setpass(e.target.value)}} className={style.input}/>
-                    <input placeholder='Confirm password' onChange={(e)=> setConfirmPass(e.target.value)} className={style.input}/>
+                    <input type='password' placeholder='Password' onChange={(e)=> {setpass(e.target.value)}} className={style.input}/>
+                    <input type='password' placeholder='Confirm password' onChange={(e)=> setConfirmPass(e.target.value)} className={style.input}/>
                     <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
                         <p style={{fontSize: '16px', cursor: 'pointer'}} onClick={()=> navigate('/login')}>Already have an account?</p>
                     </div>
-                    <button className={style.btn} onClick={handleSignup}>Sign up</button>
+                    <button className={style.btn} onClick={handleSignup}>{loading ? "Creating Account ..." : "Sign Up"}</button>
                 </div>
             </div>
             <div className={style.darkarea}>
