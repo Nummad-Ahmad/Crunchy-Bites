@@ -9,6 +9,7 @@ import Customers from "./customers";
 import Settings from "./settings";
 import ShowOrders from "./showOrders";
 import ProtectedRoute from "./protectedRoute";
+import ProtectedRoute2 from "./protectedRoute2";
 
 export default function App() {
     return (
@@ -20,8 +21,10 @@ export default function App() {
                 <Route element={<Home />} path="/" />
                 <Route element={<ProtectedRoute />}>
                     <Route element={<Order />} path="/order" />
-                    <Route element={<Customers />} path="/customers" />
                     <Route element={<Notifications />} path="/notifications" />
+                </Route>
+                <Route element={<ProtectedRoute2 />}>
+                    <Route element={<Customers />} path="/customers" />
                     <Route element={<Settings />} path="/settings" />
                     <Route element={<ShowOrders />} path="/showorders" />
                 </Route>

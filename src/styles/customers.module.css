@@ -25,7 +25,6 @@
     height: calc(100% - 40px);
 }
 .paginationdata{
-    height: 40px;
     width: 100%;
     background-color: rgb(25, 25, 25);
     display: flex;
