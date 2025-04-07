@@ -15,7 +15,6 @@ export default function Notifications() {
     var day = moment(date).format('DD');
     const month = moment(date).format('MM');
     const year = moment(date).format('YYYY');
-    const nextMonth = moment(date).add(1, 'month').format('MMMM');
     function sortByDateDescending(data) {
         return data.sort((a, b) => new Date(b.date) - new Date(a.date));
     }
@@ -57,9 +56,9 @@ export default function Notifications() {
         }
         if (item.items.cheesyFries > 0) {
             if (item.items.cheesyFries == 1) {
-                orderedItems += item.items.cheesyFries + " plate of Cheesy Fries ";
+                orderedItems += item.items.cheesyFries + " plate of Loaded Fries ";
             } else {
-                orderedItems += item.items.cheesyFries + " plates of Cheesy Fries ";
+                orderedItems += item.items.cheesyFries + " plates of Loaded Fries ";
             }
         }
         return orderedItems;
@@ -101,9 +100,9 @@ export default function Notifications() {
         (max, curr) => (curr[1] > max[1] ? curr : max),
         ["", -Infinity]
     );
-    let nextLuckyDraw;
-    if (day > 1) {
-        nextLuckyDraw = `1 ${nextMonth}`;
+    function nextLuckyDraw() {
+        const nextMonth = moment(date).add(1, 'month').format('MMMM');
+        return `1 ${nextMonth}`;
     }
     useEffect(() => {
         getWinner();
@@ -111,7 +110,7 @@ export default function Notifications() {
     historyData.sort((a, b) => {
         const [ah, am, as] = a.time.split(":").map(Number);
         const [bh, bm, bs] = b.time.split(":").map(Number);
-        return (bh * 3600 + bm * 60 + bs) - (ah * 3600 + am * 60 + as); 
+        return (bh * 3600 + bm * 60 + bs) - (ah * 3600 + am * 60 + as);
     });
     return (
         <div className={style.notifications}>
@@ -138,14 +137,14 @@ export default function Notifications() {
                 </div>
                 <div className={style.dataDiv}>
                     <p>Next lucky draw</p>
-                    <p>{nextLuckyDraw}</p>
+                    <p>{nextLuckyDraw()}</p>
                 </div>
             </div>
             <p className={style.title}>Notifications</p>
             <div className={style.notificationscontainer}>
                 {
                     winner &&
-                    winner.email == user.email &&
+                    winner.email == user.email && (day == 1 || day == 2 || day == 3) &&
                     <div className={style.notification}>
                         <FaRegEnvelope color="rgb(240, 99, 49)" />
                         <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -172,6 +171,8 @@ export default function Notifications() {
                             );
                         })
                     ) : (
+                        winner &&
+                        winner.email != user.email && (day != 1 || day != 2 || day != 3) &&
                         <div className={style.notification}>
                             <FaRegEnvelope color="rgb(240, 99, 49)" />
                             <p>No notifications</p>
