@@ -32,7 +32,7 @@ export default function ShowOrders() {
         } else if (key == 'fries') {
             return "Fries";
         } else if (key == 'cheesyFries') {
-            return 'Cheesy Fries';
+            return 'Loaded Fries';
         } else {
             return "Rolls";
         }
