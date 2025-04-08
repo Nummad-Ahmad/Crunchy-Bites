@@ -14,7 +14,7 @@ import Cookies from 'js-cookie';
 
 export default function Order() {
     const [isLoaded, setLoaded] = useState(false);
-    const [send, isSending] = useState(false);
+    const [ordering, isOrdering] = useState(false);
     const user = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null;
     const navigate = useNavigate();
     const itemQuantities = useSelector((state) => state.items);
@@ -44,6 +44,7 @@ export default function Order() {
 
     function sendOrder() {
         if (calculateTotal() > 0) {
+            isOrdering(true);
             const loadingToast = toast.loading("Ordering ...");
             axios.post('https://crunchybitesbackend.vercel.app/order', { items: inputValues, email: user.email, date: formattedDate, price: calculateTotal(), time: `${hours}:${minutes}:${seconds}` })
                 .then(res => {
@@ -51,11 +52,13 @@ export default function Order() {
                         toast.dismiss(loadingToast);
                         toast.success(res.data.message);
                         console.log(res);
+                        isOrdering(false)
                     }
                 }).catch(e => {
                     toast.dismiss(loadingToast);
                     toast.error("An error occured");
                     console.log(e);
+                    isOrdering(false)
                 })
         } else {
             toast.error('Add items first');
@@ -227,7 +230,7 @@ export default function Order() {
                     <p>Total items</p>
                     <p>{getItems()}</p>
                 </div>
-                <btn onClick={sendOrder} className={style.btn}>Order</btn>
+                <btn onClick={()=> {!ordering && sendOrder()}} className={style.btn}>Order</btn>
             </div>
         </div>
     );
