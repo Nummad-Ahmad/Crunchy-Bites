@@ -37,7 +37,7 @@ export default function Home() {
                 </div>
                 <div className={style.foodbox}>
                     <img src={CheesyFries} className={style.foodimg} />
-                    <p className={style.itemname}>Cheesy Fries</p>
+                    <p className={style.itemname}>Loaded Fries</p>
                     <p className={style.itemdesc}>Our cheesy and crispy fries loaded with rich, melted cheese and creamy mayo. A perfect blend of crunch and cheesy goodness.</p>
                 </div>
                 <div className={style.foodbox}>
