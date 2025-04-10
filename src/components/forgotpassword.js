@@ -5,6 +5,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { IoClose } from "react-icons/io5";
+import Logo from '../images/logo.png';
 export default function Forgotpassword() {
     const [verified, setVerified] = useState(false);
     const [showVerification, setShowVerification] = useState(false);
@@ -91,6 +92,7 @@ export default function Forgotpassword() {
             </div>
             <div className={style.formarea}>
                 <div className={style.formcontainer}>
+                <img src={Logo} height={150}/>
                     <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '20px 0px' }}>Forgot password</p>
                     <input onChange={(e) => setEmail(e.target.value)} placeholder='Email' className={style.input} />
                     <input onChange={(e) => setPass(e.target.value)} type='password' placeholder='Password' className={style.input} />
