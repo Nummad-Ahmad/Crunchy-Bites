@@ -33,14 +33,14 @@
     max-width: 350px;
 }
 .formcontainer{
-    height: 100%;
+    /* height: 100%; */
     width: 80%;
     max-width: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 25px;
+    gap: 20px;
 }
 .input{
     background-color: rgb(60, 60, 60);

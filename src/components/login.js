@@ -6,6 +6,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import Cookies from 'js-cookie';
 import { IoClose } from "react-icons/io5";
+import Logo from '../images/logo.png';
 export default function Login() {
   const [email, setEmail] = useState("");
   const [verify, setVerify] = useState(false);
@@ -92,7 +93,8 @@ export default function Login() {
         </div>
         <div className={style.formarea}>
           <div className={style.formcontainer}>
-            <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '20px 0px', color: 'rgb(0,)' }}>Login</p>
+          <img src={Logo} height={150}/>
+            <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '0px 0px', marginBottom: '10px'}}>Login</p>
             <input placeholder='Email' onChange={(e) => { setEmail(e.target.value) }} className={style.input} />
             <input type='password' placeholder='Password' onChange={(e) => setPassword(e.target.value)} className={style.input} />
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>

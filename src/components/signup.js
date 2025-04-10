@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import Logo from '../images/logo.png';
 export default function Signup(){  const [email, setemail] = useState("")
     const [password, setpass] = useState("")
     const [confirmPass, setConfirmPass] = useState('');
@@ -42,7 +43,8 @@ export default function Signup(){  const [email, setemail] = useState("")
         <div className={style.login}>
             <div className={style.formarea}>
                 <div className={style.formcontainer}>
-                    <p style={{fontSize: '30px', fontWeight: 'bold', margin: '20px 0px'}}>Sign up</p>
+                <img src={Logo} height={150}/>
+                    <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '0px 0px', marginBottom: '10px'}}>Sign up</p>
                     <input placeholder='Full name' onChange={(e)=> setname(e.target.value)} className={style.input}/>
                     <input placeholder='Email' onChange={(e)=> setemail(e.target.value)} className={style.input}/>
                     <input type='password' placeholder='Password' onChange={(e)=> {setpass(e.target.value)}} className={style.input}/>
