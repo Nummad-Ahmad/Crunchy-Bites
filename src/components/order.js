@@ -16,8 +16,6 @@ export default function Order() {
     const [isLoaded, setLoaded] = useState(false);
     const [ordering, isOrdering] = useState(false);
     const user = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null;
-    const navigate = useNavigate();
-    const itemQuantities = useSelector((state) => state.items);
     const dispatch = useDispatch();
     const date = new Date().toISOString();
     const formattedDate = date.split("T")[0];
@@ -43,6 +41,10 @@ export default function Order() {
     }
 
     function sendOrder() {
+        if(hours > 17 || hours < 9){
+            toast.error("Order can only be placed between 9am to 5pm");
+            return;
+        }
         if (calculateTotal() > 0) {
             isOrdering(true);
             const loadingToast = toast.loading("Ordering ...");
