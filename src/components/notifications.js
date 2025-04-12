@@ -125,7 +125,9 @@ export default function Notifications() {
                     <p>Most ordered item </p>
                     <p>{
                         mostOrderedItem[0] == "" ?
-                            "No data" :
+                            "No data" : 
+                            mostOrderedItem[0].toLowerCase() == 'cheesyfries' ?
+                            "Loaded fries" :
                             mostOrderedItem[0].charAt(0).toUpperCase() + mostOrderedItem[0].slice(1)
                     }</p>
                 </div>
