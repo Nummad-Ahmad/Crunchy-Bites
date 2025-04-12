@@ -108,13 +108,14 @@ export default function Home() {
             <div className={style.faqoutercontainer}>
                 <div style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                        <p style={{fontWeight: 'bold', width: 'calc(100% - 30px)'}}>What are your snack ordering hours?</p>
-                        <div onClick={() => changeIndex(1)} style={{width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>What are your snack ordering hours?</p>
+                        <div onClick={() => changeIndex(1)} style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
                                 openQuestion == 1 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
                             }
                         </div>
                     </div>
+                    
                     {
                         openQuestion == 1 && <p>You can place your snack orders between 9:00 AM and 5:00 PM every day. Orders outside this window won’t be accepted.
 
@@ -123,65 +124,70 @@ export default function Home() {
                 </div>
                 <div style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                        <p style={{fontWeight: 'bold'}}>How can I win the cash prize?</p>
-                        <div onClick={() => changeIndex(2)} style={{width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>How can I win the cash prize?</p>
+                        <div onClick={() => changeIndex(2)} style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
                                 openQuestion == 2 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
                             }
                         </div>
                     </div>
+                    
                     {
                         openQuestion == 2 && <p>The more you order, the better your chances!</p>
                     }
                 </div>
                 <div style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                        <p style={{fontWeight: 'bold'}}>When is the lucky draw held?</p>
-                        <div onClick={() => changeIndex(3)} style={{width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>When is the lucky draw held?</p>
+                        <div onClick={() => changeIndex(3)} style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
                                 openQuestion == 3 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
                             }
                         </div>
                     </div>
+                    
                     {
                         openQuestion == 3 && <p>The lucky draw takes place on the 1st of every month. Orders from the previous month are not counted to determine the winner.</p>
                     }
                 </div>
                 <div style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                        <p style={{fontWeight: 'bold'}}>What is the QR code used for?</p>
-                        <div onClick={() => changeIndex(4)} style={{width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>What is the QR code used for?</p>
+                        <div onClick={() => changeIndex(4)} style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
                                 openQuestion == 4 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
                             }
                         </div>
                     </div>
+                    
                     {
                         openQuestion == 4 && <p> The QR code in your winner's email will be scanned by our team for verification when you claim your prize. Make sure to keep it safe!</p>
                     }
                 </div>
                 <div style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                        <p style={{fontWeight: 'bold'}}>Is there any minimum order value to participate?</p>
-                        <div onClick={() => changeIndex(5)} style={{width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>Is there any minimum order value to participate?</p>
+                        <div onClick={() => changeIndex(5)} style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
                                 openQuestion == 5 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
                             }
                         </div>
                     </div>
+                    
                     {
                         openQuestion == 5 && <p>No minimum order value is required. Every order counts, regardless of size.</p>
                     }
                 </div>
                 <div style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                        <p style={{fontWeight: 'bold'}}>How long is the winner QR code valid for?</p>
-                        <div onClick={() => changeIndex(6)} style={{width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                        <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>How long is the winner QR code valid for?</p>
+                        <div onClick={() => changeIndex(6)} style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
                                 openQuestion == 6 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
                             }
                         </div>
                     </div>
+                    
                     {
                         openQuestion == 6 && <p> The QR code sent to the winner is valid only until the next lucky draw (i.e., until the 1st of the next month).</p>
                     }
