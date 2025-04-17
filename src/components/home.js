@@ -108,7 +108,7 @@ export default function Home() {
             <div className={style.faqoutercontainer}>
                 <div onClick={() => changeIndex(1)} style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                        <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>What are your snack ordering hours?</p>
+                        <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>What are the snack ordering hours?</p>
                         <div style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
                                 openQuestion == 1 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
@@ -131,7 +131,7 @@ export default function Home() {
                         </div>
                     </div>
                     {
-                        openQuestion == 2 && <p>The more you order, the better your chances!</p>
+                        openQuestion == 2 && <p>Only the orders placed online will result in your participation in lucky draw. The more you order, the better your chances!</p>
                     }
                 </div>
                 <div onClick={() => changeIndex(3)} style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
@@ -188,20 +188,6 @@ export default function Home() {
 
                     {
                         openQuestion == 6 && <p> The QR code sent to the winner is valid only until the next lucky draw (i.e., until the 1st of the next month).</p>
-                    }
-                </div>
-                <div onClick={() => changeIndex(7)} style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                        <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>How to participate in the lucky draw?</p>
-                        <div style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            {
-                                openQuestion == 7 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
-                            }
-                        </div>
-                    </div>
-
-                    {
-                        openQuestion == 7 && <p>Onle the orders placed online will result in your participation in lucky draw.</p>
                     }
                 </div>
             </div>
