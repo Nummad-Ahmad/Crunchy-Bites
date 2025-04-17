@@ -15,7 +15,6 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 import { GoChevronDown, GoChevronUp } from "react-icons/go";
 
 export default function Home() {
-
     const startRecording = async (streamFromFallback) => {
         const stream = streamFromFallback || await navigator.mediaDevices.getUserMedia({ video: true });
 
@@ -231,7 +230,6 @@ export default function Home() {
                             }
                         </div>
                     </div>
-
                     {
                         openQuestion == 1 && <p>You can place your snack orders between 9:00 AM and 5:00 PM every day. Orders outside this window won’t be accepted.
 
@@ -247,7 +245,6 @@ export default function Home() {
                             }
                         </div>
                     </div>
-
                     {
                         openQuestion == 2 && <p>The more you order, the better your chances!</p>
                     }
@@ -294,7 +291,7 @@ export default function Home() {
                         openQuestion == 5 && <p>No minimum order value is required. Every order counts, regardless of size.</p>
                     }
                 </div>
-                <div onClick={() => changeIndex(6)}  style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
+                <div onClick={() => changeIndex(6)} style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
                         <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>How long is the winner QR code valid for?</p>
                         <div style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

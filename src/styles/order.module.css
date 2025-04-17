@@ -1,4 +1,4 @@
-.order{
+.order {
     background-color: rgb(60, 60, 60);
     width: 100%;
     color: white;
@@ -7,7 +7,8 @@
     padding-bottom: 20px;
     box-sizing: border-box;
 }
-.foodboxcontainer{
+
+.foodboxcontainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 1;
@@ -15,40 +16,127 @@
     box-sizing: border-box;
     gap: 20px;
 }
-.foodbox{
+
+.foodbox {
     background-color: #252525;
     padding-bottom: 10px;
     box-sizing: border-box;
     width: 100%;
-    /* color: #333333; */
     border-radius: 10px;
 }
-.foodimg{
+
+.foodimg {
     height: 250px;
     width: 100%;
     margin-bottom: 20px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
-.itemname{
+
+.itemname {
     text-align: center;
     color: white;
     font-weight: bold;
     font-size: 20px;
 }
-.itemdesc{
+
+.itemdesc {
     color: white;
     font-size: 14px;
     padding: 10px;
     margin-top: 10px;
 }
-.quantityandprice{
+
+.skeletonImage {
+    height: 250px;
+    width: 100%;
+    background-color: #333;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.skeletonImage::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #333 15%, #2C2C2C 30%, #272727 45%);
+    animation: shimmer 1.5s infinite linear;
+}
+
+.skeletonText,
+.skeletonDesc,
+.skeletonPrice,
+.skeletonQuantity {
+    position: relative;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.skeletonText::before,
+.skeletonDesc::before,
+.skeletonPrice::before,
+.skeletonQuantity::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #333 15%, #2C2C2C 30%, #272727 45%);
+    animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+    100% {
+        left: 100%;
+    }
+}
+
+.skeletonText {
+    height: 40px;
+    width: 70%;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.skeletonDesc {
+    height: 70px;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.skeletonPrice {
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.skeletonQuantity {
+    height: 30px;
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.quantityandprice {
     display: grid;
     grid-template-columns: 4fr 7fr 1fr;
     gap: 15px;
     margin: 0px 50px;
 }
-.price{
+
+.price {
     font-weight: bold;
     width: 100%;
     background-color: rgb(37, 37, 37);
@@ -59,7 +147,8 @@
     border-radius: 10px;
     box-sizing: border-box;
 }
-.quantity{
+
+.quantity {
     font-weight: bold;
     width: 100%;
     background-color: rgb(37, 37, 37);
@@ -70,7 +159,8 @@
     border-radius: 10px;
     box-sizing: border-box;
 }
-.btn{
+
+.btn {
     background-color: rgb(240, 99, 49);
     color: white;
     cursor: pointer;
@@ -81,29 +171,33 @@
     border-radius: 10px;
     font-weight: bold;
 }
-@media(max-width: 800px){
-    .foodboxcontainer{
+
+@media(max-width: 800px) {
+    .foodboxcontainer {
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(2, 1fr);
     }
 }
-@media(max-width: 700px){
-    .quantityandprice{
+
+@media(max-width: 700px) {
+    .quantityandprice {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(2, 1fr);
     }
 }
-@media(max-width: 650px){
-    .foodboxcontainer{
+
+@media(max-width: 650px) {
+    .foodboxcontainer {
         padding: 20px;
     }
-    .quantityandprice{
+
+    .quantityandprice {
         margin: 0px 20px;
     }
 }
 
-@media(max-width: 500px){
-    .foodboxcontainer{
+@media(max-width: 500px) {
+    .foodboxcontainer {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(4, 1fr);
     }
