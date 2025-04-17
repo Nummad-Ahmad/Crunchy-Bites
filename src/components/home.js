@@ -14,10 +14,7 @@ import Win from '../images/win.png';
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { GoChevronDown, GoChevronUp } from "react-icons/go";
 
-export default function Home() {
-    
-
-
+export default function Home() {    
     const [openQuestion, setOpenQuestion] = useState('');
     const [index, setIndex] = useState(0);
     const images = [Fries1, Fries2, Fries3];
