@@ -201,7 +201,7 @@ export default function Home() {
                     </div>
 
                     {
-                        openQuestion == 7 && <p>Onle the orders placed online will result in your participation in lucky draw. First place your order then while collecting it, get the QR code sent to you scanned by us. Doing so will make you elligible for lucky draw.</p>
+                        openQuestion == 7 && <p>Onle the orders placed online will result in your participation in lucky draw.</p>
                     }
                 </div>
             </div>
