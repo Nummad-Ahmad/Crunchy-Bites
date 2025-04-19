@@ -18,7 +18,7 @@ export default function Order() {
         const today = new Date();
         setDayName(days[today.getDay()]);
         const day = days[today.getDay()];
-        if (day == 'Friday') {
+        if (day == 'Saturday') {
             toast.success("Special discounts for blessed Friday");
         }
     }, []);
