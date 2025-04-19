@@ -17,9 +17,8 @@ export default function Order() {
         const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         const today = new Date();
         const localDay = new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'Asia/Karachi' }).format(today);
-        setDayName(days[today.getDay()]);
-        const day = days[today.getDay()];
-        if (day == 'Saturday') {
+        setDayName(localDay);
+        if (localDay == 'Saturday') {
             toast.success("Special discounts for blessed Friday");
         }
     }, []);
