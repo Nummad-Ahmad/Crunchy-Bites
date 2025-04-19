@@ -8,11 +8,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCheesyFries, setFries, setRoll, setSamosa } from '../redux/slice';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
 export default function Order() {
+    const [dayName, setDayName] = useState("");
+    useEffect(() => {
+        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const today = new Date();
+        setDayName(days[today.getDay()]);
+        const day = days[today.getDay()];
+        if (day == 'Friday') {
+            toast.success("Special discounts for blessed Friday");
+        }
+    }, []);
     const [isLoaded, setLoaded] = useState(false);
     const [ordering, isOrdering] = useState(false);
     const user = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null;
@@ -36,7 +45,7 @@ export default function Order() {
         roll: 0,
     });
     function calculateTotal() {
-        var sum = (inputValues.samosa * 50) + (inputValues.fries * 100) + (inputValues.cheesyFries * 150) + (inputValues.roll * 40);
+        var sum = (dayName == "Friday" ? inputValues.samosa * 35 : inputValues.samosa * 50) + (dayName == "Friday" ?  inputValues.fries * 80 : inputValues.fries * 100) + (dayName == "Friday" ? inputValues.cheesyFries * 120 : inputValues.cheesyFries * 150) + (dayName == "Friday" ? inputValues.roll * 30 : inputValues.roll * 40);
         return sum;
     }
 
@@ -146,11 +155,7 @@ export default function Order() {
                             <p className={style.itemdesc}>Crispy and flavorful samosas filled with spiced potatoes, wrapped in a golden, flaky crust. A perfect snack.</p>
                             <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
                                 <p style={{ fontWeight: 'bold' }}>Price</p>
-                                {
-                                    isLoaded ?
-                                        <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{inputValues.samosa > 0 ? inputValues.samosa * prices.samosa : prices.samosa} Rs</p> :
-                                        <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>Loading ...</p>
-                                }
+                                <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName != "Friday" ? prices.samosa : prices.samosa - 15} Rs</p>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
                                 <p style={{ fontWeight: 'bold' }}>Quantity</p>
@@ -171,29 +176,25 @@ export default function Order() {
                 }
                 {
                     isLoaded ?
-                    <div className={style.foodbox}>
-                    <img src={CheesyFries} className={style.foodimg} />
-                    <p className={style.itemname}>Loaded Fries</p>
-                    <p className={style.itemdesc}>Our cheesy and crispy fries loaded with rich, melted cheese and creamy mayo. A perfect cheesy snack.</p>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
-                        <p style={{ fontWeight: 'bold' }}>Price</p>
-                        {
-                            isLoaded ?
-                                <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{inputValues.cheesyFries > 0 ? inputValues.cheesyFries * prices.cheesyFries : prices.cheesyFries} Rs</p> :
-                                <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>Loading ...</p>
-                        }
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
-                        <p style={{ fontWeight: 'bold' }}>Quantity</p>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && decrement("cheesyFries") }}>-</p>
-                            <p style={{ fontWeight: 'bold' }}>{inputValues.cheesyFries}</p>
-                            <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && increment("cheesyFries") }}>+</p>
-                        </div>
-                    </div> 
-                </div> :
-                
-                <div className={style.foodbox}>
+                        <div className={style.foodbox}>
+                            <img src={CheesyFries} className={style.foodimg} />
+                            <p className={style.itemname}>Loaded Fries</p>
+                            <p className={style.itemdesc}>Our cheesy and crispy fries loaded with rich, melted cheese and creamy mayo. A perfect cheesy snack.</p>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
+                                <p style={{ fontWeight: 'bold' }}>Price</p>
+                                        <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.cheesyFries - 30 : prices.cheesyFries} Rs</p>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
+                                <p style={{ fontWeight: 'bold' }}>Quantity</p>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && decrement("cheesyFries") }}>-</p>
+                                    <p style={{ fontWeight: 'bold' }}>{inputValues.cheesyFries}</p>
+                                    <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && increment("cheesyFries") }}>+</p>
+                                </div>
+                            </div>
+                        </div> :
+
+                        <div className={style.foodbox}>
                             <div className={style.skeletonImage}></div>
                             <div className={style.skeletonText}></div>
                             <div className={style.skeletonDesc}></div>
@@ -203,29 +204,25 @@ export default function Order() {
                 }
                 {
                     isLoaded ?
-                    <div className={style.foodbox}>
-                    <img src={FrenchFries} className={style.foodimg} />
-                    <p className={style.itemname}>French Fries</p>
-                    <p className={style.itemdesc}>Crispy and golden, our French fries are perfectly seasoned and fried to perfection. Light, crunchy and quick snack.</p>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
-                        <p style={{ fontWeight: 'bold' }}>Price</p>
-                        {
-                            isLoaded ?
-                                <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{inputValues.fries > 0 ? inputValues.fries * prices.fries : prices.fries} Rs</p> :
-                                <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>Loading ...</p>
-                        }
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
-                        <p style={{ fontWeight: 'bold' }}>Quantity</p>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && decrement("fries") }}>-</p>
-                            <p style={{ fontWeight: 'bold' }}>{inputValues.fries}</p>
-                            <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && increment("fries") }}>+</p>
-                        </div>
-                    </div>
-                </div> :
-                
-                <div className={style.foodbox}>
+                        <div className={style.foodbox}>
+                            <img src={FrenchFries} className={style.foodimg} />
+                            <p className={style.itemname}>French Fries</p>
+                            <p className={style.itemdesc}>Crispy and golden, our French fries are perfectly seasoned and fried to perfection. Light, crunchy and quick snack.</p>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
+                                <p style={{ fontWeight: 'bold' }}>Price</p>
+                                        <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.fries - 20 : prices.fries} Rs</p> 
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
+                                <p style={{ fontWeight: 'bold' }}>Quantity</p>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && decrement("fries") }}>-</p>
+                                    <p style={{ fontWeight: 'bold' }}>{inputValues.fries}</p>
+                                    <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && increment("fries") }}>+</p>
+                                </div>
+                            </div>
+                        </div> :
+
+                        <div className={style.foodbox}>
                             <div className={style.skeletonImage}></div>
                             <div className={style.skeletonText}></div>
                             <div className={style.skeletonDesc}></div>
@@ -235,29 +232,25 @@ export default function Order() {
                 }
                 {
                     isLoaded ?
-                    <div className={style.foodbox}>
-                    <img src={Roll} className={style.foodimg} />
-                    <p className={style.itemname}>Roll</p>
-                    <p className={style.itemdesc}>Crispy and delicious potato rolls are packed with spiced mashed potatoes, wrapped in a golden and crunchy layer.</p>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
-                        <p style={{ fontWeight: 'bold' }}>Price</p>
-                        {
-                            isLoaded ?
-                                <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{inputValues.roll > 0 ? inputValues.roll * prices.roll : prices.roll} Rs</p> :
-                                <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>Loading ...</p>
-                        }
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
-                        <p style={{ fontWeight: 'bold' }}>Quantity</p>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && decrement("roll") }}>-</p>
-                            <p style={{ fontWeight: 'bold' }}>{inputValues.roll}</p>
-                            <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && increment("roll") }}>+</p>
-                        </div>
-                    </div>
-                </div> :
-                
-                <div className={style.foodbox}>
+                        <div className={style.foodbox}>
+                            <img src={Roll} className={style.foodimg} />
+                            <p className={style.itemname}>Roll</p>
+                            <p className={style.itemdesc}>Crispy and delicious potato rolls are packed with spiced mashed potatoes, wrapped in a golden and crunchy layer.</p>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
+                                <p style={{ fontWeight: 'bold' }}>Price</p>
+                                        <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.roll - 10 : prices.roll} Rs</p>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
+                                <p style={{ fontWeight: 'bold' }}>Quantity</p>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && decrement("roll") }}>-</p>
+                                    <p style={{ fontWeight: 'bold' }}>{inputValues.roll}</p>
+                                    <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && increment("roll") }}>+</p>
+                                </div>
+                            </div>
+                        </div> :
+
+                        <div className={style.foodbox}>
                             <div className={style.skeletonImage}></div>
                             <div className={style.skeletonText}></div>
                             <div className={style.skeletonDesc}></div>
