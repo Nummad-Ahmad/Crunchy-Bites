@@ -47,11 +47,11 @@ export default function Notifications() {
                 orderedItems += item.items.fries + " plates of Fries ";
             }
         }
-        if (item.items.roll > 0) {
-            if (item.items.roll == 1) {
-                orderedItems += item.items.roll + " Roll ";
+        if (item.items.lemonade > 0) {
+            if (item.items.lemonade == 1) {
+                orderedItems += item.items.lemonade + " glass of lemonade";
             } else {
-                orderedItems += item.items.roll + " Rolls ";
+                orderedItems += item.items.lemonade + " glasses of lemonade ";
             }
         }
         if (item.items.cheesyFries > 0) {
@@ -59,6 +59,13 @@ export default function Notifications() {
                 orderedItems += item.items.cheesyFries + " plate of Loaded Fries ";
             } else {
                 orderedItems += item.items.cheesyFries + " plates of Loaded Fries ";
+            }
+        }
+        if (item.items.chocoMilk > 0) {
+            if (item.items.chocoMilk == 1) {
+                orderedItems += item.items.chocoMilk + " glass of Choco Milk ";
+            } else {
+                orderedItems += item.items.chocoMilk + " glasses of Choco Milk ";
             }
         }
         return orderedItems;
@@ -128,6 +135,8 @@ export default function Notifications() {
                             "No data" : 
                             mostOrderedItem[0].toLowerCase() == 'cheesyfries' ?
                             "Loaded fries" :
+                            mostOrderedItem[0].toLowerCase() == 'chocoMilk' ?
+                            "Choco Milk" :
                             mostOrderedItem[0].charAt(0).toUpperCase() + mostOrderedItem[0].slice(1)
                     }</p>
                 </div>
