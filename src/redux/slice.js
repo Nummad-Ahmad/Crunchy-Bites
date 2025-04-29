@@ -5,6 +5,8 @@ const initialState = {
   fries: 0,
   cheesyFries: 0,
   roll: 0,
+  chocoMilk: 0,
+  lemonade: 0
 };
 
 const itemsSlice = createSlice({
@@ -23,15 +25,23 @@ const itemsSlice = createSlice({
     setRoll: (state, action) => {
       state.roll = action.payload;
     },
+    setLemonade: (state, action)=>{
+      state.lemonade = action.payload;
+    },
+    setChocoMilk: (state, action) => {
+      state.lemonade = action.payload;
+    },
     setAllTemps: (state, action) => {
-        const { samosa, fries, cheesyFries, roll } = action.payload;
+        const { samosa, fries, cheesyFries, roll, chocoMilk, lemonade } = action.payload;
         state.samosa = samosa;
         state.fries = fries;
         state.cheesyFries = cheesyFries;
         state.roll = roll;
+        state.lemonade = lemonade;
+        state.chocoMilk = chocoMilk;
       },
     },
   });
   
-  export const { setSamosa, setFries, setCheesyFries, setRoll, setAllItems } = itemsSlice.actions;
+  export const { setSamosa, setFries, setCheesyFries, setRoll, setAllItems, setChocoMilk, setLemonade } = itemsSlice.actions;
   export default itemsSlice.reducer;

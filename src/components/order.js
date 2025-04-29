@@ -3,9 +3,11 @@ import CheesyFries from '../images/chessyfries.jpg';
 import FrenchFries from '../images/frenchfries.jpg';
 import Roll from '../images/roll.jpg';
 import Samosa from '../images/samosa.jpg';
+import Lemonade from '../images/lemonade.jpg';
+import ChocoMilk from '../images/choco.jpg';
 import Navbar from './navbar';
 import { useSelector, useDispatch } from "react-redux";
-import { setCheesyFries, setFries, setRoll, setSamosa } from '../redux/slice';
+import { setCheesyFries, setChocoMilk, setFries, setLemonade, setRoll, setSamosa } from '../redux/slice';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
@@ -37,15 +39,19 @@ export default function Order() {
         fries: 0,
         cheesyFries: 0,
         roll: 0,
+        chocoMilk: 0,
+        lemonade: 0
     });
     const [prices, setPrices] = useState({
         samosa: 0,
         fries: 0,
         cheesyFries: 0,
         roll: 0,
+        chocoMilk: 0,
+        lemonade: 0
     });
     function calculateTotal() {
-        var sum = (dayName == "Friday" ? inputValues.samosa * 35 : inputValues.samosa * 50) + (dayName == "Friday" ?  inputValues.fries * 80 : inputValues.fries * 100) + (dayName == "Friday" ? inputValues.cheesyFries * 120 : inputValues.cheesyFries * 150) + (dayName == "Friday" ? inputValues.roll * 30 : inputValues.roll * 40);
+        var sum = (dayName == "Friday" ? inputValues.samosa * 35 : inputValues.samosa * 50) + (dayName == "Friday" ? inputValues.fries * 80 : inputValues.fries * 100) + (dayName == "Friday" ? inputValues.cheesyFries * 120 : inputValues.cheesyFries * 150) + (dayName == "Friday" ? inputValues.lemonade * 35 : inputValues.lemonade * 50) + (dayName == "Friday" ? inputValues.chocoMilk * 120 : inputValues.chocoMilk * 150);
         return sum;
     }
 
@@ -76,7 +82,7 @@ export default function Order() {
         }
     }
     function getItems() {
-        var sum = (inputValues.samosa) + (inputValues.fries) + (inputValues.cheesyFries) + (inputValues.roll);
+        var sum = (inputValues.samosa) + (inputValues.fries) + (inputValues.cheesyFries) + (inputValues.lemonade) + (inputValues.chocoMilk);
         return sum;
     }
     const increment = (name) => {
@@ -92,10 +98,15 @@ export default function Order() {
             var prevValue = inputValues.cheesyFries;
             setInputValues({ ...inputValues, [name]: prevValue + 1 });
             dispatch(setCheesyFries(prevValue + 1));
-        } else if (name == 'roll') {
-            var prevValue = inputValues.roll;
+        } else if (name == 'lemonade') {
+            var prevValue = inputValues.lemonade;
             setInputValues({ ...inputValues, [name]: prevValue + 1 });
-            dispatch(setRoll(prevValue + 1));
+            dispatch(setLemonade(prevValue + 1));
+        }
+        else if (name == 'chocoMilk') {
+            var prevValue = inputValues.chocoMilk;
+            setInputValues({ ...inputValues, [name]: prevValue + 1 });
+            dispatch(setChocoMilk(prevValue + 1));
         }
     };
     const decrement = (name) => {
@@ -117,11 +128,18 @@ export default function Order() {
                 setInputValues({ ...inputValues, [name]: prevValue - 1 });
                 dispatch(setFries(prevValue - 1));
             }
-        } else if (name == 'roll') {
-            var prevValue = inputValues.roll;
+        } else if (name == 'lemonade') {
+            var prevValue = inputValues.lemonade;
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 1 });
-                dispatch(setRoll(prevValue - 1));
+                dispatch(setLemonade(prevValue - 1));
+            }
+        }
+        else if (name == 'chocoMilk') {
+            var prevValue = inputValues.chocoMilk;
+            if (prevValue > 0) {
+                setInputValues({ ...inputValues, [name]: prevValue - 1 });
+                dispatch(setChocoMilk(prevValue - 1));
             }
         }
     };
@@ -143,6 +161,7 @@ export default function Order() {
     useEffect(() => {
         getData();
     }, []);
+    const month = now.getMonth() + 1;
     return (
         <div className={style.order}>
             <Navbar />
@@ -182,7 +201,7 @@ export default function Order() {
                             <p className={style.itemdesc}>Our cheesy and crispy fries loaded with rich, melted cheese and creamy mayo. A perfect cheesy snack.</p>
                             <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
                                 <p style={{ fontWeight: 'bold' }}>Price</p>
-                                        <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.cheesyFries - 30 : prices.cheesyFries} Rs</p>
+                                <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.cheesyFries - 30 : prices.cheesyFries} Rs</p>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
                                 <p style={{ fontWeight: 'bold' }}>Quantity</p>
@@ -210,7 +229,7 @@ export default function Order() {
                             <p className={style.itemdesc}>Crispy and golden, our French fries are perfectly seasoned and fried to perfection. Light, crunchy and quick snack.</p>
                             <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
                                 <p style={{ fontWeight: 'bold' }}>Price</p>
-                                        <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.fries - 20 : prices.fries} Rs</p> 
+                                <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.fries - 20 : prices.fries} Rs</p>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
                                 <p style={{ fontWeight: 'bold' }}>Quantity</p>
@@ -231,32 +250,65 @@ export default function Order() {
                         </div>
                 }
                 {
-                    isLoaded ?
-                        <div className={style.foodbox}>
-                            <img src={Roll} className={style.foodimg} />
-                            <p className={style.itemname}>Roll</p>
-                            <p className={style.itemdesc}>Crispy and delicious potato rolls are packed with spiced mashed potatoes, wrapped in a golden and crunchy layer.</p>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
-                                <p style={{ fontWeight: 'bold' }}>Price</p>
-                                        <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.roll - 10 : prices.roll} Rs</p>
-                            </div>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
-                                <p style={{ fontWeight: 'bold' }}>Quantity</p>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && decrement("roll") }}>-</p>
-                                    <p style={{ fontWeight: 'bold' }}>{inputValues.roll}</p>
-                                    <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && increment("roll") }}>+</p>
+                    month < 10 && month > 3 &&
+                    (
+                        isLoaded ?
+                            <div className={style.foodbox}>
+                                <img src={Lemonade} className={style.foodimg} />
+                                <p className={style.itemname}>Lemonade</p>
+                                <p className={style.itemdesc}>Refreshingly sweet and tangy lemonade, bursting with fresh citrus flavor in every sip. Perfect for battling the summer heat.</p>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
+                                    <p style={{ fontWeight: 'bold' }}>Price</p>
+                                    <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.lemonade - 10 : prices.lemonade} Rs</p>
                                 </div>
-                            </div>
-                        </div> :
+                                <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
+                                    <p style={{ fontWeight: 'bold' }}>Quantity</p>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                        <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && decrement("lemonade") }}>-</p>
+                                        <p style={{ fontWeight: 'bold' }}>{inputValues.lemonade}</p>
+                                        <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && increment("lemonade") }}>+</p>
+                                    </div>
+                                </div>
+                            </div> :
 
-                        <div className={style.foodbox}>
-                            <div className={style.skeletonImage}></div>
-                            <div className={style.skeletonText}></div>
-                            <div className={style.skeletonDesc}></div>
-                            <div className={style.skeletonPrice}></div>
-                            <div className={style.skeletonQuantity}></div>
-                        </div>
+                            <div className={style.foodbox}>
+                                <div className={style.skeletonImage}></div>
+                                <div className={style.skeletonText}></div>
+                                <div className={style.skeletonDesc}></div>
+                                <div className={style.skeletonPrice}></div>
+                                <div className={style.skeletonQuantity}></div>
+                            </div>
+                    )
+                }
+                {
+                    month > 10 && month < 3 &&
+                    (
+                        isLoaded ?
+                            <div className={style.foodbox}>
+                                <img src={ChocoMilk} className={style.foodimg} />
+                                <p className={style.itemname}>Hot Choco Milk</p>
+                                <p className={style.itemdesc}>Rich and creamy hot chocolate milk, blending smooth cocoa with velvety warmth. Perfect for cozy moments and chilly days.</p>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
+                                    <p style={{ fontWeight: 'bold' }}>Price</p>
+                                    <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.chocoMilk - 10 : prices.chocoMilk} Rs</p>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
+                                    <p style={{ fontWeight: 'bold' }}>Quantity</p>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                        <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && decrement("chocoMilk") }}>-</p>
+                                        <p style={{ fontWeight: 'bold' }}>{inputValues.chocoMilk}</p>
+                                        <p style={{ cursor: 'pointer' }} onClick={() => { isLoaded && increment("chocoMilk") }}>+</p>
+                                    </div>
+                                </div>
+                            </div> :
+                            <div className={style.foodbox}>
+                                <div className={style.skeletonImage}></div>
+                                <div className={style.skeletonText}></div>
+                                <div className={style.skeletonDesc}></div>
+                                <div className={style.skeletonPrice}></div>
+                                <div className={style.skeletonQuantity}></div>
+                            </div>
+                    )
                 }
             </div>
             <div className={style.quantityandprice}>

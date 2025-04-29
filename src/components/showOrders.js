@@ -33,8 +33,10 @@ export default function ShowOrders() {
             return "Fries";
         } else if (key == 'cheesyFries') {
             return 'Loaded Fries';
+        } else if (key == 'chocoMilk') {
+            return 'Choco Milk';
         } else {
-            return "Rolls";
+            return 'Lemonade';
         }
     }
     records.sort((a, b) => {
@@ -42,7 +44,7 @@ export default function ShowOrders() {
         const [bh, bm, bs] = b.time.split(":").map(Number);
         return (bh * 3600 + bm * 60 + bs) - (ah * 3600 + am * 60 + as);
     });
-    
+
     return (
         <div className={style.customers}>
             <Navbar />

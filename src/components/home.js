@@ -10,6 +10,8 @@ import CheesyFries from '../images/chessyfries.jpg';
 import FrenchFries from '../images/frenchfries.jpg';
 import Roll from '../images/roll.jpg';
 import Samosa from '../images/samosa.jpg';
+import Lemonade from '../images/lemonade.jpg';
+import ChocoMilk from '../images/choco.jpg';
 import Win from '../images/win.png';
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { GoChevronDown, GoChevronUp } from "react-icons/go";
@@ -32,6 +34,8 @@ export default function Home() {
             setOpenQuestion(ind);
         }
     }
+    const now = new Date();
+    const month = now.getMonth() + 1;
     return (
         <div className={style.home}>
             <Navbar />
@@ -53,11 +57,22 @@ export default function Home() {
                     <p className={style.itemname}>French Fries</p>
                     <p className={style.itemdesc}>Crispy and golden, our French fries are perfectly seasoned and fried to perfection. Light, crunchy and quick snack.</p>
                 </div>
+                {
+                    month < 10 && month > 3 &&
                 <div className={style.foodbox}>
-                    <img src={Roll} className={style.foodimg} />
-                    <p className={style.itemname}>Roll</p>
-                    <p className={style.itemdesc}>Crispy and delicious potato rolls are packed with spiced mashed potatoes, wrapped in a golden and crunchy layer.</p>
+                    <img src={Lemonade} className={style.foodimg} />
+                    <p className={style.itemname}>Lemonade</p>
+                    <p className={style.itemdesc}>Refreshingly sweet and tangy lemonade, bursting with fresh citrus flavor in every sip. Perfect for battling the summer heat.</p>
                 </div>
+                }
+                {
+                    month > 10 && month < 3 &&
+                    <div className={style.foodbox}>
+                    <img src={ChocoMilk} className={style.foodimg} />
+                    <p className={style.itemname}>Hot Choco Milk</p>
+                    <p className={style.itemdesc}>Rich and creamy hot chocolate milk, blending smooth cocoa with velvety warmth. Perfect for cozy moments and chilly days.</p>
+                </div>
+                }
             </div>
             <div className={style.prizesection}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

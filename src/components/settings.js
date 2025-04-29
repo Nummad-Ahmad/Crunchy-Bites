@@ -4,6 +4,8 @@ import Cheesyfries from '../images/chessyfries.jpg';
 import Frenchfries from '../images/frenchfries.jpg';
 import Roll from '../images/roll.jpg';
 import samosa from '../images/samosa.jpg';
+import Lemonade from '../images/lemonade.jpg';
+import ChocoMilk from '../images/choco.jpg';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -94,10 +96,12 @@ export default function Settings() {
     };
 
     const [inputValues, setInputValues] = useState({
-        samosa: 50,
-        fries: 100,
-        cheesyFries: 150,
-        roll: 40,
+        samosa: 0,
+        fries: 0,
+        cheesyFries: 0,
+        roll: 0,
+        chocoMilk: 0,
+        lemonade: 0
     });
     const increment = (name) => {
         if (name == 'samosa') {
@@ -109,8 +113,12 @@ export default function Settings() {
         } else if (name == 'cheesyFries') {
             var prevValue = inputValues.cheesyFries;
             setInputValues({ ...inputValues, [name]: prevValue + 10 });
-        } else if (name == 'roll') {
-            var prevValue = inputValues.roll;
+        } else if (name == 'lemonade') {
+            var prevValue = inputValues.lemonade;
+            setInputValues({ ...inputValues, [name]: prevValue + 10 });
+        }
+        else if (name == 'chocoMilk') {
+            var prevValue = inputValues.chocoMilk;
             setInputValues({ ...inputValues, [name]: prevValue + 10 });
         }
     };
@@ -130,8 +138,13 @@ export default function Settings() {
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 10 });
             }
-        } else if (name == 'roll') {
-            var prevValue = inputValues.roll;
+        } else if (name == 'lemonade') {
+            var prevValue = inputValues.lemonade;
+            if (prevValue > 0) {
+                setInputValues({ ...inputValues, [name]: prevValue - 10 });
+            }
+        }else if (name == 'chocoMilk') {
+            var prevValue = inputValues.chocoMilk;
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 10 });
             }
@@ -164,6 +177,8 @@ export default function Settings() {
     useEffect(() => {
         getData();
     }, []);
+    const now = new Date();
+    const month = now.getMonth() + 1;
     console.log(inputValues);
     return (
         <div className={style.settings}>
@@ -211,20 +226,40 @@ export default function Settings() {
                     </div>
                     <button onClick={() => updatePrice('fries', inputValues.fries)} className={style.btn}>Change</button>
                 </div>
-                <div className={style.foodbox}>
-                    <img src={Roll} className={style.foodimg} />
-                    <p className={style.itemname}>Roll</p>
-                    <p className={style.itemdesc}>Crispy and delicious potato rolls are packed with spiced mashed potatoes, wrapped in a golden and crunchy layer.</p>
+                {
+                    month < 10 && month > 3 &&
+                    <div className={style.foodbox}>
+                    <img src={Lemonade} className={style.foodimg} />
+                    <p className={style.itemname}>Lemonade</p>
+                    <p className={style.itemdesc}>Refreshingly sweet and tangy lemonade, bursting with fresh citrus flavor in every sip. Perfect for battling the summer heat.</p>
                     <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <p style={{ fontWeight: 'bold', color: "rgb(240, 99, 49)" }}>Price</p>
                         <div style={{ display: 'flex', gap: '20px', alignItems: 'center', color: 'white' }}>
-                            <p style={{ cursor: 'pointer' }} onClick={() => decrement("roll")}>-</p>
-                            <p style={{ fontWeight: 'bold' }}>{inputValues.roll}</p>
-                            <p style={{ cursor: 'pointer' }} onClick={() => increment("roll")}>+</p>
+                            <p style={{ cursor: 'pointer' }} onClick={() => decrement("lemonade")}>-</p>
+                            <p style={{ fontWeight: 'bold' }}>{inputValues.lemonade}</p>
+                            <p style={{ cursor: 'pointer' }} onClick={() => increment("lemonade")}>+</p>
                         </div>
                     </div>
-                    <button onClick={() => updatePrice('roll', inputValues.roll)} className={style.btn}>Change</button>
+                    <button onClick={() => updatePrice('lemonade', inputValues.lemonade)} className={style.btn}>Change</button>
                 </div>
+                }
+                {
+                    month > 10 && month < 3 &&
+                    <div className={style.foodbox}>
+                    <img src={ChocoMilk} className={style.foodimg} />
+                    <p className={style.itemname}>Hot Choco Milk</p>
+                    <p className={style.itemdesc}>Rich and creamy hot chocolate milk, blending smooth cocoa with velvety warmth. Perfect for cozy moments and chilly days.</p>
+                    <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <p style={{ fontWeight: 'bold', color: "rgb(240, 99, 49)" }}>Price</p>
+                        <div style={{ display: 'flex', gap: '20px', alignItems: 'center', color: 'white' }}>
+                            <p style={{ cursor: 'pointer' }} onClick={() => decrement("chocoMilk")}>-</p>
+                            <p style={{ fontWeight: 'bold' }}>{inputValues.chocoMilk}</p>
+                            <p style={{ cursor: 'pointer' }} onClick={() => increment("chocoMilk")}>+</p>
+                        </div>
+                    </div>
+                    <button onClick={() => updatePrice('chocoMilk', inputValues.chocoMilk)} className={style.btn}>Change</button>
+                </div>
+                }
             </div>
 
             {
