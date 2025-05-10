@@ -14,8 +14,7 @@ import { BsQrCodeScan } from "react-icons/bs";
 
 export default function Settings() {
     const [check, setChecked] = useState(false);
-
-
+    const [updating, setUpdating] = useState(false);
     const handleScan = (data) => {
         if (data) {
             try {
@@ -151,12 +150,15 @@ export default function Settings() {
         }
     };
     function updatePrice(name, price) {
+        const loadingToast = toast.loading("Updating ...");
         axios.post('https://crunchybitesbackend.vercel.app/updateitem', { name, price })
             .then(res => {
                 if (res.status == 200) {
+                    toast.dismiss(loadingToast);
                     toast.success(res.data.message);
                 }
             }).catch(e => {
+                toast.dismiss(loadingToast);
                 console.log(e);
             })
     }
