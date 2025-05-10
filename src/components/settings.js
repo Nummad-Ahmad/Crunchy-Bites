@@ -155,7 +155,7 @@ export default function Settings() {
             .then(res => {
                 if (res.status == 200) {
                     toast.dismiss(loadingToast);
-                    toast.success(res.data.message);
+                    toast.success("Updated successfully");
                 }
             }).catch(e => {
                 toast.dismiss(loadingToast);
