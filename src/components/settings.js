@@ -159,6 +159,7 @@ export default function Settings() {
                 }
             }).catch(e => {
                 toast.dismiss(loadingToast);
+                toast.error("An error occurred");
                 console.log(e);
             })
     }
