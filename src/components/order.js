@@ -126,7 +126,8 @@ export default function Order() {
             var prevValue = inputValues.cheesyFries;
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 1 });
-                dispatch(setFries(prevValue - 1));
+                dispatch(setCheesyFries(prevValue - 1));
+                
             }
         } else if (name == 'lemonade') {
             var prevValue = inputValues.lemonade;
@@ -250,7 +251,7 @@ export default function Order() {
                         </div>
                 }
                 {
-                    month < 10 && month > 3 &&
+                    (month < 10 && month > 2) &&
                     (
                         isLoaded ?
                             <div className={style.foodbox}>
@@ -281,7 +282,7 @@ export default function Order() {
                     )
                 }
                 {
-                    month > 10 && month < 3 &&
+                    (month > 10  || month < 3) &&
                     (
                         isLoaded ?
                             <div className={style.foodbox}>
