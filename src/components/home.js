@@ -59,19 +59,19 @@ export default function Home() {
                 </div>
                 {
                     (month < 10 && month > 2) &&
-                <div className={style.foodbox}>
-                    <img src={Lemonade} className={style.foodimg} />
-                    <p className={style.itemname}>Lemonade</p>
-                    <p className={style.itemdesc}>Refreshingly sweet and tangy lemonade, bursting with fresh citrus flavor in every sip. Perfect for battling the summer heat.</p>
-                </div>
+                    <div className={style.foodbox}>
+                        <img src={Lemonade} className={style.foodimg} />
+                        <p className={style.itemname}>Lemonade</p>
+                        <p className={style.itemdesc}>Refreshingly sweet and tangy lemonade, bursting with fresh citrus flavor in every sip. Perfect for battling the summer heat.</p>
+                    </div>
                 }
                 {
-                    (month > 10  || month < 3) &&
+                    (month > 10 || month < 3) &&
                     <div className={style.foodbox}>
-                    <img src={ChocoMilk} className={style.foodimg} />
-                    <p className={style.itemname}>Hot Choco Milk</p>
-                    <p className={style.itemdesc}>Rich and creamy hot chocolate milk, blending smooth cocoa with velvety warmth. Perfect for cozy moments and chilly days.</p>
-                </div>
+                        <img src={ChocoMilk} className={style.foodimg} />
+                        <p className={style.itemname}>Hot Choco Milk</p>
+                        <p className={style.itemdesc}>Rich and creamy hot chocolate milk, blending smooth cocoa with velvety warmth. Perfect for cozy moments and chilly days.</p>
+                    </div>
                 }
             </div>
             <div className={style.prizesection}>
