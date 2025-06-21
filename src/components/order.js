@@ -66,7 +66,7 @@ export default function Order() {
             axios.post(`${process.env.REACT_APP_BACK_END}/order`, { items: inputValues, email: user.email, date: formattedDate, price: calculateTotal(), time: `${hours}:${minutes}:${seconds}` })
                 .then(res => {
                     if (res.status == 201) {
-                        toast.dismiss(loadingToast);
+                        toast.dismiss(loadingToast); 
                         toast.success(res.data.message);
                         console.log(res);
                         isOrdering(false)
