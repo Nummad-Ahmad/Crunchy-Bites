@@ -23,7 +23,7 @@ export default function Forgotpassword() {
             const valid = emailRegex.test(email);
             if (valid && password.length > 7) {
                 setLoading(true);
-                axios.post(`https://crunchybitesbackend.vercel.app/forgotpassword`, { email })
+                axios.post(`${process.env.REACT_APP_BACK_END}/forgotpassword`, { email })
                     .then(result => {
                         if (verified) {
                             toast.success('Login successful');
@@ -53,7 +53,7 @@ export default function Forgotpassword() {
             setVerify(true);
             console.log('Verification Code:', verificationCode);
             axios
-                .post(`https://crunchybitesbackend.vercel.app/verifyforgotpassword`, { email, verificationCode, password })
+                .post(`${process.env.REACT_APP_BACK_END}/verifyforgotpassword`, { email, verificationCode, password })
                 .then((response) => {
                     if (response.status === 200) {
                         toast.success('Password changed successfully!');

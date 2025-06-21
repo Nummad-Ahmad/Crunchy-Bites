@@ -7,7 +7,7 @@ export default function ShowOrders() {
     const [records, setRecords] = useState([]);
     useEffect(() => {
         const fetchOrders = () => {
-            axios.get('https://crunchybitesbackend.vercel.app/showorders')
+            axios.get(`${process.env.REACT_APP_BACK_END}/showorders`)
                 .then(res => {
                     console.log(res.data.data);
                     if (res.status === 200) {

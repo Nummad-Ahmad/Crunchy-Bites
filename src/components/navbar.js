@@ -16,7 +16,7 @@ export default function Navbar() {
     const user = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null;
     const navigate = useNavigate();
     function getWinner() {
-        axios.get('https://crunchybitesbackend.vercel.app/winner')
+        axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
             .then(res => {
                 if (res.status == 200) {
                     setWinner(res.data.winner);

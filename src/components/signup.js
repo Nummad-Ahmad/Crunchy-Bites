@@ -19,7 +19,7 @@ export default function Signup(){  const [email, setemail] = useState("")
         var valid = emailRegex.test(email);
         if (valid && password.length > 7 && password == confirmPass) {
           setLoading(true);
-          axios.post(`https://crunchybitesbackend.vercel.app/signup`, { email, password, name }).then(result => {
+          axios.post(`${process.env.REACT_APP_BACK_END}/signup`, { email, password, name }).then(result => {
             toast.success('Account created');
             navigate('/login', { replace: true });
           }).catch(error => {
