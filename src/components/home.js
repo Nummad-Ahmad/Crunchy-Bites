@@ -226,7 +226,11 @@ export default function Home() {
             <div className={style.luckywinnerOuter}>
                     <div className={style.luckyWinnerinner}>
                         <img src={DP} style={{height: '170px', borderTopLeftRadius: '10px', borderTopRightRadius: '10px'}}/>
-                        <p>{winner?.name ?? "Loading..."}</p>
+                        {
+                            winner.name ?    
+                        <p>Congrats {winner?.name} [Name]! You’re our lucky draw winner this week!</p> :
+                        <p style={{textAlign: 'center', margin: 'auto 0px', fontSize: '18px'}}>Loading ...</p>
+                        }
                     </div>
             </div>
             <Footer />

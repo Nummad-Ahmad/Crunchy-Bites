@@ -134,8 +134,9 @@
 }
 .luckyWinnerinner > p{
     margin: 0px 10px;
-    font-size: 14px;
+    font-size: 16px;
     color: white;
+    text-align: center;
 }
 @media(max-width: 950px){
     .tagline{
