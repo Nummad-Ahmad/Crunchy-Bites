@@ -8,19 +8,35 @@ import Fries3 from '../images/fries1.png';
 import { useEffect, useState } from 'react';
 import CheesyFries from '../images/chessyfries.jpg';
 import FrenchFries from '../images/frenchfries.jpg';
-import Roll from '../images/roll.jpg';
 import Samosa from '../images/samosa.jpg';
 import Lemonade from '../images/lemonade.jpg';
 import ChocoMilk from '../images/choco.jpg';
 import Win from '../images/win.png';
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { GoChevronDown, GoChevronUp } from "react-icons/go";
+import DP from "../images/dp.jpg";
+import axios from 'axios';
 
 export default function Home() {    
+    const [winner, setWinner] = useState({});
     const [openQuestion, setOpenQuestion] = useState('');
     const [index, setIndex] = useState(0);
-    const images = [Fries1, Fries2, Fries3];
+    const images = [Fries1, Fries2, Fries3];    
+    function getWinner() {
+        axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
+            .then(res => {
+                if (res.status == 200) {
+                    setWinner(res.data.winner);
+                } else if (res.status == 404) {
+                    console.log(res.data);
+                }
+            })
+            .catch(e => {
+                console.log(e);
+            })
+    }
     useEffect(() => {
+        getWinner();
         const interval = setInterval(() => {
             setIndex((prevIndex) => (prevIndex + 1) % images.length);
         }, 3000);
@@ -205,6 +221,13 @@ export default function Home() {
                         openQuestion == 6 && <p> The QR code sent to the winner is valid only until the next lucky draw (i.e., until the 1st of the next month).</p>
                     }
                 </div>
+            </div>
+            <p className={style.tagline}>Lucky Winner</p>
+            <div className={style.luckywinnerOuter}>
+                    <div className={style.luckyWinnerinner}>
+                        <img src={DP} style={{height: '170px', borderTopLeftRadius: '10px', borderTopRightRadius: '10px'}}/>
+                        <p>{winner?.name ?? "Loading..."}</p>
+                    </div>
             </div>
             <Footer />
         </div>
