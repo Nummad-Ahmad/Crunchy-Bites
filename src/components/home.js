@@ -228,7 +228,7 @@ export default function Home() {
                     <img src={DP} style={{ height: '170px', borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }} />
                     {
                         winner.name ?
-                            <p style={{ margin: 'auto 0px' }}>Congrats {winner?.name}! You’re our lucky draw winner this week!</p> :
+                            <p style={{ margin: 'auto 0px' }}>Congrats {winner?.name}! You’re our lucky draw winner this month!</p> :
                             <p style={{ textAlign: 'center', margin: 'auto 0px', fontSize: '18px' }}>Loading ...</p>
                     }
                 </div>
