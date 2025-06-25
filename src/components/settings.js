@@ -151,7 +151,7 @@ export default function Settings() {
     };
     function updatePrice(name, price) {
         const loadingToast = toast.loading("Updating ...");
-        axios.post('${process.env.REACT_APP_BACK_END}/updateitem', { name, price })
+        axios.post(`${process.env.REACT_APP_BACK_END}/updateitem`, { name, price })
             .then(res => {
                 if (res.status == 200) {
                     toast.dismiss(loadingToast);
@@ -164,7 +164,7 @@ export default function Settings() {
             })
     }
     function getData() {
-        axios.get('${process.env.REACT_APP_BACK_END}/itemdata')
+        axios.get(`${process.env.REACT_APP_BACK_END}/itemdata`)
             .then(res => {
                 const formattedValue = res.data.data.reduce((acc, item) => {
                     acc[item.name] = item.price;
@@ -247,7 +247,7 @@ export default function Settings() {
                 </div>
                 }
                 {
-                    month > 10 && month < 3 &&
+                    (month > 10 || month < 3) &&
                     <div className={style.foodbox}>
                     <img src={ChocoMilk} className={style.foodimg} />
                     <p className={style.itemname}>Hot Choco Milk</p>

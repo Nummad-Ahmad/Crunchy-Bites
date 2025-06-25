@@ -80,7 +80,7 @@ export default function Notifications() {
         return (formattedDate);
     }
     function getWinner() {
-        axios.get('${process.env.REACT_APP_BACK_END}/winner')
+        axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
             .then(res => {
                 if (res.status == 200) {
                     setWinner(res.data.winner);

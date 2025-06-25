@@ -17,11 +17,11 @@ import { GoChevronDown, GoChevronUp } from "react-icons/go";
 import DP from "../images/dp.jpg";
 import axios from 'axios';
 
-export default function Home() {    
+export default function Home() {
     const [winner, setWinner] = useState({});
     const [openQuestion, setOpenQuestion] = useState('');
     const [index, setIndex] = useState(0);
-    const images = [Fries1, Fries2, Fries3];    
+    const images = [Fries1, Fries2, Fries3];
     function getWinner() {
         axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
             .then(res => {
@@ -224,14 +224,14 @@ export default function Home() {
             </div>
             <p className={style.tagline}>Lucky Winner</p>
             <div className={style.luckywinnerOuter}>
-                    <div className={style.luckyWinnerinner}>
-                        <img src={DP} style={{height: '170px', borderTopLeftRadius: '10px', borderTopRightRadius: '10px'}}/>
-                        {
-                            winner.name ?    
-                        <p style={{margin: 'auto 0px'}}>Congrats {winner?.name} You’re our lucky draw winner this week!</p> :
-                        <p style={{textAlign: 'center', margin: 'auto 0px', fontSize: '18px'}}>Loading ...</p>
-                        }
-                    </div>
+                <div className={style.luckyWinnerinner}>
+                    <img src={DP} style={{ height: '170px', borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }} />
+                    {
+                        winner.name ?
+                            <p style={{ margin: 'auto 0px' }}>Congrats {winner?.name}! You’re our lucky draw winner this week!</p> :
+                            <p style={{ textAlign: 'center', margin: 'auto 0px', fontSize: '18px' }}>Loading ...</p>
+                    }
+                </div>
             </div>
             <Footer />
         </div>
