@@ -42,8 +42,8 @@ export default function Footer() {
             <div className={style.smallscreen}>
                 <img src={Logo} alt='Logo' height={100}></img>
                 <p style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '10px' }}>Eat, enjoy & win</p>
-                <p style={{ margin: '5px 0px' }}>All Rights Reserved.</p>
-                <p style={{ margin: '5px 0px' }}>© {date} Crunchybites </p>
+                <p style={{ margin: '10px 0px' }}>All Rights Reserved.</p>
+                <p style={{ margin: '10px 0px' }}>© {date} Crunchybites </p>
                 
             </div>
         </div>
