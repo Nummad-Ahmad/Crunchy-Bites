@@ -23,17 +23,17 @@ export default function Home() {
     const [index, setIndex] = useState(0);
     const images = [Fries1, Fries2, Fries3];
     function getWinner() {
-        axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
-            .then(res => {
-                if (res.status == 200) {
-                    setWinner(res.data.winner);
-                } else if (res.status == 404) {
-                    console.log(res.data);
-                }
-            })
-            .catch(e => {
-                console.log(e);
-            })
+            axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
+                .then(res => {
+                    if (res.status == 200) {
+                        setWinner(res.data.winner);
+                    } else if (res.status == 404) {
+                        console.log(res.data);
+                    }
+                })
+                .catch(e => {
+                    console.log(e);
+                })
     }
     useEffect(() => {
         getWinner();
@@ -224,14 +224,18 @@ export default function Home() {
             </div>
             <p className={style.tagline}>Lucky Winner</p>
             <div className={style.luckywinnerOuter}>
-                <div className={style.luckyWinnerinner}>
-                    <img src={DP} style={{ height: '170px', borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }} />
-                    {
-                        winner.name ?
-                            <p style={{ margin: 'auto 0px' }}>Congrats {winner?.name}! You’re our lucky winner this month!</p> :
-                            <p style={{ textAlign: 'center', margin: 'auto 0px', fontSize: '18px' }}>Loading ...</p>
-                    }
-                </div>
+                {
+                    winner.name ?
+                        <div className={style.luckyWinnerinner}>
+                            <img src={DP} style={{ height: '170px', borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }} />
+                            <p >Congrats {winner?.name}! You’re our lucky winner this month!</p>
+                        </div> :
+                        <div className={style.luckyWinnerinner}>
+                            <div className={style.skeletonImage}></div>
+                            <div className={style.skeletonText}></div>
+                            <div></div>
+                        </div>
+                }
             </div>
             <Footer />
         </div>
