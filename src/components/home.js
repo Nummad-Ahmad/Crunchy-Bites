@@ -41,7 +41,7 @@ export default function Home() {
         }).then(res => {
             console.log("Yes")
         }).catch(err => {
-            console.log('err', err);
+            console.log('err', err.response.data);
         })
     }, []);
     useEffect(() => {
