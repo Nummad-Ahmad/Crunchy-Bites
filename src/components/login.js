@@ -24,7 +24,7 @@ export default function Login() {
       const valid = emailRegex.test(email);
       if (valid && password.length > 7) {
         setLoading(true);
-        axios.post(`${process.env.REACT_APP_BACK_END}/login`, { email, password })
+        axios.post(`${process.env.REACT_APP_BACK_END}/login`, { email, password }, {withCredentials: true})
           .then(result => {
             console.log(result.data.user)
             const verified = result.data.user.isVerified;

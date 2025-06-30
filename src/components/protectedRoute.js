@@ -13,8 +13,9 @@ const ProtectedRoute = () => {
         }).then(res => {
             toast.dismiss(loadingToast);
             setAuthorized(true);
+            console.log("Yes")
         }).catch(err => {
-            console.log(err);
+            console.log('err', err);
             toast.dismiss(loadingToast);
             setAuthorized(false);
         })
