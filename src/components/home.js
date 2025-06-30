@@ -40,6 +40,7 @@ export default function Home() {
             withCredentials: true
         }).then(res => {
             console.log("Yes")
+            console.log('res', res.data);
         }).catch(err => {
             console.log('err', err.response.data);
         })
