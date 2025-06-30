@@ -7,13 +7,18 @@ import Cookies from 'js-cookie';
 import { IoSettingsOutline } from "react-icons/io5";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 export default function Navbar() {
     const today = new Date();
     const day = today.getDate();
 
     const [winner, setWinner] = useState({});
-    const user = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null;
+    const user = useSelector(state => {
+        const email = state.user?.email;
+        return email === '' ? null : email;
+    });
+    console.log(user);
     const navigate = useNavigate();
     function getWinner() {
         axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
