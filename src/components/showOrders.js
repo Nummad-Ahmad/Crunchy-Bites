@@ -7,18 +7,23 @@ export default function ShowOrders() {
     const [records, setRecords] = useState([]);
     useEffect(() => {
         const fetchOrders = () => {
-            axios.get(`${process.env.REACT_APP_BACK_END}/showorders`)
+            axios.get(`${process.env.REACT_APP_BACK_END}/showorders`, {
+                withCredentials: true // ✅ REQUIRED to send JWT cookie
+            })
                 .then(res => {
                     console.log(res.data.data);
                     if (res.status === 200) {
                         setRecords(res.data.data.sort((a, b) => {
                             const [ah, am] = a.time.split(":").map(Number);
                             const [bh, bm] = b.time.split(":").map(Number);
-                            return (bh * 60 + bm) - (ah * 60 + am);
+                            return (bh * 60 + bm) - (ah * 60 + am); // Newest first
                         }));
                     }
                 })
-                .catch(e => console.log(e));
+                .catch(e => {
+                    console.error("Error fetching today's orders:", e);
+                });
+
         };
 
         fetchOrders();

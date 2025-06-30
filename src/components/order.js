@@ -63,20 +63,29 @@ export default function Order() {
         if (calculateTotal() > 0) {
             isOrdering(true);
             const loadingToast = toast.loading("Ordering ...");
-            axios.post(`${process.env.REACT_APP_BACK_END}/order`, { items: inputValues, email: user.email, date: formattedDate, price: calculateTotal(), time: `${hours}:${minutes}:${seconds}` })
+            axios.post(`${process.env.REACT_APP_BACK_END}/order`, {
+                items: inputValues,
+                date: formattedDate,
+                price: calculateTotal(),
+                time: `${hours}:${minutes}:${seconds}`
+            }, {
+                withCredentials: true // ✅ make sure this is present so the cookie is sent
+            })
                 .then(res => {
-                    if (res.status == 201) {
-                        toast.dismiss(loadingToast); 
+                    if (res.status === 201) {
+                        toast.dismiss(loadingToast);
                         toast.success(res.data.message);
                         console.log(res);
-                        isOrdering(false)
+                        isOrdering(false);
                     }
-                }).catch(e => {
-                    toast.dismiss(loadingToast);
-                    toast.error("An error occured");
-                    console.log(e);
-                    isOrdering(false)
                 })
+                .catch(e => {
+                    toast.dismiss(loadingToast);
+                    toast.error("An error occurred");
+                    console.log(e);
+                    isOrdering(false);
+                });
+
         } else {
             toast.error('Add items first');
         }
@@ -127,7 +136,7 @@ export default function Order() {
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 1 });
                 dispatch(setCheesyFries(prevValue - 1));
-                
+
             }
         } else if (name == 'lemonade') {
             var prevValue = inputValues.lemonade;
@@ -282,7 +291,7 @@ export default function Order() {
                     )
                 }
                 {
-                    (month > 10  || month < 3) &&
+                    (month > 10 || month < 3) &&
                     (
                         isLoaded ?
                             <div className={style.foodbox}>

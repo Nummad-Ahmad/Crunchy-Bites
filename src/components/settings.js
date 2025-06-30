@@ -19,7 +19,7 @@ export default function Settings() {
         if (data) {
             try {
                 const parsedData = JSON.parse(data.text);
-                if (typeof(parsedData) !== "object" || parsedData === null || !parsedData.email || !parsedData.verificationCode) {
+                if (typeof (parsedData) !== "object" || parsedData === null || !parsedData.email || !parsedData.verificationCode) {
                     toast.error("Invalid QR Code. Please scan a valid one.");
                     setChecked(false);
                     return;
@@ -48,8 +48,9 @@ export default function Settings() {
                 const loadingToast = toast.loading("Verifying. Please wait");
 
                 axios.post(`${process.env.REACT_APP_BACK_END}/updatewinner`, {
-                    email: parsedData.email,
-                    verificationCode: String(parsedData.verificationCode) 
+                    verificationCode: String(parsedData.verificationCode)
+                }, {
+                    withCredentials: true // ✅ required for sending JWT cookie
                 })
                     .then(res => {
                         toast.dismiss(loadingToast);
@@ -80,6 +81,7 @@ export default function Settings() {
                             toast.error("An unexpected error occurred.");
                         }
                     });
+
                 setChecked(false);
             } catch (error) {
                 toast.error("Invalid QR Code format. Please scan a valid one.");
@@ -142,7 +144,7 @@ export default function Settings() {
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 10 });
             }
-        }else if (name == 'chocoMilk') {
+        } else if (name == 'chocoMilk') {
             var prevValue = inputValues.chocoMilk;
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 10 });
@@ -151,17 +153,22 @@ export default function Settings() {
     };
     function updatePrice(name, price) {
         const loadingToast = toast.loading("Updating ...");
-        axios.post(`${process.env.REACT_APP_BACK_END}/updateitem`, { name, price })
+        axios.post(`${process.env.REACT_APP_BACK_END}/updateitem`,
+            { name, price },
+            { withCredentials: true } // ✅ Send cookies (JWT)
+        )
             .then(res => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     toast.dismiss(loadingToast);
                     toast.success("Updated successfully");
                 }
-            }).catch(e => {
+            })
+            .catch(e => {
                 toast.dismiss(loadingToast);
                 toast.error("An error occurred");
                 console.log(e);
-            })
+            });
+
     }
     function getData() {
         axios.get(`${process.env.REACT_APP_BACK_END}/itemdata`)
@@ -232,36 +239,36 @@ export default function Settings() {
                 {
                     month < 10 && month > 3 &&
                     <div className={style.foodbox}>
-                    <img src={Lemonade} className={style.foodimg} />
-                    <p className={style.itemname}>Lemonade</p>
-                    <p className={style.itemdesc}>Refreshingly sweet and tangy lemonade, bursting with fresh citrus flavor in every sip. Perfect for battling the summer heat.</p>
-                    <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <p style={{ fontWeight: 'bold', color: "rgb(240, 99, 49)" }}>Price</p>
-                        <div style={{ display: 'flex', gap: '20px', alignItems: 'center', color: 'white' }}>
-                            <p style={{ cursor: 'pointer' }} onClick={() => decrement("lemonade")}>-</p>
-                            <p style={{ fontWeight: 'bold' }}>{inputValues.lemonade}</p>
-                            <p style={{ cursor: 'pointer' }} onClick={() => increment("lemonade")}>+</p>
+                        <img src={Lemonade} className={style.foodimg} />
+                        <p className={style.itemname}>Lemonade</p>
+                        <p className={style.itemdesc}>Refreshingly sweet and tangy lemonade, bursting with fresh citrus flavor in every sip. Perfect for battling the summer heat.</p>
+                        <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <p style={{ fontWeight: 'bold', color: "rgb(240, 99, 49)" }}>Price</p>
+                            <div style={{ display: 'flex', gap: '20px', alignItems: 'center', color: 'white' }}>
+                                <p style={{ cursor: 'pointer' }} onClick={() => decrement("lemonade")}>-</p>
+                                <p style={{ fontWeight: 'bold' }}>{inputValues.lemonade}</p>
+                                <p style={{ cursor: 'pointer' }} onClick={() => increment("lemonade")}>+</p>
+                            </div>
                         </div>
+                        <button onClick={() => updatePrice('lemonade', inputValues.lemonade)} className={style.btn}>Change</button>
                     </div>
-                    <button onClick={() => updatePrice('lemonade', inputValues.lemonade)} className={style.btn}>Change</button>
-                </div>
                 }
                 {
                     (month > 10 || month < 3) &&
                     <div className={style.foodbox}>
-                    <img src={ChocoMilk} className={style.foodimg} />
-                    <p className={style.itemname}>Hot Choco Milk</p>
-                    <p className={style.itemdesc}>Rich and creamy hot chocolate milk, blending smooth cocoa with velvety warmth. Perfect for cozy moments and chilly days.</p>
-                    <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <p style={{ fontWeight: 'bold', color: "rgb(240, 99, 49)" }}>Price</p>
-                        <div style={{ display: 'flex', gap: '20px', alignItems: 'center', color: 'white' }}>
-                            <p style={{ cursor: 'pointer' }} onClick={() => decrement("chocoMilk")}>-</p>
-                            <p style={{ fontWeight: 'bold' }}>{inputValues.chocoMilk}</p>
-                            <p style={{ cursor: 'pointer' }} onClick={() => increment("chocoMilk")}>+</p>
+                        <img src={ChocoMilk} className={style.foodimg} />
+                        <p className={style.itemname}>Hot Choco Milk</p>
+                        <p className={style.itemdesc}>Rich and creamy hot chocolate milk, blending smooth cocoa with velvety warmth. Perfect for cozy moments and chilly days.</p>
+                        <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <p style={{ fontWeight: 'bold', color: "rgb(240, 99, 49)" }}>Price</p>
+                            <div style={{ display: 'flex', gap: '20px', alignItems: 'center', color: 'white' }}>
+                                <p style={{ cursor: 'pointer' }} onClick={() => decrement("chocoMilk")}>-</p>
+                                <p style={{ fontWeight: 'bold' }}>{inputValues.chocoMilk}</p>
+                                <p style={{ cursor: 'pointer' }} onClick={() => increment("chocoMilk")}>+</p>
+                            </div>
                         </div>
+                        <button onClick={() => updatePrice('chocoMilk', inputValues.chocoMilk)} className={style.btn}>Change</button>
                     </div>
-                    <button onClick={() => updatePrice('chocoMilk', inputValues.chocoMilk)} className={style.btn}>Change</button>
-                </div>
                 }
             </div>
 

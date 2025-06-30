@@ -20,17 +20,20 @@ export default function Notifications() {
     }
     var totalCounts;
     var mostOrderedItem = [];
-    function getData(email) {
-        axios.get(`${process.env.REACT_APP_BACK_END}/data?email=${email}&date=${formattedDate}`)
-            .then(res => {
-                if (res.status == 200) {
-                    setHistoryData(sortByDateDescending(res.data.data));
-                }
-            })
-            .catch(e => {
-                console.log(e);
-            })
-    }
+    function getData() {
+    axios.get(`${process.env.REACT_APP_BACK_END}/data?date=${formattedDate}`, {
+        withCredentials: true // ✅ send the cookie for authentication
+    })
+    .then(res => {
+        if (res.status === 200) {
+            setHistoryData(sortByDateDescending(res.data.data));
+        }
+    })
+    .catch(e => {
+        console.log(e);
+    });
+}
+
     function getOrderedItems(item) {
         var orderedItems = "";
         if (item.items.samosa > 0) {
@@ -94,7 +97,7 @@ export default function Notifications() {
     }
     useEffect(() => {
         if (user) {
-            getData(user.email);
+            getData();
         }
     }, []);
     totalCounts = historyData.reduce((acc, order) => {

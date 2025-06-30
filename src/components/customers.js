@@ -7,32 +7,36 @@ export default function Customers() {
     const [userData, setUserData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 10;
-    const lastIndex = currentPage * recordsPerPage ;
-    const firstIndex = lastIndex - recordsPerPage; 
+    const lastIndex = currentPage * recordsPerPage;
+    const firstIndex = lastIndex - recordsPerPage;
     const records = userData.slice(firstIndex, lastIndex + 1) || [];
     const nPage = Math.ceil(userData.length / recordsPerPage);
     const totalPages = [...Array(nPage + 1).keys()].slice(1) || [];
     console.log(totalPages);
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_BACK_END}/customerdata`).
-            then(res => {
-                if (res.status == 200) {
+        axios.get(`${process.env.REACT_APP_BACK_END}/customerdata`, {
+            withCredentials: true
+        })
+            .then(res => {
+                if (res.status === 200) {
                     setUserData(res.data.data);
                 }
-            }).catch(e => {
-                console.log(e);
+            })
+            .catch(e => {
+                console.error("Error fetching customer data:", e);
             });
+
     }, []);
-    function prevPage(){
-        if(currentPage !== 1){
+    function prevPage() {
+        if (currentPage !== 1) {
             setCurrentPage(currentPage - 1);
         }
     }
-    function cheangePage(page){
+    function cheangePage(page) {
         setCurrentPage(page);
     }
-    function nextPage(){
-        if(currentPage !== nPage){
+    function nextPage() {
+        if (currentPage !== nPage) {
             setCurrentPage(currentPage + 1);
         }
     }
@@ -52,7 +56,7 @@ export default function Customers() {
                         records &&
                         records.map((item, index) => {
                             return (
-                            item.email != "nummad222@gmail.com" &&
+                                item.email != "nummad222@gmail.com" &&
                                 <div className={style.data}>
                                     <p className={style.name}>{item.name}</p>
                                     <p className={style.email}>{item.email.slice(0, 20)}</p>
@@ -84,17 +88,17 @@ export default function Customers() {
                 </div>
                 <div className={style.paginationdata}>
                     <p>
-                    Showing {currentPage == nPage ? userData.length - 1 : lastIndex - 1} of {userData?.length - 1
-                    } records
+                        Showing {currentPage == nPage ? userData.length - 1 : lastIndex - 1} of {userData?.length - 1
+                        } records
                     </p>
-                    <div style={{color: 'white', display: 'flex', alignItems: 'center', gap: '15px' }}>
-                    <p onClick={prevPage} className={style.inactiveButton}>Prev</p>
+                    <div style={{ color: 'white', display: 'flex', alignItems: 'center', gap: '15px' }}>
+                        <p onClick={prevPage} className={style.inactiveButton}>Prev</p>
                         {
-                            totalPages.map((item, index)=>{
-                                return(
-                                <p onClick={()=> cheangePage(item)} className={currentPage == item ? style.activeButton : style.inactiveButton} key={index}>
-                                    {item}
-                                </p>
+                            totalPages.map((item, index) => {
+                                return (
+                                    <p onClick={() => cheangePage(item)} className={currentPage == item ? style.activeButton : style.inactiveButton} key={index}>
+                                        {item}
+                                    </p>
                                 )
                             })
                         }

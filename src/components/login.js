@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import Cookies from 'js-cookie';
 import { IoClose } from "react-icons/io5";
 import Logo from '../images/logo.png';
+import { useDispatch } from 'react-redux';
+import { userLoggedIn } from '../redux/userSlice';
 export default function Login() {
   const [email, setEmail] = useState("");
   const [verify, setVerify] = useState(false);
@@ -15,6 +16,7 @@ export default function Login() {
   const [showVerification, setShowVerification] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   function handleLogin(e) {
     e.preventDefault();
     if (email && password) {
@@ -24,10 +26,11 @@ export default function Login() {
         setLoading(true);
         axios.post(`${process.env.REACT_APP_BACK_END}/login`, { email, password })
           .then(result => {
-            Cookies.set('user', JSON.stringify(result.data.user), { expires: 3650 });
+            console.log(result.data.user)
             const verified = result.data.user.isVerified;
             if (verified) {
               toast.success('Login successful');
+              dispatch(userLoggedIn());
               navigate('/', { replace: true });
             } else {
               toast.success('Verify your account to get started');
@@ -49,15 +52,20 @@ export default function Login() {
       toast.error('Fill all fields');
     }
   }
+
   function handleVerification(e) {
     if (verificationCode.trim().length === 6) {
       setVerify(true);
-      console.log('Verification Code:', verificationCode);
-      axios.post(`${process.env.REACT_APP_BACK_END}/verify`, { email, verificationCode })
+      axios.post(
+        `${process.env.REACT_APP_BACK_END}/verify`,
+        { email, verificationCode },
+        { withCredentials: true } // ✅ Include the HttpOnly JWT cookie
+      )
         .then((response) => {
           if (response.status === 200) {
             toast.success(response.data.message || 'Account verified successfully');
             setShowVerification(false);
+            dispatch(userLoggedIn());
             navigate('/', { replace: true });
           }
         })
@@ -75,7 +83,6 @@ export default function Login() {
                 toast.error('Something went wrong. Please try again.');
             }
           } else {
-            setVerify(false);
             toast.error('Unable to connect to the server. Please check your network.');
           }
           console.error('Verification error:', error);
@@ -84,6 +91,7 @@ export default function Login() {
       toast.error('Enter a valid 6-digit code');
     }
   }
+
   return (
     <>
       <div className={style.login}>
@@ -93,8 +101,8 @@ export default function Login() {
         </div>
         <div className={style.formarea}>
           <div className={style.formcontainer}>
-          <img src={Logo} height={150}/>
-            <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '0px 0px', marginBottom: '10px'}}>Login</p>
+            <img src={Logo} height={150} />
+            <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '0px 0px', marginBottom: '10px' }}>Login</p>
             <input placeholder='Email' onChange={(e) => { setEmail(e.target.value) }} className={style.input} />
             <input type='password' placeholder='Password' onChange={(e) => setPassword(e.target.value)} className={style.input} />
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
