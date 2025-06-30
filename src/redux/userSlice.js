@@ -4,23 +4,19 @@ const userSlice = createSlice({
     name: 'user',
     initialState: {
         loggedIn: false,
-        isAdmin: false,
+        email: '',
     },
     reducers: {
         userLoggedIn: (state, action)=>{
             state.loggedIn = true;
+            state.email = action.payload;
         },
         userLoggedOut:  (state, action)=>{
             state.loggedIn = false;
+            state.email = '';
         },
-        setAdmin: (state, action)=>{
-            state.isAdmin = true;
-        },
-        unsetAdmin: (state, action)=>{
-            state.isAdmin = false;
-        }
     }
 })
 
-  export const { userLoggedIn, userLoggedOut, setAdmin, unsetAdmin } = userSlice.actions;
+  export const { userLoggedIn, userLoggedOut } = userSlice.actions;
   export default userSlice.reducer;

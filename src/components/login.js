@@ -26,11 +26,10 @@ export default function Login() {
         setLoading(true);
         axios.post(`${process.env.REACT_APP_BACK_END}/login`, { email, password }, {withCredentials: true})
           .then(result => {
-            console.log(result.data.user)
             const verified = result.data.user.isVerified;
             if (verified) {
               toast.success('Login successful');
-              dispatch(userLoggedIn());
+              dispatch(userLoggedIn(result.data.user.email));
               navigate('/', { replace: true });
             } else {
               toast.success('Verify your account to get started');
