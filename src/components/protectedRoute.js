@@ -22,7 +22,8 @@ const ProtectedRoute = () => {
         })
     }, []);
     
-    return authorized ? <Outlet /> : <Navigate to="/login" replace />;
+return authorized === null ? null : authorized ? <Outlet /> : <Navigate to="/login" replace />;
+
 };
 
 export default ProtectedRoute;
