@@ -7,6 +7,7 @@ const ProtectedRoute = () => {
     const [authorized, setAuthorized] = useState(null);
 
     useEffect(() => {
+        console.log("RES")
         const loadingToast = toast.loading("Verifing ...");
         axios.get(`${process.env.REACT_APP_BACK_END}/verify-token`, {
             withCredentials: true
@@ -20,7 +21,7 @@ const ProtectedRoute = () => {
             setAuthorized(false);
         })
     }, []);
-
+    
     return authorized ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
