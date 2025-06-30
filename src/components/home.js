@@ -35,6 +35,15 @@ export default function Home() {
                     console.log(e);
                 })
     }
+    useEffect(()=>{
+        axios.get(`${process.env.REACT_APP_BACK_END}/verify-token`, {
+            withCredentials: true
+        }).then(res => {
+            console.log("Yes")
+        }).catch(err => {
+            console.log('err', err);
+        })
+    }, []);
     useEffect(() => {
         getWinner();
         const interval = setInterval(() => {
