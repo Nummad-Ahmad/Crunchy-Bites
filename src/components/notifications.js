@@ -4,10 +4,11 @@ import Navbar from './navbar';
 import { FaRegEnvelope } from "react-icons/fa";
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 const moment = require('moment');
 
 export default function Notifications() {
-    const user = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null;
+    const user = useSelector(state => state.user.email);
     const [winner, setWinner] = useState({});
     const [historyData, setHistoryData] = useState([]);
     const date = new Date().toISOString();
@@ -158,7 +159,7 @@ export default function Notifications() {
             <div className={style.notificationscontainer}>
                 {
                     winner &&
-                    winner.email == user.email && (day == 1 || day == 2 || day == 3) &&
+                    winner.email == user && (day == 1 || day == 2 || day == 3) &&
                     <div className={style.notification}>
                         <FaRegEnvelope color="rgb(240, 99, 49)" />
                         <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -186,7 +187,7 @@ export default function Notifications() {
                         })
                     ) : (
                         winner &&
-                        winner.email != user.email && (day != 1 || day != 2 || day != 3) &&
+                        winner.email != user && (day != 1 || day != 2 || day != 3) &&
                         <div className={style.notification}>
                             <FaRegEnvelope color="rgb(240, 99, 49)" />
                             <p>No notifications</p>
