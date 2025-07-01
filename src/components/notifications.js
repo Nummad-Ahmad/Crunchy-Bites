@@ -2,7 +2,6 @@ import axios from 'axios';
 import style from '../styles/notifications.module.css';
 import Navbar from './navbar';
 import { FaRegEnvelope } from "react-icons/fa";
-import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 const moment = require('moment');
@@ -97,11 +96,11 @@ export default function Notifications() {
                 console.log(e);
             })
     }
-    useEffect(() => {
-        if (user) {
-            getData();
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (user) {
+    //         getData();
+    //     }
+    // }, []);
     totalCounts = historyData.reduce((acc, order) => {
         for (const [item, count] of Object.entries(order.items)) {
             acc[item] = (acc[item] || 0) + count;
