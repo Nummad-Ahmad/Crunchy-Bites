@@ -19,6 +19,7 @@ export default function Customers() {
         })
             .then(res => {
                 if (res.status === 200) {
+                    console.log(res.data.data)
                     setUserData(res.data.data);
                 }
             })
