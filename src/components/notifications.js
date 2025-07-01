@@ -23,7 +23,7 @@ export default function Notifications() {
     var mostOrderedItem = [];
     function getData() {
     axios.get(`${process.env.REACT_APP_BACK_END}/data?date=${formattedDate}`, {
-        withCredentials: true // ✅ send the cookie for authentication
+        withCredentials: true 
     })
     .then(res => {
         if (res.status === 200) {

@@ -6,17 +6,15 @@ import Samosa from '../images/samosa.jpg';
 import Lemonade from '../images/lemonade.jpg';
 import ChocoMilk from '../images/choco.jpg';
 import Navbar from './navbar';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCheesyFries, setChocoMilk, setFries, setLemonade, setRoll, setSamosa } from '../redux/slice';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 export default function Order() {
     const [dayName, setDayName] = useState("");
     useEffect(() => {
-        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         const today = new Date();
         const localDay = new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'Asia/Karachi' }).format(today);
         setDayName(localDay);
@@ -26,7 +24,6 @@ export default function Order() {
     }, []);
     const [isLoaded, setLoaded] = useState(false);
     const [ordering, isOrdering] = useState(false);
-    const user = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null;
     const dispatch = useDispatch();
     const date = new Date().toISOString();
     const formattedDate = date.split("T")[0];
@@ -75,7 +72,6 @@ export default function Order() {
                     if (res.status === 201) {
                         toast.dismiss(loadingToast);
                         toast.success(res.data.message);
-                        console.log(res);
                         isOrdering(false);
                     }
                 })
