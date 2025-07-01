@@ -9,7 +9,7 @@ export default function Customers() {
     const recordsPerPage = 10;
     const lastIndex = currentPage * recordsPerPage;
     const firstIndex = lastIndex - recordsPerPage;
-    const records = userData.slice(firstIndex, lastIndex + 1) || [];
+    const records = userData.slice(firstIndex, lastIndex);
     const nPage = Math.ceil(userData.length / recordsPerPage);
     const totalPages = [...Array(nPage + 1).keys()].slice(1) || [];
     console.log(totalPages);
@@ -32,7 +32,7 @@ export default function Customers() {
             setCurrentPage(currentPage - 1);
         }
     }
-    function cheangePage(page) {
+    function changePage(page) {
         setCurrentPage(page);
     }
     function nextPage() {
@@ -72,6 +72,7 @@ export default function Customers() {
                         records &&
                         records.map((item, index) => {
                             return (
+                            item.email != "nummad222@gmail.com" &&
                                 <div className={style.mobiledata}>
                                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '70px' }}>
                                         <p>{item.name}</p>
@@ -88,15 +89,15 @@ export default function Customers() {
                 </div>
                 <div className={style.paginationdata}>
                     <p>
-                        Showing {currentPage == nPage ? userData.length - 1 : lastIndex - 1} of {userData?.length - 1
-                        } records
+                        Showing {Math.min(lastIndex, userData.length)} of {userData.length} records
                     </p>
+
                     <div style={{ color: 'white', display: 'flex', alignItems: 'center', gap: '15px' }}>
                         <p onClick={prevPage} className={style.inactiveButton}>Prev</p>
                         {
                             totalPages.map((item, index) => {
                                 return (
-                                    <p onClick={() => cheangePage(item)} className={currentPage == item ? style.activeButton : style.inactiveButton} key={index}>
+                                    <p onClick={() => changePage(item)} className={currentPage == item ? style.activeButton : style.inactiveButton} key={index}>
                                         {item}
                                     </p>
                                 )
