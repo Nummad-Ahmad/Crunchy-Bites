@@ -58,7 +58,7 @@ export default function Login() {
       axios.post(
         `${process.env.REACT_APP_BACK_END}/verify`,
         { email, verificationCode },
-        { withCredentials: true } // ✅ Include the HttpOnly JWT cookie
+        { withCredentials: true } 
       )
         .then((response) => {
           if (response.status === 200) {

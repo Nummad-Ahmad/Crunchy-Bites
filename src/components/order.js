@@ -66,7 +66,7 @@ export default function Order() {
                 price: calculateTotal(),
                 time: `${hours}:${minutes}:${seconds}`
             }, {
-                withCredentials: true // ✅ make sure this is present so the cookie is sent
+                withCredentials: true //  make sure this is present so the cookie is sent
             })
                 .then(res => {
                     if (res.status === 201) {

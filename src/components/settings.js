@@ -50,7 +50,7 @@ export default function Settings() {
                     verificationCode: String(parsedData.verificationCode),
                     winnerEmail: parsedData.email
                 }, {
-                    withCredentials: true // ✅ required for sending JWT cookie
+                    withCredentials: true //  required for sending JWT cookie
                 })
                     .then(res => {
                         toast.dismiss(loadingToast);
@@ -155,7 +155,7 @@ export default function Settings() {
         const loadingToast = toast.loading("Updating ...");
         axios.post(`${process.env.REACT_APP_BACK_END}/updateitem`,
             { name, price },
-            { withCredentials: true } // ✅ Send cookies (JWT)
+            { withCredentials: true } //  Send cookies (JWT)
         )
             .then(res => {
                 if (res.status === 200) {

@@ -8,7 +8,7 @@ export default function ShowOrders() {
     useEffect(() => {
         const fetchOrders = () => {
             axios.get(`${process.env.REACT_APP_BACK_END}/showorders`, {
-                withCredentials: true // ✅ REQUIRED to send JWT cookie
+                withCredentials: true //  REQUIRED to send JWT cookie
             })
                 .then(res => {
                     console.log(res.data.data);
