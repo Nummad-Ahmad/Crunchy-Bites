@@ -9,6 +9,7 @@ const moment = require('moment');
 
 export default function Notifications() {
     const user = useSelector(state => state.user.email);
+    const wins = useSelector(state => state.user.wins);
     const [winner, setWinner] = useState({});
     const [historyData, setHistoryData] = useState([]);
     const date = new Date().toISOString();
@@ -148,7 +149,7 @@ export default function Notifications() {
             <div className={style.uprDiv}>
                 <div className={style.dataDiv}>
                     <p>Prizes won</p>
-                    <p>{user.wins}</p>
+                    <p>{wins}</p>
                 </div>
                 <div className={style.dataDiv}>
                     <p>Next lucky draw</p>

@@ -29,7 +29,7 @@ export default function Login() {
             const verified = result.data.user.isVerified;
             if (verified) {
               toast.success('Login successful');
-              dispatch(userLoggedIn(result.data.user.email));
+              dispatch(userLoggedIn({email : result.data.user.email, wins : result.data.user.wins}));
               navigate('/', { replace: true });
             } else {
               toast.success('Verify your account to get started');
