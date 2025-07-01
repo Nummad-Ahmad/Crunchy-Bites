@@ -39,7 +39,6 @@ export default function Home() {
         axios.get(`${process.env.REACT_APP_BACK_END}/verify-token`, {
             withCredentials: true
         }).then(res => {
-            console.log("Yes")
             console.log('res', res.data);
         }).catch(err => {
             console.log('err', err.response.data);

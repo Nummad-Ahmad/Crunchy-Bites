@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 const moment = require('moment');
 
 export default function Notifications() {
-    const user = useSelector(state => state.user.email);
+    const email = useSelector(state => state.user.email);
     const wins = useSelector(state => state.user.wins);
     const [winner, setWinner] = useState({});
     const [historyData, setHistoryData] = useState([]);
@@ -96,11 +96,11 @@ export default function Notifications() {
                 console.log(e);
             })
     }
-    // useEffect(() => {
-    //     if (user) {
-    //         getData();
-    //     }
-    // }, []);
+    useEffect(() => {
+        if (email) {
+            getData();
+        }
+    }, [email]);
     totalCounts = historyData.reduce((acc, order) => {
         for (const [item, count] of Object.entries(order.items)) {
             acc[item] = (acc[item] || 0) + count;
@@ -160,7 +160,7 @@ export default function Notifications() {
             <div className={style.notificationscontainer}>
                 {
                     winner &&
-                    winner.email == user && (day == 1 || day == 2 || day == 3) &&
+                    winner.email == email && (day == 1 || day == 2 || day == 3) &&
                     <div className={style.notification}>
                         <FaRegEnvelope color="rgb(240, 99, 49)" />
                         <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -188,7 +188,7 @@ export default function Notifications() {
                         })
                     ) : (
                         winner &&
-                        winner.email != user && (day != 1 || day != 2 || day != 3) &&
+                        winner.email != email && (day != 1 || day != 2 || day != 3) &&
                         <div className={style.notification}>
                             <FaRegEnvelope color="rgb(240, 99, 49)" />
                             <p>No notifications</p>
