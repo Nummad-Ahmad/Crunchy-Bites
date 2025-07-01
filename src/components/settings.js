@@ -47,7 +47,8 @@ export default function Settings() {
                 const loadingToast = toast.loading("Verifying. Please wait");
 
                 axios.post(`${process.env.REACT_APP_BACK_END}/updatewinner`, {
-                    verificationCode: String(parsedData.verificationCode)
+                    verificationCode: String(parsedData.verificationCode),
+                    winnerEmail: parsedData.email
                 }, {
                     withCredentials: true // ✅ required for sending JWT cookie
                 })
