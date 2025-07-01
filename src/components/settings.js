@@ -14,7 +14,6 @@ import { BsQrCodeScan } from "react-icons/bs";
 
 export default function Settings() {
     const [check, setChecked] = useState(false);
-    const [updating, setUpdating] = useState(false);
     const handleScan = (data) => {
         if (data) {
             try {
