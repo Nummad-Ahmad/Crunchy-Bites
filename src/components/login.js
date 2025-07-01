@@ -23,7 +23,7 @@ export default function Login() {
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       const valid = emailRegex.test(email);
       if (valid && password.length > 7) {
-        setLoading(true);
+        setLoading(true); 
         axios.post(`${process.env.REACT_APP_BACK_END}/login`, { email, password }, {withCredentials: true})
           .then(result => {
             const verified = result.data.user.isVerified;

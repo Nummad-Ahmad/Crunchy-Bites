@@ -14,11 +14,10 @@ export default function Navbar() {
     const day = today.getDate();
 
     const [winner, setWinner] = useState({});
-    const user = useSelector(state => {
+    const email = useSelector(state => {
         const email = state.user?.email;
         return email === '' ? null : email;
     });
-    console.log(user);
     const navigate = useNavigate();
     function getWinner() {
         axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
