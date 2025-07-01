@@ -265,7 +265,7 @@ export default function Order() {
                                 <p className={style.itemdesc}>Refreshingly sweet and tangy lemonade, bursting with fresh citrus flavor in every sip. Perfect for battling the summer heat.</p>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
                                     <p style={{ fontWeight: 'bold' }}>Price</p>
-                                    <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.lemonade - 10 : prices.lemonade} Rs</p>
+                                    <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.lemonade - 15 : prices.lemonade} Rs</p>
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
                                     <p style={{ fontWeight: 'bold' }}>Quantity</p>
