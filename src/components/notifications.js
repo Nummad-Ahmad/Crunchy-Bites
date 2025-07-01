@@ -116,6 +116,7 @@ export default function Notifications() {
         return `1 ${nextMonth}`;
     }
     useEffect(() => {
+        console.log("nptofo")
         getWinner();
     }, []);
     historyData.sort((a, b) => {
