@@ -64,6 +64,8 @@ export default function Home() {
     return (
         <div className={style.home}>
             <Navbar />
+            <a href="https://wa.me/923006510748" target="_blank">0300-6510748</a>
+
             <img src={images[index]} height='100%' width="100%" />
             <p className={style.tagline}>Best Taste & Quality</p>
             <div className={style.foodboxcontainer}>
