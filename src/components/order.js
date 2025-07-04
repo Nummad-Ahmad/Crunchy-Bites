@@ -53,10 +53,10 @@ export default function Order() {
     }
 
     function sendOrder() {
-        if (hours > 17 || hours < 9) {
-            toast.error("Order can only be placed between 9am to 5pm");
-            return;
-        }
+        // if (hours > 17 || hours < 9) {
+        //     toast.error("Order can only be placed between 9am to 5pm");
+        //     return;
+        // }
         if (calculateTotal() > 0) {
             isOrdering(true);
             const loadingToast = toast.loading("Ordering ...");
