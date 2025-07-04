@@ -71,7 +71,7 @@ export default function Order() {
                 .then(res => {
                     if (res.status === 201) {
                         toast.dismiss(loadingToast);
-                        console.log(res.data.orderNumber)
+                        console.log(res.data)
                         toast.success(`Order number is ${res.data.orderNumber}`);
                         isOrdering(false);
                     }
