@@ -75,7 +75,7 @@
     justify-content: center;
     background-color: rgb(37, 37, 37);
 }
-@media(max-width: 800px){
+@media(max-width: 820px){
     .customerscontainer{
         margin: 10px 30px;
     }
@@ -84,8 +84,9 @@
     }
     .mobiledata{
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-        padding: 10px;
+        padding: 0px 10px;
         box-sizing: border-box;
         border: 1px solid rgb(60, 60, 60);
     }
