@@ -8,7 +8,7 @@ export default function ShowOrders() {
     useEffect(() => {
         const fetchOrders = () => {
             axios.get(`${process.env.REACT_APP_BACK_END}/showorders`, {
-                withCredentials: true //  REQUIRED to send JWT cookie
+                withCredentials: true 
             })
                 .then(res => {
                     console.log(res.data.data);
@@ -16,7 +16,7 @@ export default function ShowOrders() {
                         setRecords(res.data.data.sort((a, b) => {
                             const [ah, am] = a.time.split(":").map(Number);
                             const [bh, bm] = b.time.split(":").map(Number);
-                            return (bh * 60 + bm) - (ah * 60 + am); // Newest first
+                            return (bh * 60 + bm) - (ah * 60 + am); 
                         }));
                     }
                 })
@@ -60,7 +60,7 @@ export default function ShowOrders() {
                         <p className={style.email}>Email</p>
                         <p className={style.name}>Items</p>
                         <p className={style.totalorders}>Price</p>
-                        <p className={style.money}>Date</p>
+                        <p className={style.money}>Order number</p>
                     </div>
                     {
                         records &&
@@ -77,7 +77,7 @@ export default function ShowOrders() {
                                     </p>
 
                                     <p className={style.totalorders}>{item.price}</p>
-                                    <p className={style.money}>{item.date.split("T")[0]}</p>
+                                    <p className={style.money}>{item.orderNumber}</p>
                                 </div>
                             );
                         })
@@ -98,6 +98,7 @@ export default function ShowOrders() {
                                     </div>
                                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '70px' }}>
                                         <p>{item.price} Rs</p>
+                                        <p>{item.orderNumber}</p>
                                     </div>
                                 </div>
                             )
