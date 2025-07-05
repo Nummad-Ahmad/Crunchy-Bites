@@ -148,7 +148,7 @@ export default function Home() {
             <div className={style.faqoutercontainer}>
                 <div onClick={() => changeIndex(1)} style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                        <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>What are the snack ordering hours?</p>
+                        <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>How onlne payments can be made?</p>
                         <div style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
                                 openQuestion == 1 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
@@ -156,14 +156,14 @@ export default function Home() {
                         </div>
                     </div>
                     {
-                        openQuestion == 1 && <p>You can place your snack orders between 9:00 AM and 5:00 PM every day. Orders outside this window won’t be accepted.
+                        openQuestion == 1 && <p>After placing your order, note your total price and order number. Send the payment via JazzCash or EasyPaisa to 0300-0000000, then WhatsApp the payment receipt along with your order number to the same number.
 
                         </p>
                     }
                 </div>
                 <div onClick={() => changeIndex(2)} style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                        <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>How can I win the cash prize?</p>
+                        <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>How can I win the prize?</p>
                         <div style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
                                 openQuestion == 2 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
