@@ -53,10 +53,10 @@ export default function Order() {
     }
 
     function sendOrder() {
-        // if (hours > 17 || hours < 9) {
-        //     toast.error("Order can only be placed between 9am to 5pm");
-        //     return;
-        // }
+        if (hours > 17 || hours < 9) {
+            toast.error("Order can only be placed between 9am to 5pm");
+            return;
+        }
         if (calculateTotal() > 0) {
             isOrdering(true);
             const loadingToast = toast.loading("Ordering ...");
@@ -66,7 +66,7 @@ export default function Order() {
                 price: calculateTotal(),
                 time: `${hours}:${minutes}:${seconds}`
             }, {
-                withCredentials: true //  make sure this is present so the cookie is sent
+                withCredentials: true 
             })
                 .then(res => {
                     if (res.status === 201) {
