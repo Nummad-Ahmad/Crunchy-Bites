@@ -89,14 +89,18 @@ export default function ShowOrders() {
                         records.map((item, index) => {
                             return (
                                 <div className={style.mobiledata}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '70px' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                                         <p>{item.sender}</p>
+                                        
+                                    </div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
                                         <p>{Object.entries(item.items)
                                             .filter(([key, value]) => value > 0)
                                             .map(([key, value]) => `${value} ${changeKey(key)}`)
-                                            .join(', ')}</p>
+                                            .join(', ')}</p>                                        
                                     </div>
-                                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '70px' }}>
+                                    
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', height: '70px' }}>
                                         <p>{item.price} Rs</p>
                                         <p>{item.orderNumber}</p>
                                     </div>
