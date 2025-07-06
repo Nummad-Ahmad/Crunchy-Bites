@@ -148,7 +148,7 @@ export default function Home() {
             <div className={style.faqoutercontainer}>
                 <div onClick={() => changeIndex(1)} style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                        <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>How onlne payments can be made?</p>
+                        <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>How online payments can be made?</p>
                         <div style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
                                 openQuestion == 1 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
