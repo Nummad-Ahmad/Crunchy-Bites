@@ -60,9 +60,9 @@ export default function Notifications() {
         }
         if (item.items.cheesyFries > 0) {
             if (item.items.cheesyFries == 1) {
-                orderedItems += item.items.cheesyFries + " plate of Loaded Fries ";
+                orderedItems += item.items.cheesyFries + " plate of Cheesy Fries ";
             } else {
-                orderedItems += item.items.cheesyFries + " plates of Loaded Fries ";
+                orderedItems += item.items.cheesyFries + " plates of Cheesy Fries ";
             }
         }
         if (item.items.chocoMilk > 0) {
@@ -138,7 +138,7 @@ export default function Notifications() {
                         mostOrderedItem[0] == "" ?
                             "No data" : 
                             mostOrderedItem[0].toLowerCase() == 'cheesyfries' ?
-                            "Loaded fries" :
+                            "Cheesy fries" :
                             mostOrderedItem[0].toLowerCase() == 'chocoMilk' ?
                             "Choco Milk" :
                             mostOrderedItem[0].charAt(0).toUpperCase() + mostOrderedItem[0].slice(1)

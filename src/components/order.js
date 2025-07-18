@@ -204,7 +204,7 @@ export default function Order() {
                     isLoaded ?
                         <div className={style.foodbox}>
                             <img src={CheesyFries} className={style.foodimg} />
-                            <p className={style.itemname}>Loaded Fries</p>
+                            <p className={style.itemname}>Cheesy Fries</p>
                             <p className={style.itemdesc}>Our cheesy and crispy fries loaded with rich, melted cheese and creamy mayo. A perfect cheesy snack.</p>
                             <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
                                 <p style={{ fontWeight: 'bold' }}>Price</p>

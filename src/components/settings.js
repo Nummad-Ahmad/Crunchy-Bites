@@ -210,7 +210,7 @@ export default function Settings() {
                 </div>
                 <div className={style.foodbox}>
                     <img src={Cheesyfries} className={style.foodimg} />
-                    <p className={style.itemname}>Loaded fries</p>
+                    <p className={style.itemname}>Cheesy fries</p>
                     <p className={style.itemdesc}>Our cheesy and crispy fries loaded with rich, melted cheese and creamy mayo. A perfect blend of cheesy goodness.</p>
                     <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <p style={{ fontWeight: 'bold', color: "rgb(240, 99, 49)" }}>Price</p>

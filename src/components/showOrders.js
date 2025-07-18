@@ -38,7 +38,7 @@ const [records, setRecords] = useState([]);
         } else if (key == 'fries') {
             return "Fries";
         } else if (key == 'cheesyFries') {
-            return 'Loaded Fries';
+            return 'Cheesy Fries';
         } else if (key == 'chocoMilk') {
             return 'Choco Milk';
         } else {
