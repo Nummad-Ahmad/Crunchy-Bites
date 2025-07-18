@@ -321,7 +321,7 @@ export default function Order() {
             <div className={style.quantityandprice}>
                 <div className={style.price}>
                     <p>Total price</p>
-                    <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)', fontSize: '18px' }}>{calculateTotal()} Rs</p>
+                    <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)', fontSize: '18px' }}>{ getItems() > 0 ? calculateTotal() : 0} Rs</p>
                 </div>
                 <div className={style.quantity}>
                     <p>Total items</p>
