@@ -22,18 +22,18 @@ export default function Notifications() {
     var totalCounts;
     var mostOrderedItem = [];
     function getData() {
-    axios.get(`${process.env.REACT_APP_BACK_END}/data?date=${formattedDate}`, {
-        withCredentials: true 
-    })
-    .then(res => {
-        if (res.status === 200) {
-            setHistoryData(sortByDateDescending(res.data.data));
-        }
-    })
-    .catch(e => {
-        console.log(e);
-    });
-}
+        axios.get(`${process.env.REACT_APP_BACK_END}/data?date=${formattedDate}`, {
+            withCredentials: true
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    setHistoryData(sortByDateDescending(res.data.data));
+                }
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    }
 
     function getOrderedItems(item) {
         var orderedItems = "";
@@ -136,12 +136,12 @@ export default function Notifications() {
                     <p>Most ordered item </p>
                     <p>{
                         mostOrderedItem[0] == "" ?
-                            "No data" : 
+                            "No data" :
                             mostOrderedItem[0].toLowerCase() == 'cheesyfries' ?
-                            "Cheesy fries" :
-                            mostOrderedItem[0].toLowerCase() == 'chocoMilk' ?
-                            "Choco Milk" :
-                            mostOrderedItem[0].charAt(0).toUpperCase() + mostOrderedItem[0].slice(1)
+                                "Cheesy fries" :
+                                mostOrderedItem[0].toLowerCase() == 'chocoMilk' ?
+                                    "Choco Milk" :
+                                    mostOrderedItem[0].charAt(0).toUpperCase() + mostOrderedItem[0].slice(1)
                     }</p>
                 </div>
             </div>
@@ -187,7 +187,7 @@ export default function Notifications() {
                         })
                     ) : (
                         winner &&
-                        winner.email != email && (day != 1 || day != 2 || day != 3) &&
+                        winner.email != email && (![1, 2, 3].includes(day)) &&
                         <div className={style.notification}>
                             <FaRegEnvelope color="rgb(240, 99, 49)" />
                             <p>No notifications</p>
