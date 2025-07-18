@@ -48,7 +48,7 @@ export default function Order() {
         lemonade: 0
     });
     function calculateTotal() {
-        var sum = (dayName == "Friday" ? inputValues.samosa * prices.samosa-15 : inputValues.samosa * prices.samosa) + (dayName == "Friday" ? inputValues.fries * prices.fries-20 : inputValues.fries * prices.fries) + (dayName == "Friday" ? inputValues.cheesyFries * prices.cheesyFries-30 : inputValues.cheesyFries * prices.cheesyFries) + (dayName == "Friday" ? inputValues.lemonade * prices.lemonade-15 : inputValues.lemonade * prices.lemonade) + (dayName == "Friday" ? inputValues.chocoMilk * prices.chocoMilk-30 : inputValues.chocoMilk * prices.chocoMilk);
+        var sum = (dayName == "Friday" ? inputValues.samosa * (prices.samosa-15) : inputValues.samosa * prices.samosa) + (dayName == "Friday" ? inputValues.fries * (prices.fries-20) : inputValues.fries * prices.fries) + (dayName == "Friday" ? inputValues.cheesyFries * (prices.cheesyFries-30) : inputValues.cheesyFries * prices.cheesyFries) + (dayName == "Friday" ? inputValues.lemonade * (prices.lemonade-15) : inputValues.lemonade * prices.lemonade) + (dayName == "Friday" ? inputValues.chocoMilk * (prices.chocoMilk-30) : inputValues.chocoMilk * prices.chocoMilk);
         return sum;
     }
 
