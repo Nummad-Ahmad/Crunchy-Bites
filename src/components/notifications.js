@@ -171,7 +171,7 @@ export default function Notifications() {
                     </div>
                 }
                 {
-                    historyData && historyData.length > 0 ? (
+                    historyData.length > 0 ? (
                         historyData.map((item, index) => {
                             return (
                                 <div key={index} className={style.notification}>
