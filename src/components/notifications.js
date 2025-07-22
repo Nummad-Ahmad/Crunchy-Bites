@@ -26,11 +26,11 @@ export default function Notifications() {
             withCredentials: true
         })
             .then(res => {
-                sortByDateDescending(res.data.data)
-                console.log(res.data.data)
+                const sortedData = sortByDateDescending(res.data.data)
+                console.log(sortedData)
 
                 if (res.status === 200) {
-                    setHistoryData(sortByDateDescending(res.data.data));
+                    setHistoryData(sortedData);
                 }
             })
             .catch(e => {
