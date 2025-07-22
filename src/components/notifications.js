@@ -18,10 +18,10 @@ export default function Notifications() {
     const year = moment(date).format('YYYY');
     function padTime(timeStr) {
         const parts = timeStr.split(":");
-        const h = parts[0] || "00";
-        const m = parts[1] || "00";
-        const s = parts[2] || "00";
-        return `${h.padStart(2, "0")}:${m.padStart(2, "0")}:${s.padStart(2, "0")}`;
+        const h = parts[0]?.padStart(2, "0") || "00";
+        const m = parts[1]?.padStart(2, "0") || "00";
+        const s = parts[2]?.padStart(2, "0") || "00";
+        return `${h}:${m}:${s}`;
     }
 
     function sortByDateDescending(data) {
