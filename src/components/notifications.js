@@ -17,16 +17,18 @@ export default function Notifications() {
     const month = moment(date).format('MM');
     const year = moment(date).format('YYYY');
     function padTime(timeStr) {
-        return timeStr
-            .split(":")
-            .map(t => t.padStart(2, '0'))
-            .join(":");
+        const parts = timeStr.split(":");
+        const h = parts[0] || "00";
+        const m = parts[1] || "00";
+        const s = parts[2] || "00";
+        return `${h.padStart(2, "0")}:${m.padStart(2, "0")}:${s.padStart(2, "0")}`;
     }
+
     function sortByDateDescending(data) {
-        return data.sort((a, b) => {
+        return [...data].sort((a, b) => {
             const dateTimeA = new Date(`${a.date.split('T')[0]}T${padTime(a.time)}`);
             const dateTimeB = new Date(`${b.date.split('T')[0]}T${padTime(b.time)}`);
-            return dateTimeB - dateTimeA; 
+            return dateTimeB - dateTimeA;
         });
     }
     var totalCounts;
