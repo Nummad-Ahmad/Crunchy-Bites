@@ -16,8 +16,11 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 import { GoChevronDown, GoChevronUp } from "react-icons/go";
 import DP from "../images/dp.jpg";
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { userLoggedOut } from '../redux/userSlice';
 
 export default function Home() {
+    const dispatch = useDispatch();
     const [winner, setWinner] = useState({});
     const [openQuestion, setOpenQuestion] = useState('');
     const [index, setIndex] = useState(0);
@@ -41,6 +44,7 @@ export default function Home() {
         }).then(res => {
             console.log('res', res.data);
         }).catch(err => {
+            dispatch(userLoggedOut());
             console.log('err', err.response.data);
         })
     }, []);
