@@ -133,11 +133,6 @@ export default function Notifications() {
     useEffect(() => {
         getWinner();
     }, []);
-    historyData.sort((a, b) => {
-        const [ah, am, as] = a.time.split(":").map(Number);
-        const [bh, bm, bs] = b.time.split(":").map(Number);
-        return (bh * 3600 + bm * 60 + bs) - (ah * 3600 + am * 60 + as);
-    });
     return (
         <div className={style.notifications}>
             <Navbar />
