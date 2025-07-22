@@ -26,6 +26,7 @@ export default function Notifications() {
             withCredentials: true
         })
             .then(res => {
+                console.log(res.data.data)
                 if (res.status === 200) {
                     setHistoryData(sortByDateDescending(res.data.data));
                 }
