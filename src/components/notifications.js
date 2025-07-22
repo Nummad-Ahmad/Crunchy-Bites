@@ -16,8 +16,18 @@ export default function Notifications() {
     var day = moment(date).format('DD');
     const month = moment(date).format('MM');
     const year = moment(date).format('YYYY');
+    function padTime(timeStr) {
+        return timeStr
+            .split(":")
+            .map(t => t.padStart(2, '0'))
+            .join(":");
+    }
     function sortByDateDescending(data) {
-        return data.sort((a, b) => new Date(b.date) - new Date(a.date));
+        return data.sort((a, b) => {
+            const dateTimeA = new Date(`${a.date.split('T')[0]}T${padTime(a.time)}`);
+            const dateTimeB = new Date(`${b.date.split('T')[0]}T${padTime(b.time)}`);
+            return dateTimeB - dateTimeA; 
+        });
     }
     var totalCounts;
     var mostOrderedItem = [];
