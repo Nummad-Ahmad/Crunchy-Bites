@@ -17,7 +17,7 @@ import { GoChevronDown, GoChevronUp } from "react-icons/go";
 import DP from "../images/dp.jpg";
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { userLoggedOut } from '../redux/userSlice';
+import { userLoggedIn, userLoggedOut } from '../redux/userSlice';
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -42,7 +42,7 @@ export default function Home() {
         axios.get(`${process.env.REACT_APP_BACK_END}/verify-token`, {
             withCredentials: true
         }).then(res => {
-            dispatch(userLoggedIn({ email: result.data.user.email, wins: result.data.user.wins }));
+            dispatch(userLoggedIn({ email: res.data.user.email, wins: res.data.user.wins }));
             console.log('res', res.data);
         }).catch(err => {
             dispatch(userLoggedOut());
