@@ -275,6 +275,11 @@ export default function Settings() {
                         onError={handleError}
                         onScan={handleScan}
                         className={style.qrscanner}
+                        constraints={{
+                            video: {
+                                facingMode: { exact: "environment" } // ✅ Use back camera
+                            }
+                        }}
                     /> :
                     <div onClick={() => setChecked(true)} className={style.qrdiv}>
                         <BsQrCodeScan size={100} color='white' />
