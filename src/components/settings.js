@@ -40,10 +40,6 @@ export default function Settings() {
                     return;
                 }
 
-                console.log("Scanned Email:", parsedData.email);
-                console.log("Verification Code:", parsedData.verificationCode);
-
-                toast.success("Scanned successfully");
                 const loadingToast = toast.loading("Verifying. Please wait");
 
                 axios.post(`${process.env.REACT_APP_BACK_END}/updatewinner`, {
