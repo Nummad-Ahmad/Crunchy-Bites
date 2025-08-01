@@ -26,22 +26,23 @@ export default function Home() {
     const [index, setIndex] = useState(0);
     const images = [Fries1, Fries2, Fries3];
     function getWinner() {
-            axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
-                .then(res => {
-                    if (res.status == 200) {
-                        setWinner(res.data.winner);
-                    } else if (res.status == 404) {
-                        console.log(res.data);
-                    }
-                })
-                .catch(e => {
-                    console.log(e);
-                })
+        axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
+            .then(res => {
+                if (res.status == 200) {
+                    setWinner(res.data.winner);
+                } else if (res.status == 404) {
+                    console.log(res.data);
+                }
+            })
+            .catch(e => {
+                console.log(e);
+            })
     }
-    useEffect(()=>{
+    useEffect(() => {
         axios.get(`${process.env.REACT_APP_BACK_END}/verify-token`, {
             withCredentials: true
         }).then(res => {
+            dispatch(userLoggedIn({ email: result.data.user.email, wins: result.data.user.wins }));
             console.log('res', res.data);
         }).catch(err => {
             dispatch(userLoggedOut());
