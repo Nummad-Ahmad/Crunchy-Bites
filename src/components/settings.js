@@ -277,7 +277,7 @@ export default function Settings() {
                         className={style.qrscanner}
                         constraints={{
                             video: {
-                                facingMode: { exact: "environment" } // ✅ Use back camera
+                                facingMode: { ideal: "environment" } // ✅ Use back camera
                             }
                         }}
                     /> :
