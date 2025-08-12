@@ -161,7 +161,7 @@ export default function Home() {
                         </div>
                     </div>
                     {
-                        openQuestion == 1 && <p>After placing your order, note your total price and order number. Send the payment via JazzCash or EasyPaisa to 0300-0000000, then WhatsApp the payment receipt along with your order number to the same number.
+                        openQuestion == 1 && <p style={{fontSize: '16px'}}>After placing your order, note your total price and order number. Send the payment via JazzCash or EasyPaisa to 0300-0000000, then WhatsApp the payment receipt along with your order number to the same number.
 
                         </p>
                     }
@@ -176,7 +176,7 @@ export default function Home() {
                         </div>
                     </div>
                     {
-                        openQuestion == 2 && <p>Only the orders placed online will result in your participation in lucky draw. The more you order, the better your chances!</p>
+                        openQuestion == 2 && <p style={{fontSize: '16px'}}>Only the orders placed online will result in your participation in lucky draw. The more you order, the better your chances!</p>
                     }
                 </div>
                 <div onClick={() => changeIndex(3)} style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
@@ -190,7 +190,7 @@ export default function Home() {
                     </div>
 
                     {
-                        openQuestion == 3 && <p>The lucky draw takes place on the 1st of every month. Orders from the previous month are not counted to determine the winner.</p>
+                        openQuestion == 3 && <p style={{fontSize: '16px'}}>The lucky draw takes place on the 1st of every month. Orders from the previous month are not counted to determine the winner.</p>
                     }
                 </div>
                 <div onClick={() => changeIndex(4)} style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
@@ -204,7 +204,7 @@ export default function Home() {
                     </div>
 
                     {
-                        openQuestion == 4 && <p> The QR code in your winner's email will be scanned by our team for verification when you claim your prize. Make sure to keep it safe!</p>
+                        openQuestion == 4 && <p style={{fontSize: '16px'}}> The QR code in your winner's email will be scanned by our team for verification when you claim your prize. Make sure to keep it safe!</p>
                     }
                 </div>
                 <div onClick={() => changeIndex(5)} style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
@@ -218,7 +218,7 @@ export default function Home() {
                     </div>
 
                     {
-                        openQuestion == 5 && <p>No minimum order value is required. Every order counts, regardless of size.</p>
+                        openQuestion == 5 && <p style={{fontSize: '16px'}}>No minimum order value is required. Every order counts, regardless of size.</p>
                     }
                 </div>
                 <div onClick={() => changeIndex(6)} style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
@@ -232,7 +232,7 @@ export default function Home() {
                     </div>
 
                     {
-                        openQuestion == 6 && <p> The QR code sent to the winner is valid only until the next lucky draw (i.e., until the 1st of the next month).</p>
+                        openQuestion == 6 && <p style={{fontSize: '16px'}}> The QR code sent to the winner is valid only until the next lucky draw (i.e., until the 1st of the next month).</p>
                     }
                 </div>
             </div>
