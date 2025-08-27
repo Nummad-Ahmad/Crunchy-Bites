@@ -13,26 +13,22 @@ import ProtectedRoute2 from "./protectedRoute2";
 
 export default function App() {
     return (
-        <Routes>
-            <Route element={<PublicRoute />}>
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/forgotpassword" element={<Forgotpassword />} />
-            </Route>
-
-            <Route path="/" element={<Home />} />
-
-            <Route element={<ProtectedRoute />}>
-                <Route path="/order" element={<Order />} />
-                <Route path="/notifications" element={<Notifications />} />
-            </Route>
-
-            <Route element={<ProtectedRoute2 />}>
-                <Route path="/customers" element={<Customers />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/showorders" element={<ShowOrders />} />
-            </Route>
-        </Routes>
-
+        <Router>
+            <Routes>
+                <Route element={<Signup />} path="/signup" />
+                <Route element={<Login />} path="/login" />
+                <Route element={<Forgotpassword />} path="/forgotpassword" />
+                <Route element={<Home />} path="/" />
+                <Route element={<ProtectedRoute />}>
+                    <Route element={<Order />} path="/order" />
+                    <Route element={<Notifications />} path="/notifications" />
+                </Route>
+                <Route element={<ProtectedRoute2 />}>
+                    <Route element={<Customers />} path="/customers" />
+                    <Route element={<Settings />} path="/settings" />
+                    <Route element={<ShowOrders />} path="/showorders" />
+                </Route>
+            </Routes>
+        </Router>
     );
 }
