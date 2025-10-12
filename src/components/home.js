@@ -88,7 +88,7 @@ export default function Home() {
                     <p className={style.itemdesc}>Crispy and golden, our French fries are perfectly seasoned and fried to perfection. Light, crunchy and quick snack.</p>
                 </div>
                 {
-                    (month < 10 && month > 2) &&
+                    (month <= 10 && month > 2) &&
                     <div className={style.foodbox}>
                         <img src={Lemonade} className={style.foodimg} />
                         <p className={style.itemname}>Lemonade</p>
