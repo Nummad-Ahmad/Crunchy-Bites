@@ -264,7 +264,7 @@ export default function Order() {
                         </div>
                 }
                 {
-                    (month < 10 && month > 2) &&
+                    (month <= 10 && month > 2) &&
                     (
                         isLoaded ?
                             <div className={style.foodbox}>
