@@ -101,46 +101,46 @@ export default function Settings() {
         lemonade: 0
     });
     const increment = (name) => {
-        if (name == 'samosa') {
+        if (name === 'samosa') {
             var prevValue = inputValues.samosa;
             setInputValues({ ...inputValues, [name]: prevValue + 10 });
-        } else if (name == 'fries') {
+        } else if (name === 'fries') {
             var prevValue = inputValues.fries;
             setInputValues({ ...inputValues, [name]: prevValue + 10 });
-        } else if (name == 'cheesyFries') {
+        } else if (name === 'cheesyFries') {
             var prevValue = inputValues.cheesyFries;
             setInputValues({ ...inputValues, [name]: prevValue + 10 });
-        } else if (name == 'lemonade') {
+        } else if (name === 'lemonade') {
             var prevValue = inputValues.lemonade;
             setInputValues({ ...inputValues, [name]: prevValue + 10 });
         }
-        else if (name == 'chocoMilk') {
+        else if (name === 'chocoMilk') {
             var prevValue = inputValues.chocoMilk;
             setInputValues({ ...inputValues, [name]: prevValue + 10 });
         }
     };
     const decrement = (name) => {
-        if (name == 'samosa') {
+        if (name === 'samosa') {
             var prevValue = inputValues.samosa;
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 10 });
             }
-        } else if (name == 'fries') {
+        } else if (name === 'fries') {
             var prevValue = inputValues.fries;
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 10 });
             }
-        } else if (name == 'cheesyFries') {
+        } else if (name === 'cheesyFries') {
             var prevValue = inputValues.cheesyFries;
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 10 });
             }
-        } else if (name == 'lemonade') {
+        } else if (name === 'lemonade') {
             var prevValue = inputValues.lemonade;
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 10 });
             }
-        } else if (name == 'chocoMilk') {
+        } else if (name === 'chocoMilk') {
             var prevValue = inputValues.chocoMilk;
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 10 });
@@ -191,7 +191,7 @@ export default function Settings() {
             <Navbar />
             <div className={style.foodboxcontainer}>
                 <div className={style.foodbox}>
-                    <img src={samosa} className={style.foodimg} />
+                    <img src={samosa} className={style.foodimg}  alt=''/>
                     <p className={style.itemname}>Samosa</p>
                     <p className={style.itemdesc}>Our crispy and flavorful samosas filled with spiced potatoes, wrapped in a golden, flaky crust. A perfect snack.</p>
                     <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -205,7 +205,7 @@ export default function Settings() {
                     <button onClick={() => updatePrice('samosa', inputValues.samosa)} className={style.btn}>Change</button>
                 </div>
                 <div className={style.foodbox}>
-                    <img src={Cheesyfries} className={style.foodimg} />
+                    <img src={Cheesyfries} className={style.foodimg}  alt=''/>
                     <p className={style.itemname}>Cheesy fries</p>
                     <p className={style.itemdesc}>Our cheesy and crispy fries loaded with rich, melted cheese and creamy mayo. A perfect blend of cheesy goodness.</p>
                     <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -219,7 +219,7 @@ export default function Settings() {
                     <button onClick={() => updatePrice('cheesyFries', inputValues.cheesyFries)} className={style.btn}>Change</button>
                 </div>
                 <div className={style.foodbox}>
-                    <img src={Frenchfries} className={style.foodimg} />
+                    <img src={Frenchfries} className={style.foodimg}  alt=''/>
                     <p className={style.itemname}>French fries</p>
                     <p className={style.itemdesc}>Crispy and golden, our French fries are perfectly seasoned and fried to perfection. Light, crunchy and quick snack.</p>
                     <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -235,7 +235,7 @@ export default function Settings() {
                 {
                     month < 10 && month > 3 &&
                     <div className={style.foodbox}>
-                        <img src={Lemonade} className={style.foodimg} />
+                        <img src={Lemonade} className={style.foodimg}  alt=''/>
                         <p className={style.itemname}>Lemonade</p>
                         <p className={style.itemdesc}>Refreshingly sweet and tangy lemonade, bursting with fresh citrus flavor in every sip. Perfect for battling the summer heat.</p>
                         <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -252,7 +252,7 @@ export default function Settings() {
                 {
                     (month > 10 || month < 3) &&
                     <div className={style.foodbox}>
-                        <img src={ChocoMilk} className={style.foodimg} />
+                        <img src={ChocoMilk} className={style.foodimg}  alt=''/>
                         <p className={style.itemname}>Hot Choco Milk</p>
                         <p className={style.itemdesc}>Rich and creamy hot chocolate milk, blending smooth cocoa with velvety warmth. Perfect for cozy moments and chilly days.</p>
                         <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

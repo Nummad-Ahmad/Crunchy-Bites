@@ -18,7 +18,7 @@ export default function Order() {
         const today = new Date();
         const localDay = new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'Asia/Karachi' }).format(today);
         setDayName(localDay);
-        if (localDay == 'Friday') {
+        if (localDay === 'Friday') {
             toast.success("Special discounts for blessed Friday");
         }
     }, []);
@@ -48,7 +48,7 @@ export default function Order() {
         lemonade: 0
     });
     function calculateTotal() {
-        var sum = (dayName == "Friday" ? inputValues.samosa * (prices.samosa - 15) : inputValues.samosa * prices.samosa) + (dayName == "Friday" ? inputValues.fries * (prices.fries - 20) : inputValues.fries * prices.fries) + (dayName == "Friday" ? inputValues.cheesyFries * (prices.cheesyFries - 30) : inputValues.cheesyFries * prices.cheesyFries) + (dayName == "Friday" ? inputValues.lemonade * (prices.lemonade - 15) : inputValues.lemonade * prices.lemonade) + (dayName == "Friday" ? inputValues.chocoMilk * (prices.chocoMilk - 30) : inputValues.chocoMilk * prices.chocoMilk);
+        var sum = (dayName === "Friday" ? inputValues.samosa * (prices.samosa - 15) : inputValues.samosa * prices.samosa) + (dayName === "Friday" ? inputValues.fries * (prices.fries - 20) : inputValues.fries * prices.fries) + (dayName === "Friday" ? inputValues.cheesyFries * (prices.cheesyFries - 30) : inputValues.cheesyFries * prices.cheesyFries) + (dayName === "Friday" ? inputValues.lemonade * (prices.lemonade - 15) : inputValues.lemonade * prices.lemonade) + (dayName === "Friday" ? inputValues.chocoMilk * (prices.chocoMilk - 30) : inputValues.chocoMilk * prices.chocoMilk);
         return sum;
     }
     function sendOrder() {
@@ -99,57 +99,57 @@ export default function Order() {
         return sum;
     }
     const increment = (name) => {
-        if (name == 'samosa') {
+        if (name === 'samosa') {
             var prevValue = inputValues.samosa;
             setInputValues({ ...inputValues, [name]: prevValue + 1 });
             dispatch(setSamosa(prevValue + 1));
-        } else if (name == 'fries') {
+        } else if (name === 'fries') {
             var prevValue = inputValues.fries;
             setInputValues({ ...inputValues, [name]: prevValue + 1 });
             dispatch(setFries(prevValue + 1));
-        } else if (name == 'cheesyFries') {
+        } else if (name === 'cheesyFries') {
             var prevValue = inputValues.cheesyFries;
             setInputValues({ ...inputValues, [name]: prevValue + 1 });
             dispatch(setCheesyFries(prevValue + 1));
-        } else if (name == 'lemonade') {
+        } else if (name === 'lemonade') {
             var prevValue = inputValues.lemonade;
             setInputValues({ ...inputValues, [name]: prevValue + 1 });
             dispatch(setLemonade(prevValue + 1));
         }
-        else if (name == 'chocoMilk') {
+        else if (name === 'chocoMilk') {
             var prevValue = inputValues.chocoMilk;
             setInputValues({ ...inputValues, [name]: prevValue + 1 });
             dispatch(setChocoMilk(prevValue + 1));
         }
     };
     const decrement = (name) => {
-        if (name == 'samosa') {
+        if (name === 'samosa') {
             var prevValue = inputValues.samosa;
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 1 });
                 dispatch(setSamosa(prevValue - 1));
             }
-        } else if (name == 'fries') {
+        } else if (name === 'fries') {
             var prevValue = inputValues.fries;
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 1 });
                 dispatch(setFries(prevValue - 1));
             }
-        } else if (name == 'cheesyFries') {
+        } else if (name === 'cheesyFries') {
             var prevValue = inputValues.cheesyFries;
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 1 });
                 dispatch(setCheesyFries(prevValue - 1));
 
             }
-        } else if (name == 'lemonade') {
+        } else if (name === 'lemonade') {
             var prevValue = inputValues.lemonade;
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 1 });
                 dispatch(setLemonade(prevValue - 1));
             }
         }
-        else if (name == 'chocoMilk') {
+        else if (name === 'chocoMilk') {
             var prevValue = inputValues.chocoMilk;
             if (prevValue > 0) {
                 setInputValues({ ...inputValues, [name]: prevValue - 1 });
@@ -183,12 +183,12 @@ export default function Order() {
                 {
                     isLoaded ?
                         <div className={style.foodbox}>
-                            <img src={Samosa} className={style.foodimg} />
+                            <img src={Samosa} className={style.foodimg}  alt=''/>
                             <p className={style.itemname}>Samosa</p>
                             <p className={style.itemdesc}>Crispy and flavorful samosas filled with spiced potatoes, wrapped in a golden, flaky crust. A perfect snack.</p>
                             <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
                                 <p style={{ fontWeight: 'bold' }}>Price</p>
-                                <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName != "Friday" ? prices.samosa : prices.samosa - 15} Rs</p>
+                                <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName !== "Friday" ? prices.samosa : prices.samosa - 15} Rs</p>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
                                 <p style={{ fontWeight: 'bold' }}>Quantity</p>
@@ -210,12 +210,12 @@ export default function Order() {
                 {
                     isLoaded ?
                         <div className={style.foodbox}>
-                            <img src={CheesyFries} className={style.foodimg} />
+                            <img src={CheesyFries} className={style.foodimg}  alt=''/>
                             <p className={style.itemname}>Cheesy Fries</p>
                             <p className={style.itemdesc}>Our cheesy and crispy fries loaded with rich, melted cheese and creamy mayo. A perfect cheesy snack.</p>
                             <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
                                 <p style={{ fontWeight: 'bold' }}>Price</p>
-                                <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.cheesyFries - 30 : prices.cheesyFries} Rs</p>
+                                <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName === "Friday" ? prices.cheesyFries - 30 : prices.cheesyFries} Rs</p>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
                                 <p style={{ fontWeight: 'bold' }}>Quantity</p>
@@ -238,12 +238,12 @@ export default function Order() {
                 {
                     isLoaded ?
                         <div className={style.foodbox}>
-                            <img src={FrenchFries} className={style.foodimg} />
+                            <img src={FrenchFries} className={style.foodimg}  alt=''/>
                             <p className={style.itemname}>French Fries</p>
                             <p className={style.itemdesc}>Crispy and golden, our French fries are perfectly seasoned and fried to perfection. Light, crunchy and quick snack.</p>
                             <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
                                 <p style={{ fontWeight: 'bold' }}>Price</p>
-                                <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.fries - 20 : prices.fries} Rs</p>
+                                <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName === "Friday" ? prices.fries - 20 : prices.fries} Rs</p>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
                                 <p style={{ fontWeight: 'bold' }}>Quantity</p>
@@ -268,12 +268,12 @@ export default function Order() {
                     (
                         isLoaded ?
                             <div className={style.foodbox}>
-                                <img src={Lemonade} className={style.foodimg} />
+                                <img src={Lemonade} className={style.foodimg}  alt=''/>
                                 <p className={style.itemname}>Lemonade</p>
                                 <p className={style.itemdesc}>Refreshingly sweet and tangy lemonade, bursting with fresh citrus flavor in every sip. Perfect for battling the summer heat.</p>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
                                     <p style={{ fontWeight: 'bold' }}>Price</p>
-                                    <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.lemonade - 15 : prices.lemonade} Rs</p>
+                                    <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName === "Friday" ? prices.lemonade - 15 : prices.lemonade} Rs</p>
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
                                     <p style={{ fontWeight: 'bold' }}>Quantity</p>
@@ -299,12 +299,12 @@ export default function Order() {
                     (
                         isLoaded ?
                             <div className={style.foodbox}>
-                                <img src={ChocoMilk} className={style.foodimg} />
+                                <img src={ChocoMilk} className={style.foodimg}  alt=''/>
                                 <p className={style.itemname}>Hot Choco Milk</p>
                                 <p className={style.itemdesc}>Rich and creamy hot chocolate milk, blending smooth cocoa with velvety warmth. Perfect for cozy moments and chilly days.</p>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px', marginBottom: '0px' }}>
                                     <p style={{ fontWeight: 'bold' }}>Price</p>
-                                    <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName == "Friday" ? prices.chocoMilk - 10 : prices.chocoMilk} Rs</p>
+                                    <p style={{ fontWeight: 'bold', color: 'rgb(240, 99, 49)' }}>{dayName === "Friday" ? prices.chocoMilk - 10 : prices.chocoMilk} Rs</p>
                                 </div>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', margin: '10px' }}>
                                     <p style={{ fontWeight: 'bold' }}>Quantity</p>

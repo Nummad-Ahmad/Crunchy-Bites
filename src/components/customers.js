@@ -57,7 +57,7 @@ export default function Customers() {
                         records &&
                         records.map((item, index) => {
                             return (
-                                item.email != "nummad222@gmail.com" &&
+                                item.email !== "nummad222@gmail.com" &&
                                 <div className={style.data}>
                                     <p className={style.name}>{item.name}</p>
                                     <p className={style.email}>{item.email.slice(0, 20)}</p>
@@ -73,7 +73,7 @@ export default function Customers() {
                         records &&
                         records.map((item, index) => {
                             return (
-                            item.email != "nummad222@gmail.com" &&
+                            item.email !== "nummad222@gmail.com" &&
                                 <div className={style.mobiledata}>
                                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '70px' }}>
                                         <p>{item.name}</p>
@@ -98,7 +98,7 @@ export default function Customers() {
                         {
                             totalPages.map((item, index) => {
                                 return (
-                                    <p onClick={() => changePage(item)} className={currentPage == item ? style.activeButton : style.inactiveButton} key={index}>
+                                    <p onClick={() => changePage(item)} className={currentPage === item ? style.activeButton : style.inactiveButton} key={index}>
                                         {item}
                                     </p>
                                 )

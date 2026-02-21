@@ -28,9 +28,9 @@ export default function Home() {
     function getWinner() {
         axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
             .then(res => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     setWinner(res.data.winner);
-                } else if (res.status == 404) {
+                } else if (res.status === 404) {
                     console.log(res.data);
                 }
             })
@@ -58,7 +58,7 @@ export default function Home() {
         return () => clearInterval(interval);
     }, []);
     function changeIndex(ind) {
-        if (openQuestion == ind) {
+        if (openQuestion === ind) {
             setOpenQuestion('');
         } else {
             setOpenQuestion(ind);
@@ -69,28 +69,28 @@ export default function Home() {
     return (
         <div className={style.home}>
             <Navbar />
-            <img src={images[index]} height='100%' width="100%" />
+            <img src={images[index]} height='100%' width="100%" alt=''/>
             <p className={style.tagline}>Best Taste & Quality</p>
             <div className={style.foodboxcontainer}>
                 <div className={style.foodbox}>
-                    <img src={Samosa} className={style.foodimg} />
+                    <img src={Samosa} className={style.foodimg}  alt=''/>
                     <p className={style.itemname}>Samosa</p>
                     <p className={style.itemdesc}>Crispy and flavorful samosas filled with spiced potatoes, wrapped in a golden, flaky crust. A perfect snack.</p>
                 </div>
                 <div className={style.foodbox}>
-                    <img src={CheesyFries} className={style.foodimg} />
+                    <img src={CheesyFries} className={style.foodimg}  alt=''/>
                     <p className={style.itemname}>Cheesy Fries</p>
                     <p className={style.itemdesc}>Our cheesy and crispy fries loaded with rich, melted cheese and creamy mayo. A perfect blend of crunch and cheesy goodness.</p>
                 </div>
                 <div className={style.foodbox}>
-                    <img src={FrenchFries} className={style.foodimg} />
+                    <img src={FrenchFries} className={style.foodimg}  alt=''/>
                     <p className={style.itemname}>French Fries</p>
                     <p className={style.itemdesc}>Crispy and golden, our French fries are perfectly seasoned and fried to perfection. Light, crunchy and quick snack.</p>
                 </div>
                 {
                     (month <= 10 && month > 2) &&
                     <div className={style.foodbox}>
-                        <img src={Lemonade} className={style.foodimg} />
+                        <img src={Lemonade} className={style.foodimg}  alt=''/>
                         <p className={style.itemname}>Lemonade</p>
                         <p className={style.itemdesc}>Refreshingly sweet and tangy lemonade, bursting with fresh citrus flavor in every sip. Perfect for battling the summer heat.</p>
                     </div>
@@ -98,7 +98,7 @@ export default function Home() {
                 {
                     (month > 10 || month < 3) &&
                     <div className={style.foodbox}>
-                        <img src={ChocoMilk} className={style.foodimg} />
+                        <img src={ChocoMilk} className={style.foodimg}  alt=''/>
                         <p className={style.itemname}>Hot Choco Milk</p>
                         <p className={style.itemdesc}>Rich and creamy hot chocolate milk, blending smooth cocoa with velvety warmth. Perfect for cozy moments and chilly days.</p>
                     </div>
@@ -106,12 +106,12 @@ export default function Home() {
             </div>
             <div className={style.prizesection}>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <img src={Win} />
+                    <img src={Win}  alt=''/>
                     <p className={style.prizetitle}>Win exciting prizes !!!</p>
 
                     <p className={style.prizedesc}>Buy your favorite snacks and get a chance to win exciting prizes! The more you buy, the higher your chances of winning in our monthly lucky draw. Delicious treats and amazing rewards—don’t miss out!</p>
                 </div>
-                <img src={Happy} className={style.happyface} />
+                <img src={Happy} className={style.happyface}  alt=''/>
             </div>
 
             <p className={style.tagline}>Our Perks</p>
@@ -156,12 +156,12 @@ export default function Home() {
                         <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>How online payments can be made?</p>
                         <div style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
-                                openQuestion == 1 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
+                                openQuestion === 1 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
                             }
                         </div>
                     </div>
                     {
-                        openQuestion == 1 && <p style={{fontSize: '16px', textAlign: 'justify'}}>After placing your order, note your total price and order number. Send the payment via JazzCash or EasyPaisa to 0300-0000000, then WhatsApp the payment receipt along with your order number to the same number.
+                        openQuestion === 1 && <p style={{fontSize: '16px', textAlign: 'justify'}}>After placing your order, note your total price and order number. Send the payment via JazzCash or EasyPaisa to 0300-0000000, then WhatsApp the payment receipt along with your order number to the same number.
 
                         </p>
                     }
@@ -171,12 +171,12 @@ export default function Home() {
                         <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>How can I win the prize?</p>
                         <div style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
-                                openQuestion == 2 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
+                                openQuestion === 2 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
                             }
                         </div>
                     </div>
                     {
-                        openQuestion == 2 && <p style={{fontSize: '16px', textAlign: 'justify'}}>Only the orders placed online will result in your participation in lucky draw. The more you order, the better your chances!</p>
+                        openQuestion === 2 && <p style={{fontSize: '16px', textAlign: 'justify'}}>Only the orders placed online will result in your participation in lucky draw. The more you order, the better your chances!</p>
                     }
                 </div>
                 <div onClick={() => changeIndex(3)} style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
@@ -184,13 +184,13 @@ export default function Home() {
                         <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>When is the lucky draw held?</p>
                         <div style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
-                                openQuestion == 3 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
+                                openQuestion === 3 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
                             }
                         </div>
                     </div>
 
                     {
-                        openQuestion == 3 && <p style={{fontSize: '16px', textAlign: 'justify'}}>The lucky draw takes place on the 1st of every month. Orders from the previous month are not counted to determine the winner.</p>
+                        openQuestion === 3 && <p style={{fontSize: '16px', textAlign: 'justify'}}>The lucky draw takes place on the 1st of every month. Orders from the previous month are not counted to determine the winner.</p>
                     }
                 </div>
                 <div onClick={() => changeIndex(4)} style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
@@ -198,13 +198,13 @@ export default function Home() {
                         <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>What is the QR code used for?</p>
                         <div style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
-                                openQuestion == 4 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
+                                openQuestion === 4 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
                             }
                         </div>
                     </div>
 
                     {
-                        openQuestion == 4 && <p style={{fontSize: '16px', textAlign: 'justify'}}> The QR code in your winner's email will be scanned by our team for verification when you claim your prize. Make sure to keep it safe!</p>
+                        openQuestion === 4 && <p style={{fontSize: '16px', textAlign: 'justify'}}> The QR code in your winner's email will be scanned by our team for verification when you claim your prize. Make sure to keep it safe!</p>
                     }
                 </div>
                 <div onClick={() => changeIndex(5)} style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
@@ -212,13 +212,13 @@ export default function Home() {
                         <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>Is there any minimum order value to participate?</p>
                         <div style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
-                                openQuestion == 5 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
+                                openQuestion === 5 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
                             }
                         </div>
                     </div>
 
                     {
-                        openQuestion == 5 && <p style={{fontSize: '16px', textAlign: 'justify'}}>No minimum order value is required. Every order counts, regardless of size.</p>
+                        openQuestion === 5 && <p style={{fontSize: '16px', textAlign: 'justify'}}>No minimum order value is required. Every order counts, regardless of size.</p>
                     }
                 </div>
                 <div onClick={() => changeIndex(6)} style={{ width: '90%', backgroundColor: '#252525', display: 'flex', flexDirection: 'column', padding: '10px', boxSizing: 'border-box', borderRadius: '5px', color: 'white', gap: '20px' }}>
@@ -226,13 +226,13 @@ export default function Home() {
                         <p style={{ fontWeight: 'bold', width: 'calc(100% - 30px)' }}>How long is the winner QR code valid for?</p>
                         <div style={{ width: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             {
-                                openQuestion == 6 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
+                                openQuestion === 6 ? <GoChevronUp color='white' size={20} /> : <GoChevronDown color='white' size={20} />
                             }
                         </div>
                     </div>
 
                     {
-                        openQuestion == 6 && <p style={{fontSize: '16px', textAlign: 'justify'}}> The QR code sent to the winner is valid only until the next lucky draw (i.e., until the 1st of the next month).</p>
+                        openQuestion === 6 && <p style={{fontSize: '16px', textAlign: 'justify'}}> The QR code sent to the winner is valid only until the next lucky draw (i.e., until the 1st of the next month).</p>
                     }
                 </div>
             </div>
@@ -241,7 +241,7 @@ export default function Home() {
                 {
                     winner.name ?
                         <div className={style.luckyWinnerinner}>
-                            <img src={DP} style={{ height: '170px', borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }} />
+                            <img src={DP} style={{ height: '170px', borderTopLeftRadius: '10px', borderTopRightRadius: '10px' }}  alt=''/>
                             <p >Congrats {winner?.name}! You’re our lucky winner this month!</p>
                         </div> :
                         <div className={style.luckyWinnerinner}>

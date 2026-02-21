@@ -33,13 +33,13 @@ const [records, setRecords] = useState([]);
         return () => clearInterval(interval);
     }, []);
     function changeKey(key) {
-        if (key == 'samosa') {
+        if (key === 'samosa') {
             return 'Samosa';
-        } else if (key == 'fries') {
+        } else if (key === 'fries') {
             return "Fries";
-        } else if (key == 'cheesyFries') {
+        } else if (key === 'cheesyFries') {
             return 'Cheesy Fries';
-        } else if (key == 'chocoMilk') {
+        } else if (key === 'chocoMilk') {
             return 'Choco Milk';
         } else {
             return 'Lemonade';
@@ -67,7 +67,7 @@ const [records, setRecords] = useState([]);
                         records &&
                         records.map((item, index) => {
                             return (
-                                item.email != "nummad222@gmail.com" &&
+                                item.email !== "nummad222@gmail.com" &&
                                 <div className={style.data}>
                                     <p className={style.email}>{item.sender.slice(0, 20)}</p>
                                     <p className={style.name}>

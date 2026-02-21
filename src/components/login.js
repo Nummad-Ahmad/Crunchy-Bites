@@ -95,12 +95,12 @@ export default function Login() {
     <>
       <div className={style.login}>
         <div className={style.darkarea}>
-          <img src={Robot} className={style.robot} />
+          <img src={Robot} className={style.robot}  alt=''/>
           <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '0px 0px', color: '#FFDC5A' }}>Login to get Started</p>
         </div>
         <div className={style.formarea}>
           <div className={style.formcontainer}>
-            <img src={Logo} height={150} />
+            <img src={Logo} height={150}  alt=''/>
             <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '0px 0px', marginBottom: '10px' }}>Login</p>
             <input placeholder='Email' onChange={(e) => { setEmail(e.target.value) }} className={style.input} />
             <input type='password' placeholder='Password' onChange={(e) => setPassword(e.target.value)} className={style.input} />

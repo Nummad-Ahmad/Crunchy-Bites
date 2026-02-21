@@ -17,7 +17,7 @@ export default function Signup(){  const [email, setemail] = useState("")
       if (name && email && password && confirmPass ) {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         var valid = emailRegex.test(email);
-        if (valid && password.length > 7 && password == confirmPass) {
+        if (valid && password.length > 7 && password === confirmPass) {
           setLoading(true);
           axios.post(`${process.env.REACT_APP_BACK_END}/signup`, { email, password, name }).then(result => {
             toast.success('Account created');
@@ -31,7 +31,7 @@ export default function Signup(){  const [email, setemail] = useState("")
           toast.error('Invalid email');
         } else if (password.length < 8) {
           toast.error('Minimum password length is 8');
-        } else if (password != confirmPass) {
+        } else if (password !== confirmPass) {
           toast.error('Passwords must be same');
         }
       }
@@ -43,7 +43,7 @@ export default function Signup(){  const [email, setemail] = useState("")
         <div className={style.login}>
             <div className={style.formarea}>
                 <div className={style.formcontainer}>
-                <img src={Logo} height={150}/>
+                <img src={Logo} height={150}  alt=''/>
                     <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '0px 0px', marginBottom: '10px'}}>Sign up</p>
                     <input placeholder='Full name' onChange={(e)=> setname(e.target.value)} className={style.input}/>
                     <input placeholder='Email' onChange={(e)=> setemail(e.target.value)} className={style.input}/>
@@ -56,7 +56,7 @@ export default function Signup(){  const [email, setemail] = useState("")
                 </div>
             </div>
             <div className={style.darkarea}>
-                <img src={Robot} className={style.robot}/>
+                <img src={Robot} className={style.robot}  alt=''/>
                 <p style={{fontSize: '30px', fontWeight: 'bold', margin: '0px 0px', color: '#FFDC5A'}}>Create an account</p>
             </div>
         </div>

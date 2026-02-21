@@ -22,9 +22,9 @@ export default function Navbar() {
     function getWinner() {
         axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
             .then(res => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     setWinner(res.data.winner);
-                } else if (res.status == 404) {
+                } else if (res.status === 404) {
                     console.log(res.data);
                 }
             })
@@ -37,11 +37,11 @@ export default function Navbar() {
     }, []);
     return (
         <div className={style.navbar}>
-            <img src={Logo} height={100} />
+            <img src={Logo} height={100}  alt=''/>
             <div className={style.optionsdiv}>
                 {
-                    email != null ?
-                        email == "nummad222@gmail.com" ?
+                    email !== null ?
+                        email === "nummad222@gmail.com" ?
                             <div onClick={() => navigate('/showorders')} style={{ cursor: 'pointer' }}>
                                 <FaRegBell color='white' size={20} />
                             </div> :
@@ -50,9 +50,9 @@ export default function Navbar() {
                             </div> : null
                 }
                 {
-                    email != null ?
-                        email != "nummad222@gmail.com" ?
-                            winner && winner.email == email && (day == 1 || day == 2 || day == 3) ?
+                    email !== null ?
+                        email !== "nummad222@gmail.com" ?
+                            winner && winner.email === email && (day === 1 || day === 2 || day === 3) ?
                                 <div onClick={() => navigate('/notifications')} style={{ cursor: 'pointer' }}>
                                     <div className={style.dot} />
                                     <FaRegBell color='white' size={20} />
@@ -65,11 +65,11 @@ export default function Navbar() {
                             </div> : null
                 }
                 {
-                    email == null ?
+                    email === null ?
                         <div className={style.orderbtn} onClick={() => navigate('/login')}>
                             Order
                         </div> :
-                        email == "nummad222@gmail.com" ?
+                        email === "nummad222@gmail.com" ?
                             <div className={style.orderbtn} onClick={() => navigate('/customers')}>
                                 Customers
                             </div> :

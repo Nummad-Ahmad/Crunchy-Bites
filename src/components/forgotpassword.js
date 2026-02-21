@@ -87,12 +87,12 @@ export default function Forgotpassword() {
     return (
         <div className={style.login}>
             <div className={style.darkarea}>
-                <img src={Robot} className={style.robot} />
+                <img src={Robot} className={style.robot} alt=''/>
                 <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '0px 0px', color: '#FFDC5A' }}>Change password</p>
             </div>
             <div className={style.formarea}>
                 <div className={style.formcontainer}>
-                <img src={Logo} height={150}/>
+                <img src={Logo} height={150} alt=''/>
                     <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '20px 0px' }}>Forgot password</p>
                     <input onChange={(e) => setEmail(e.target.value)} placeholder='Email' className={style.input} />
                     <input onChange={(e) => setPass(e.target.value)} type='password' placeholder='Password' className={style.input} />

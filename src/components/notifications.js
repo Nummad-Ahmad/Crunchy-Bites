@@ -53,35 +53,35 @@ export default function Notifications() {
     function getOrderedItems(item) {
         var orderedItems = "";
         if (item.items.samosa > 0) {
-            if (item.items.samosa == 1) {
+            if (item.items.samosa === 1) {
                 orderedItems = item.items.samosa + " Samosa ";
             } else {
                 orderedItems = item.items.samosa + " Samosas ";
             }
         }
         if (item.items.fries > 0) {
-            if (item.items.fries == 1) {
+            if (item.items.fries === 1) {
                 orderedItems += item.items.fries + " plate of Fries ";
             } else {
                 orderedItems += item.items.fries + " plates of Fries ";
             }
         }
         if (item.items.lemonade > 0) {
-            if (item.items.lemonade == 1) {
+            if (item.items.lemonade === 1) {
                 orderedItems += item.items.lemonade + " glass of lemonade";
             } else {
                 orderedItems += item.items.lemonade + " glasses of lemonade ";
             }
         }
         if (item.items.cheesyFries > 0) {
-            if (item.items.cheesyFries == 1) {
+            if (item.items.cheesyFries === 1) {
                 orderedItems += item.items.cheesyFries + " plate of Cheesy Fries ";
             } else {
                 orderedItems += item.items.cheesyFries + " plates of Cheesy Fries ";
             }
         }
         if (item.items.chocoMilk > 0) {
-            if (item.items.chocoMilk == 1) {
+            if (item.items.chocoMilk === 1) {
                 orderedItems += item.items.chocoMilk + " glass of Choco Milk ";
             } else {
                 orderedItems += item.items.chocoMilk + " glasses of Choco Milk ";
@@ -101,9 +101,9 @@ export default function Notifications() {
     function getWinner() {
         axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
             .then(res => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     setWinner(res.data.winner);
-                } else if (res.status == 404) {
+                } else if (res.status === 404) {
                     console.log(res.data);
                 }
             })
@@ -145,11 +145,11 @@ export default function Notifications() {
                 <div className={style.dataDiv}>
                     <p>Most ordered item </p>
                     <p>{
-                        mostOrderedItem[0] == "" ?
+                        mostOrderedItem[0] === "" ?
                             "No data" :
-                            mostOrderedItem[0].toLowerCase() == 'cheesyfries' ?
+                            mostOrderedItem[0].toLowerCase() === 'cheesyfries' ?
                                 "Cheesy fries" :
-                                mostOrderedItem[0].toLowerCase() == 'chocoMilk' ?
+                                mostOrderedItem[0].toLowerCase() === 'chocoMilk' ?
                                     "Choco Milk" :
                                     mostOrderedItem[0].charAt(0).toUpperCase() + mostOrderedItem[0].slice(1)
                     }</p>
@@ -169,7 +169,7 @@ export default function Notifications() {
             <div className={style.notificationscontainer}>
                 {
                     winner &&
-                    winner.email == email && (day == 1 || day == 2 || day == 3) &&
+                    winner.email === email && (day === 1 || day === 2 || day === 3) &&
                     <div className={style.notification}>
                         <FaRegEnvelope color="rgb(240, 99, 49)" />
                         <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -197,7 +197,7 @@ export default function Notifications() {
                         })
                     ) : (
                         winner &&
-                        winner.email != email && (![1, 2, 3].includes(day)) &&
+                        winner.email !== email && (![1, 2, 3].includes(day)) &&
                         <div className={style.notification}>
                             <FaRegEnvelope color="rgb(240, 99, 49)" />
                             <p>No notifications</p>

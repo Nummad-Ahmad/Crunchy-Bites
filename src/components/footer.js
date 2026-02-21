@@ -1,8 +1,6 @@
 import style from '../styles/footer.module.css';
 import Logo from '../images/logo.png';
-import { IoLogoInstagram } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import { useSelector } from 'react-redux';
 
 export default function Footer() {
@@ -24,16 +22,16 @@ export default function Footer() {
                     {
                         email != null ?
                             email != "nummad222@gmail.com" ?
-                                <p style={{ cursor: 'pointer', fontSize: '18px' }} onClick={() => { email == null ? navigate('/login') : navigate('/notifications') }}>Notifications</p> :
-                                <p style={{ cursor: 'pointer', fontSize: '18px' }} onClick={() => { email == null ? navigate('/login') : navigate('/settings') }}>Settings</p> :
+                                <p style={{ cursor: 'pointer', fontSize: '18px' }} onClick={() => { email === null ? navigate('/login') : navigate('/notifications') }}>Notifications</p> :
+                                <p style={{ cursor: 'pointer', fontSize: '18px' }} onClick={() => { email === null ? navigate('/login') : navigate('/settings') }}>Settings</p> :
                             null
                     }
                     {
-                        email == null ?
+                        email === null ?
                             <div className={style.orderbtn} onClick={() => navigate('/login')}>
                                 Order
                             </div> :
-                            email == "nummad222@gmail.com" ?
+                            email === "nummad222@gmail.com" ?
                                 <div className={style.orderbtn} onClick={() => navigate('/customers')}>
                                     Customers
                                 </div> :
