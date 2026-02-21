@@ -37,7 +37,7 @@ export default function Navbar() {
     }, []);
     return (
         <div className={style.navbar}>
-            <img src={Logo} height={100}  alt=''/>
+            <img src={Logo} height={70}  alt=''/>
             <div className={style.optionsdiv}>
                 {
                     email !== null ?
