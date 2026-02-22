@@ -64,7 +64,7 @@ export default function Login() {
           if (response.status === 200) {
             toast.success(response.data.message || 'Account verified successfully');
             setShowVerification(false);
-            dispatch(userLoggedIn());
+              dispatch(userLoggedIn({ email: result.data.user.email, wins: result.data.user.wins }));
             navigate('/', { replace: true });
           }
         })
