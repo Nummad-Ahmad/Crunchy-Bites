@@ -105,7 +105,7 @@ export default function Login() {
             <input placeholder='Email' onChange={(e) => { setEmail(e.target.value) }} className={style.input} />
             <input type='password' placeholder='Password' onChange={(e) => setPassword(e.target.value)} className={style.input} />
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-              <p style={{ fontSize: '16px', cursor: 'pointer' }} onClick={() => navigate('/signup')}>Don't have an account?</p>
+              <p style={{ fontSize: '16px', cursor: 'pointer' }} onClick={() => navigate('/signup')}>Signup</p>
               <p style={{ fontSize: '16px', cursor: 'pointer', textAlign: 'end' }} onClick={() => navigate('/forgotpassword')}>Forgot password?</p>
             </div>
             <button className={style.btn} onClick={(e) => handleLogin(e)}>{loading ? "Signing in ..." : "Login"}</button>
