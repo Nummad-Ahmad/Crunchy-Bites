@@ -23,13 +23,13 @@ export default function Login() {
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       const valid = emailRegex.test(email);
       if (valid && password.length > 7) {
-        setLoading(true); 
-        axios.post(`${process.env.REACT_APP_BACK_END}/login`, { email, password }, {withCredentials: true})
+        setLoading(true);
+        axios.post(`${process.env.REACT_APP_BACK_END}/login`, { email, password }, { withCredentials: true })
           .then(result => {
             const verified = result.data.user.isVerified;
             if (verified) {
               toast.success('Login successful');
-              dispatch(userLoggedIn({email : result.data.user.email, wins : result.data.user.wins}));
+              dispatch(userLoggedIn({ email: result.data.user.email, wins: result.data.user.wins }));
               navigate('/', { replace: true });
             } else {
               toast.success('Verify your account to get started');
@@ -58,7 +58,7 @@ export default function Login() {
       axios.post(
         `${process.env.REACT_APP_BACK_END}/verify`,
         { email, verificationCode },
-        { withCredentials: true } 
+        { withCredentials: true }
       )
         .then((response) => {
           if (response.status === 200) {
@@ -91,16 +91,29 @@ export default function Login() {
     }
   }
 
+  const handleOtpChange = (e, index) => {
+    const value = e.target.value.replace(/[^0-9]/g, ''); // allow only numbers
+
+    const newCode = verificationCode.split('');
+    newCode[index] = value;
+    setVerificationCode(newCode.join(''));
+
+    // Auto focus next input
+    if (value && e.target.nextSibling) {
+      e.target.nextSibling.focus();
+    }
+  };
+
   return (
     <>
       <div className={style.login}>
         <div className={style.darkarea}>
-          <img src={Robot} className={style.robot}  alt=''/>
+          <img src={Robot} className={style.robot} alt='' />
           <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '0px 0px', color: '#FFDC5A' }}>Login to get Started</p>
         </div>
         <div className={style.formarea}>
           <div className={style.formcontainer}>
-            <img src={Logo} height={150}  alt=''/>
+            <img src={Logo} height={150} alt='' />
             <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '0px 0px', marginBottom: '10px' }}>Login</p>
             <input placeholder='Email' onChange={(e) => { setEmail(e.target.value) }} className={style.input} />
             <input type='password' placeholder='Password' onChange={(e) => setPassword(e.target.value)} className={style.input} />
@@ -115,24 +128,53 @@ export default function Login() {
       {showVerification && (
         <div className={style.verificationOverlay}>
           <div className={style.verificationContainer}>
-            <div style={{ display: 'flex', marginBottom: '10px', alignItems: 'center' }}>
-              <h2 style={{ margin: '0px auto' }}>Verify Your Account</h2>
-              <span style={{ position: 'relative', right: 5 }} onClick={() => setShowVerification(false)}>
+            <div
+              style={{
+                display: 'flex',
+                marginBottom: '10px',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <h3 style={{ margin: '0px' }}>Verify Your Account</h3>
+              <span
+                style={{ position: 'relative', right: 5 }}
+                onClick={() => setShowVerification(false)}
+              >
                 <IoClose size={20} />
               </span>
             </div>
-            <p>Enter the 6-digit code sent to your email.</p>
-            <input
-              type="text"
-              className={style.verificationInput}
-              value={verificationCode}
-              onChange={(e) => setVerificationCode(e.target.value)}
-              maxLength={6}
-              placeholder="Enter verification code"
-            />
-            <button onClick={handleVerification} className={style.verifyButton}>
-              {verify ? 'Verifying ...' : 'Submit'}
-            </button>
+
+            <p style={{ fontSize: '14px' }}>
+              Enter the 6-digit code sent to your email.
+            </p>
+
+            {/* OTP Boxes */}
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'space-between' }}>
+              {[...Array(6)].map((_, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  maxLength="1"
+                  className={style.verificationInput}
+                  value={verificationCode[index] || ''}
+                  onChange={(e) => handleOtpChange(e, index)}
+                  style={{
+                    color: 'white',
+                    width: '40px',
+                    height: '45px',
+                    textAlign: 'center',
+                    fontSize: '18px',
+                  }}
+                />
+              ))}
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'end', marginTop: '15px' }}>
+              <button onClick={handleVerification} className={style.verifyButton}>
+                {verify ? 'Verifying ...' : 'Submit'}
+              </button>
+            </div>
           </div>
         </div>
       )}

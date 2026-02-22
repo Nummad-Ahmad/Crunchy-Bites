@@ -53,12 +53,13 @@
 .btn{
     width: 103%;
     height: 40px;
-    background-color: rgb(0, 0, 0);
+    background-color:rgb(240, 99, 49);
     border: none;
     border-radius: 10px;
     color: white;
     font-size: 18px;
     margin: 20px 0px;
+    cursor: pointer;
 }
 .verificationOverlay {
     position: fixed;
@@ -75,40 +76,45 @@
   }
   
   .verificationContainer {
-    background-color: white;
-    padding: 10px;
+    /* background-color: white; */
+    color: white;
+    background-color: #252525;
+    padding: 20px;
     border-radius: 12px;
-    text-align: center;
-    width: 75%;
-    max-width: 400px;
+    width: 350px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
     box-sizing: border-box;
   }
   
   .verificationInput {
+    background-color: #252525;
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
     margin: 1rem 0;
-    border: 1px solid #ccc;
+    /* border: 1px solid #969696; */
     border-radius: 8px;
     font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
   }
   
   .verifyButton {
-    background-color: rgb(30, 30, 30);
+    background-color:rgb(240, 99, 49);
     color: white;
     padding: 10px 20px;
+    width: 100%;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
   }
-  
-  .verifyButton:hover {
-    background-color: black;
-}
+ 
 @media(max-width: 750px){
+    .verificationContainer{
+        width: 90%;
+    }
     .darkarea{
         display: none;
     }
