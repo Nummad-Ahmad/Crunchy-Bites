@@ -43,10 +43,10 @@ export default function Home() {
             withCredentials: true
         }).then(res => {
             dispatch(userLoggedIn({ email: res.data.user.email, wins: res.data.user.wins }));
-            console.log('res', res.data);
+            console.log('res', res?.data);
         }).catch(err => {
             dispatch(userLoggedOut());
-            console.log('err', err.response.data);
+            console.log('err', err.response?.data);
         })
     }, []);
     useEffect(() => {
