@@ -68,6 +68,7 @@ export default function Home() {
     const month = now.getMonth() + 1;
     return (
         <div className={style.home}>
+        NummAd
             <Navbar />
             <img src={images[index]} height='100%' width="100%" alt=''/>
             <p className={style.tagline}>Best Taste & Quality</p>
