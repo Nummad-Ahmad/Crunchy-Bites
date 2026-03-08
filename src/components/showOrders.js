@@ -90,18 +90,18 @@ const [records, setRecords] = useState([]);
                         records.map((item, index) => {
                             return (
                                 <div className={style.mobiledata}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', padding : '10px 0px'}}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', padding : '5px 0px'}}>
                                         <p>{item.sender}</p>
                                         
                                     </div>
-                                    <div style={{ display: 'flex', flexDirection: 'column', padding : '10px 0px'}}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', padding : '5px 0px'}}>
                                         <p>{Object.entries(item.items)
                                             .filter(([key, value]) => value > 0)
                                             .map(([key, value]) => `${value} ${changeKey(key)}`)
                                             .join(', ')}</p>
                                     </div>
                                     
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', padding : '10px 0px', boxSizing: 'border-box'}}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', padding : '5px 0px', boxSizing: 'border-box'}}>
                                         <p>{item.price} Rs</p>
                                         <p>{item.orderNumber}</p>
                                     </div>

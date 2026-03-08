@@ -66,6 +66,21 @@
     box-sizing: border-box;
 }
 
+
+  .verificationInput {
+    background-color: #252525;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 1rem 0;
+    /* border: 1px solid #969696; */
+    border-radius: 8px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
 .qrdiv {
     height: 250px;
     width: calc(100% - 100px);
@@ -88,10 +103,38 @@
     border-radius: 10px;
 }
 
+.verificationInput,
+.customDatePicker {
+  background-color: #252525;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  margin: 1rem 0;
+  border-radius: 8px;
+  font-size: 16px;
+  color: white;
+  border: none;
+  outline: none;
+}
+
+.customDatePicker::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* makes the calendar icon white */
+  cursor: pointer;
+}
+
+.customDatePicker::-webkit-inner-spin-button,
+.customDatePicker::-webkit-clear-button {
+  display: none;
+}
+
+.customDatePicker::-ms-clear {
+  display: none;
+}
+
 @media(max-width: 800px) {
     .foodboxcontainer {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(2, 1fr);
+        /* grid-template-rows: repeat(2, 1fr); */
     }
 }
 
@@ -125,6 +168,6 @@
 @media(max-width: 500px) {
     .foodboxcontainer {
         grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, 1fr);
+        /* grid-template-rows: repeat(4, 1fr); */
     }
 }
