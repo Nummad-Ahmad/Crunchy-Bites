@@ -3,12 +3,23 @@ import style from '../styles/notifications.module.css';
 import Navbar from './navbar';
 import { FaRegEnvelope } from "react-icons/fa";
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setWinnerNotification } from "../redux/userSlice";
+import Confetti from "react-confetti";
+import confettiSound from "../assets/confetti.mp3";
+
 const moment = require('moment');
 
 export default function Notifications() {
-    const email = useSelector(state => state.user.email);
-    const wins = useSelector(state => state.user.wins);
+    const [showConfetti, setShowConfetti] = useState(false);
+    const audio = new Audio(confettiSound);
+    const dispatch = useDispatch();
+    var totalCounts;
+    var mostOrderedItem = [];
+        const user = useSelector(state => state.user);
+    const email = user.email;
+    const notificationRead = user?.notificationRead;
+    const wins = user.wins;
     const [winner, setWinner] = useState({});
     const [historyData, setHistoryData] = useState([]);
     const date = new Date().toISOString();
@@ -31,8 +42,6 @@ export default function Notifications() {
             return dateTimeB - dateTimeA;
         });
     }
-    var totalCounts;
-    var mostOrderedItem = [];
     function getData() {
         axios.get(`${process.env.REACT_APP_BACK_END}/data?date=${formattedDate}`, {
             withCredentials: true
@@ -44,6 +53,25 @@ export default function Notifications() {
                 if (res.status === 200) {
                     setHistoryData(sortedData);
                 }
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    }
+
+    function markNotificationRead() {
+        axios.patch(
+        `${process.env.REACT_APP_BACK_END}/read-notification`,
+        {
+            email
+        },
+        {
+            withCredentials: true
+        }
+    )
+            .then(res => {
+                console.log(res.data);
+                dispatch(setWinnerNotification(true));
             })
             .catch(e => {
                 console.log(e);
@@ -111,11 +139,7 @@ export default function Notifications() {
                 console.log(e);
             })
     }
-    useEffect(() => {
-        if (email) {
-            getData();
-        }
-    }, [email]);
+
     totalCounts = historyData.reduce((acc, order) => {
         for (const [item, count] of Object.entries(order.items)) {
             acc[item] = (acc[item] || 0) + count;
@@ -130,10 +154,34 @@ export default function Notifications() {
         const nextMonth = moment(date).add(1, 'month').format('MMMM');
         return `1 ${nextMonth}`;
     }
+useEffect(() => {
+    if (!notificationRead) {
+        setShowConfetti(true);
+
+        const audio = new Audio(confettiSound);
+        audio.play();
+
+        markNotificationRead();
+
+        setTimeout(() => {
+            setShowConfetti(false);
+        }, 6000);
+    }
+
+    if (email) {
+        getData();
+    }
+}, [email]);
     useEffect(() => {
         getWinner();
     }, []);
     return (
+        <>
+        {showConfetti && (
+    <div style={{ position: "fixed", width: "100%", zIndex: 999 }}>
+        <Confetti numberOfPieces={300} recycle={false} />
+    </div>
+)}
         <div className={style.notifications}>
             <Navbar />
             <p className={style.title}>Stats</p>
@@ -206,5 +254,6 @@ export default function Notifications() {
                 }
             </div>
         </div>
+        </>
     );
 }

@@ -29,7 +29,7 @@ export default function Login() {
             const verified = result.data.user.isVerified;
             if (verified) {
               toast.success('Login successful');
-              dispatch(userLoggedIn({ email: result.data.user.email, wins: result.data.user.wins }));
+              dispatch(userLoggedIn({ email: result.data.user.email, wins: result.data.user.wins, notificationRead: result.data.user.notificationRead }));
               navigate('/', { replace: true });
             } else {
               toast.success('Verify your account to get started');
@@ -64,7 +64,7 @@ export default function Login() {
           if (response.status === 200) {
             toast.success(response.data.message || 'Account verified successfully');
             setShowVerification(false);
-              dispatch(userLoggedIn({ email: response.data.user.email, wins: response.data.user.wins }));
+              dispatch(userLoggedIn({ email: response.data.user.email, wins: response.data.user.wins, notificationRead: response.data.user.notificationRead }));
             navigate('/', { replace: true });
           }
         })

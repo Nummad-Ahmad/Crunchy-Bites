@@ -12,12 +12,15 @@ import { useSelector } from 'react-redux';
 export default function Navbar() {
     const today = new Date();
     const day = today.getDate();
-
     const [winner, setWinner] = useState({});
     const email = useSelector(state => {
         const email = state.user?.email;
         return email === '' ? null : email;
     });
+    const notificationRead = useSelector(state => {
+        const notificationRead = state.user.notificationRead;
+        return notificationRead;
+    })
     const navigate = useNavigate();
     function getWinner() {
         axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
@@ -38,7 +41,9 @@ export default function Navbar() {
     return (
         <div className={style.navbar}>
             <img src={Logo} height={70}  alt=''/>
+            
             <div className={style.optionsdiv}>
+            
                 {
                     email !== null ?
                         email === "nummad222@gmail.com" ?
@@ -52,7 +57,7 @@ export default function Navbar() {
                 {
                     email !== null ?
                         email !== "nummad222@gmail.com" ?
-                            winner && winner.email === email && (day === 1 || day === 2 || day === 3) ?
+                            winner && winner.email === email && !notificationRead ?
                                 <div onClick={() => navigate('/notifications')} style={{ cursor: 'pointer' }}>
                                     <div className={style.dot} />
                                     <FaRegBell color='white' size={20} />

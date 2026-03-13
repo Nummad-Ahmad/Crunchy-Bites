@@ -218,6 +218,10 @@
     }
 }
 @media(max-width: 700px){
+.luckywinnerOuter{
+    height: auto;
+    margin-bottom: 20px;
+}
     .happyface{
         display: none;
     }

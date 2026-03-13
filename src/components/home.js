@@ -42,8 +42,7 @@ export default function Home() {
         axios.get(`${process.env.REACT_APP_BACK_END}/verify-token`, {
             withCredentials: true
         }).then(res => {
-            dispatch(userLoggedIn({ email: res.data.user.email, wins: res.data.user.wins }));
-            console.log('res', res?.data);
+            dispatch(userLoggedIn({ email: res.data.user.email, wins: res.data.user.wins, notificationRead: res.data.user.notificationRead }));
         }).catch(err => {
             dispatch(userLoggedOut());
             console.log('err', err.response?.data);
