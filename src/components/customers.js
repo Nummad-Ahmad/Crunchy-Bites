@@ -12,7 +12,21 @@ export default function Customers() {
     const records = userData.slice(firstIndex, lastIndex);
     const nPage = Math.ceil(userData.length / recordsPerPage);
     const totalPages = [...Array(nPage + 1).keys()].slice(1) || [];
-    console.log(totalPages);
+    
+    function prevPage() {
+        if (currentPage !== 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }
+    function changePage(page) {
+        setCurrentPage(page);
+    }
+    function nextPage() {
+        if (currentPage !== nPage) {
+            setCurrentPage(currentPage + 1);
+        }
+    }
+
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_BACK_END}/customerdata`, {
             withCredentials: true
@@ -28,19 +42,6 @@ export default function Customers() {
             });
 
     }, []);
-    function prevPage() {
-        if (currentPage !== 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    }
-    function changePage(page) {
-        setCurrentPage(page);
-    }
-    function nextPage() {
-        if (currentPage !== nPage) {
-            setCurrentPage(currentPage + 1);
-        }
-    }
     return (
         <div className={style.customers}>
             <Navbar />
