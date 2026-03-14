@@ -116,7 +116,7 @@ export default function Notifications() {
         if (!notificationRead) {
             const audio = new Audio(confettiSound);
             audio.play();
-            setTimeout(() => setShowConfetti(true), 100);
+            setTimeout(() => setShowConfetti(true), 300);
             markNotificationRead();
 
             setTimeout(() => setShowConfetti(false), 6000);
