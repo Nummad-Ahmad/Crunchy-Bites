@@ -47,7 +47,7 @@
     box-sizing: border-box;
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: start;
     gap: 30px;
     background-color: rgb(37, 37, 37);
     color: white;

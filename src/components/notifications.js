@@ -117,15 +117,23 @@ export default function Notifications() {
         }
         return orderedItems;
     }
-    function getFormattedDate(date) {
-        date = new Date(date);
-        const formattedDate = date.toLocaleDateString("en-GB", {
-            year: "numeric",
-            month: "numeric",
-            day: "numeric"
-        });
-        return (formattedDate);
-    }
+    function getTimeAgo(date) {
+    const now = new Date();
+    const past = new Date(date);
+
+    const diffMs = now - past;
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const diffWeeks = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 7));
+
+    if (diffMinutes < 1) return "just now";
+    if (diffMinutes < 60) return `${diffMinutes} min${diffMinutes > 1 ? "s" : ""} ago`;
+    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? "s" : ""} ago`;
+    if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? "s" : ""} ago`;
+
+    return `${diffWeeks} week${diffWeeks > 1 ? "s" : ""} ago`;
+}
     function getWinner() {
         axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
             .then(res => {
@@ -217,7 +225,7 @@ useEffect(() => {
             <div className={style.notificationscontainer}>
                 {
                     winner &&
-                    winner.email === email && (day === 1 || day === 2 || day === 3) &&
+                    winner.email === email && (!notificationRead) &&
                     <div className={style.notification}>
                         <FaRegEnvelope color="rgb(240, 99, 49)" />
                         <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -233,12 +241,11 @@ useEffect(() => {
                         historyData.map((item, index) => {
                             return (
                                 <div key={index} className={style.notification}>
-                                    <FaRegEnvelope color="rgb(240, 99, 49)" />
+                                    <FaRegEnvelope color="rgb(240, 99, 49)" style={{marginTop: '4px'}}/>
                                     <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                        <p style={{ maxWidth: '60%' }}>
-                                            You ordered {getOrderedItems(item)}
+                                        <p>
+                                            You ordered {getOrderedItems(item)} - ({getTimeAgo(item.date)})
                                         </p>
-                                        <p>{getFormattedDate(item.date)}</p>
                                     </div>
                                 </div>
                             );
