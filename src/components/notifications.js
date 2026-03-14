@@ -2,268 +2,205 @@ import axios from 'axios';
 import style from '../styles/notifications.module.css';
 import Navbar from './navbar';
 import { FaRegEnvelope } from "react-icons/fa";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setWinnerNotification } from "../redux/userSlice";
 import Confetti from "react-confetti";
 import confettiSound from "../assets/confetti.mp3";
-
-const moment = require('moment');
+import moment from 'moment';
 
 export default function Notifications() {
     const [showConfetti, setShowConfetti] = useState(false);
-    const audio = new Audio(confettiSound);
-    const dispatch = useDispatch();
-    var totalCounts;
-    var mostOrderedItem = [];
-        const user = useSelector(state => state.user);
-    const email = user.email;
-    const notificationRead = user?.notificationRead;
-    const wins = user.wins;
     const [winner, setWinner] = useState({});
     const [historyData, setHistoryData] = useState([]);
-    const date = new Date().toISOString();
-    const formattedDate = date.split("T")[0];
-    var day = moment(date).format('DD');
-    const month = moment(date).format('MM');
-    const year = moment(date).format('YYYY');
-    function padTime(timeStr) {
-        const parts = timeStr.split(":");
-        const h = parts[0]?.padStart(2, "0") || "00";
-        const m = parts[1]?.padStart(2, "0") || "00";
-        const s = parts[2]?.padStart(2, "0") || "00";
-        return `${h}:${m}:${s}`;
-    }
 
-    function sortByDateDescending(data) {
-        return [...data].sort((a, b) => {
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.user);
+    const { email, notificationRead, wins } = user;
+
+    const today = new Date();
+    const formattedDate = today.toISOString().split("T")[0];
+    const day = moment(today).format('DD');
+    const month = moment(today).format('MM');
+    const year = moment(today).format('YYYY');
+
+    // ------------------ Helper Functions ------------------ //
+
+    const padTime = (timeStr) => {
+        const [h = "00", m = "00", s = "00"] = timeStr?.split(":") || [];
+        return `${h.padStart(2, "0")}:${m.padStart(2, "0")}:${s.padStart(2, "0")}`;
+    };
+
+    const sortByDateDescending = (data) =>
+        [...data].sort((a, b) => {
             const dateTimeA = new Date(`${a.date.split('T')[0]}T${padTime(a.time)}`);
             const dateTimeB = new Date(`${b.date.split('T')[0]}T${padTime(b.time)}`);
             return dateTimeB - dateTimeA;
         });
-    }
-    function getData() {
-        axios.get(`${process.env.REACT_APP_BACK_END}/data?date=${formattedDate}`, {
-            withCredentials: true
-        })
-            .then(res => {
-                const sortedData = sortByDateDescending(res.data.data)
-                console.log(sortedData)
 
-                if (res.status === 200) {
-                    setHistoryData(sortedData);
-                }
-            })
-            .catch(e => {
-                console.log(e);
+    const formatDate = (date) => {
+        const d = new Date(date);
+        const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        return `${d.getDate()} ${monthNames[d.getMonth()]}`;
+    };
+
+    const getOrderedItems = (item) => {
+        const { samosa, fries, lemonade, cheesyFries, chocoMilk } = item.items;
+        const parts = [];
+
+        if (samosa) parts.push(`${samosa} Samosa${samosa > 1 ? 's' : ''}`);
+        if (fries) parts.push(`${fries} plate${fries > 1 ? 's' : ''} of Fries`);
+        if (lemonade) parts.push(`${lemonade} glass${lemonade > 1 ? 'es' : ''} of lemonade`);
+        if (cheesyFries) parts.push(`${cheesyFries} plate${cheesyFries > 1 ? 's' : ''} of Cheesy Fries`);
+        if (chocoMilk) parts.push(`${chocoMilk} glass${chocoMilk > 1 ? 'es' : ''} of Choco Milk`);
+
+        return parts.join(', ');
+    };
+
+    const getWinnerNotification = async () => {
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_BACK_END}/winner`);
+            if (res.status === 200) setWinner(res.data.winner);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const markNotificationRead = async () => {
+        try {
+            await axios.patch(
+                `${process.env.REACT_APP_BACK_END}/read-notification`,
+                { email },
+                { withCredentials: true }
+            );
+            dispatch(setWinnerNotification(true));
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const getData = async () => {
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_BACK_END}/data?date=${formattedDate}`, {
+                withCredentials: true
             });
-    }
-
-    function markNotificationRead() {
-        axios.patch(
-        `${process.env.REACT_APP_BACK_END}/read-notification`,
-        {
-            email
-        },
-        {
-            withCredentials: true
-        }
-    )
-            .then(res => {
-                console.log(res.data);
-                dispatch(setWinnerNotification(true));
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    }
-
-    function getOrderedItems(item) {
-        var orderedItems = "";
-        if (item.items.samosa > 0) {
-            if (item.items.samosa === 1) {
-                orderedItems = item.items.samosa + " Samosa ";
-            } else {
-                orderedItems = item.items.samosa + " Samosas ";
+            if (res.status === 200) {
+                setHistoryData(sortByDateDescending(res.data.data));
             }
+        } catch (err) {
+            console.log(err);
         }
-        if (item.items.fries > 0) {
-            if (item.items.fries === 1) {
-                orderedItems += item.items.fries + " plate of Fries ";
-            } else {
-                orderedItems += item.items.fries + " plates of Fries ";
+    };
+
+    const nextLuckyDraw = () => `1 ${moment(today).add(1, 'month').format('MMMM')}`;
+
+    // ------------------ Computed Values ------------------ //
+
+    const { mostOrderedItem } = useMemo(() => {
+        const totalCounts = historyData.reduce((acc, order) => {
+            for (const [item, count] of Object.entries(order.items)) {
+                acc[item] = (acc[item] || 0) + count;
             }
-        }
-        if (item.items.lemonade > 0) {
-            if (item.items.lemonade === 1) {
-                orderedItems += item.items.lemonade + " glass of lemonade";
-            } else {
-                orderedItems += item.items.lemonade + " glasses of lemonade ";
-            }
-        }
-        if (item.items.cheesyFries > 0) {
-            if (item.items.cheesyFries === 1) {
-                orderedItems += item.items.cheesyFries + " plate of Cheesy Fries ";
-            } else {
-                orderedItems += item.items.cheesyFries + " plates of Cheesy Fries ";
-            }
-        }
-        if (item.items.chocoMilk > 0) {
-            if (item.items.chocoMilk === 1) {
-                orderedItems += item.items.chocoMilk + " glass of Choco Milk ";
-            } else {
-                orderedItems += item.items.chocoMilk + " glasses of Choco Milk ";
-            }
-        }
-        return orderedItems;
-    }
-    function getTimeAgo(date) {
-    const now = new Date();
-    const past = new Date(date);
+            return acc;
+        }, {});
+        const mostOrderedItem = Object.entries(totalCounts).reduce(
+            (max, curr) => (curr[1] > max[1] ? curr : max),
+            ["", -Infinity]
+        );
+        return { mostOrderedItem };
+    }, [historyData]);
 
-    console.log('now', now);
-    console.log('past', past);
+    // ------------------ Effects ------------------ //
 
-    const diffMs = now - past;
-    const diffMinutes = Math.floor(diffMs / (1000 * 60));
-    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-    const diffWeeks = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 7));
-
-    if (diffMinutes < 1) return "just now";
-    if (diffMinutes < 60) return `${diffMinutes} min${diffMinutes > 1 ? "s" : ""} ago`;
-    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? "s" : ""} ago`;
-    if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? "s" : ""} ago`;
-
-    return `${diffWeeks} week${diffWeeks > 1 ? "s" : ""} ago`;
-}
-    function getWinner() {
-        axios.get(`${process.env.REACT_APP_BACK_END}/winner`)
-            .then(res => {
-                if (res.status === 200) {
-                    setWinner(res.data.winner);
-                } else if (res.status === 404) {
-                    console.log(res.data);
-                }
-            })
-            .catch(e => {
-                console.log(e);
-            })
-    }
-
-    totalCounts = historyData.reduce((acc, order) => {
-        for (const [item, count] of Object.entries(order.items)) {
-            acc[item] = (acc[item] || 0) + count;
-        }
-        return acc;
-    }, {});
-    mostOrderedItem = Object.entries(totalCounts).reduce(
-        (max, curr) => (curr[1] > max[1] ? curr : max),
-        ["", -Infinity]
-    );
-    function nextLuckyDraw() {
-        const nextMonth = moment(date).add(1, 'month').format('MMMM');
-        return `1 ${nextMonth}`;
-    }
-useEffect(() => {
-    if (!notificationRead) {
-        setShowConfetti(true);
-
-        const audio = new Audio(confettiSound);
-        audio.play();
-
-        markNotificationRead();
-
-        setTimeout(() => {
-            setShowConfetti(false);
-        }, 6000);
-    }
-
-    if (email) {
-        getData();
-    }
-}, [email]);
     useEffect(() => {
-        getWinner();
-    }, []);
+        if (notificationRead) {
+            const audio = new Audio(confettiSound);
+            setShowConfetti(true);
+            audio.play();
+            markNotificationRead();
+
+            setTimeout(() => setShowConfetti(false), 6000);
+        }
+
+        if (email) getData();
+    }, [email]);
+
+    useEffect(() => { getWinnerNotification(); }, []);
+
+    // ------------------ Render ------------------ //
+
     return (
         <>
-        {showConfetti && (
-    <div style={{ position: "fixed", width: "100%", zIndex: 999 }}>
-        <Confetti numberOfPieces={300} recycle={false} />
-    </div>
-)}
-        <div className={style.notifications}>
-            <Navbar />
-            <p className={style.title}>Stats</p>
-            <div className={style.uprDiv}>
-                <div className={style.dataDiv}>
-                    <p>Orders this month</p>
-                    <p>{historyData.length}</p>
+            {showConfetti && (
+                <div style={{ position: "fixed", width: "100%", zIndex: 999 }}>
+                    <Confetti numberOfPieces={300} recycle={false} />
                 </div>
-                <div className={style.dataDiv}>
-                    <p>Most ordered item </p>
-                    <p>{
-                        mostOrderedItem[0] === "" ?
-                            "No data" :
-                            mostOrderedItem[0].toLowerCase() === 'cheesyfries' ?
-                                "Cheesy fries" :
-                                mostOrderedItem[0].toLowerCase() === 'chocoMilk' ?
-                                    "Choco Milk" :
-                                    mostOrderedItem[0].charAt(0).toUpperCase() + mostOrderedItem[0].slice(1)
-                    }</p>
-                </div>
-            </div>
-            <div className={style.uprDiv}>
-                <div className={style.dataDiv}>
-                    <p>Prizes won</p>
-                    <p>{wins}</p>
-                </div>
-                <div className={style.dataDiv}>
-                    <p>Next lucky draw</p>
-                    <p>{nextLuckyDraw()}</p>
-                </div>
-            </div>
-            <p className={style.title}>Notifications</p>
-            <div className={style.notificationscontainer}>
-                {
-                    winner &&
-                    winner.email === email && (!notificationRead) &&
-                    <div className={style.notification}>
-                        <FaRegEnvelope color="rgb(240, 99, 49)" />
-                        <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <p style={{ maxWidth: '60%' }}>
-                                Congrats {winner.name}. You won this month's lucky draw 🎉🎊🥳
-                            </p>
-                            <p>{day}/{month}/{year}</p>
-                        </div>
+            )}
+
+            <div className={style.notifications}>
+                <Navbar />
+                <p className={style.title}>Stats</p>
+
+                <div className={style.uprDiv}>
+                    <div className={style.dataDiv}>
+                        <p>Orders this month</p>
+                        <p>{historyData.length}</p>
                     </div>
-                }
-                {
-                    historyData.length > 0 ? (
-                        historyData.map((item, index) => {
-                            return (
-                                <div key={index} className={style.notification}>
-                                    <FaRegEnvelope color="rgb(240, 99, 49)" style={{marginTop: '4px'}}/>
-                                    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                        <p>
-                                            You ordered {getOrderedItems(item)} - ({getTimeAgo(item.date)})
-                                        </p>
-                                    </div>
-                                </div>
-                            );
-                        })
-                    ) : (
-                        winner &&
-                        winner.email !== email && (![1, 2, 3].includes(day)) &&
+                    <div className={style.dataDiv}>
+                        <p>Most ordered item</p>
+                        <p>{
+                            mostOrderedItem[0] === "" ? "No data" :
+                            mostOrderedItem[0].toLowerCase() === 'cheesyfries' ? "Cheesy fries" :
+                            mostOrderedItem[0].toLowerCase() === 'chocoMilk' ? "Choco Milk" :
+                            mostOrderedItem[0].charAt(0).toUpperCase() + mostOrderedItem[0].slice(1)
+                        }</p>
+                    </div>
+                </div>
+
+                <div className={style.uprDiv}>
+                    <div className={style.dataDiv}>
+                        <p>Prizes won</p>
+                        <p>{wins}</p>
+                    </div>
+                    <div className={style.dataDiv}>
+                        <p>Next lucky draw</p>
+                        <p>{nextLuckyDraw()}</p>
+                    </div>
+                </div>
+
+                <p className={style.title}>Notifications</p>
+                <div className={style.notificationscontainer}>
+                    {winner && winner.email === email && !notificationRead && (
                         <div className={style.notification}>
                             <FaRegEnvelope color="rgb(240, 99, 49)" />
-                            <p>No notifications</p>
+                            <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <p style={{ maxWidth: '60%' }}>
+                                    Congrats {winner.name}. You won this month's lucky draw 🎉🎊🥳
+                                </p>
+                                <p>{day}/{month}/{year}</p>
+                            </div>
                         </div>
-                    )
-                }
+                    )}
+
+                    {historyData.length > 0 ? (
+                        historyData.map((item, idx) => (
+                            <div key={idx} className={style.notification}>
+                                <FaRegEnvelope color="rgb(240, 99, 49)" style={{ marginTop: '4px' }} />
+                                <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <p>You ordered {getOrderedItems(item)} - ({formatDate(item.date)})</p>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        winner && winner.email !== email && (![1,2,3].includes(parseInt(day))) && (
+                            <div className={style.notification}>
+                                <FaRegEnvelope color="rgb(240, 99, 49)" />
+                                <p>No notifications</p>
+                            </div>
+                        )
+                    )}
+                </div>
             </div>
-        </div>
         </>
     );
 }
