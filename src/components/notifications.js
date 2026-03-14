@@ -115,8 +115,8 @@ export default function Notifications() {
     useEffect(() => {
         if (notificationRead) {
             const audio = new Audio(confettiSound);
-            setShowConfetti(true);
             audio.play();
+            setShowConfetti(true);
             markNotificationRead();
 
             setTimeout(() => setShowConfetti(false), 6000);
