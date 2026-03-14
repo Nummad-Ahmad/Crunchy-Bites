@@ -171,13 +171,10 @@ export default function Notifications() {
                 <p className={style.title}>Notifications</p>
                 <div className={style.notificationscontainer}>
                     {winner && winner.email === email && (
-<div 
-  className={style.notification} 
-  style={{ border: "1px solid rgb(240, 99, 49)" }}
->
+                        <div className={style.notification}>
                             <FaRegEnvelope color="rgb(240, 99, 49)" />
                             <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <p style={{ maxWidth: '60%' }}>
+                                <p>
                                     Congrats {winner.name}. You won this month's lucky draw 🎉🎊🥳
                                 </p>
                             </div>
