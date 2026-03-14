@@ -121,6 +121,9 @@ export default function Notifications() {
     const now = new Date();
     const past = new Date(date);
 
+    console.log('now', now);
+    console.log('past', past);
+
     const diffMs = now - past;
     const diffMinutes = Math.floor(diffMs / (1000 * 60));
     const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
