@@ -6,6 +6,7 @@
     gap: 10px;
     background-color: rgb(60, 60, 60);
 }
+
 .title{
     margin: 20px 0px;
     font-size: 40px;
@@ -14,6 +15,7 @@
     padding: 20px;
     box-sizing: border-box;
 }
+
 .uprDiv{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -21,6 +23,7 @@
     padding: 0px 20px;
     box-sizing: border-box;
 }
+
 .dataDiv{
     background-color: rgb(37, 37, 37);
     width: 100%;
@@ -33,14 +36,15 @@
     box-sizing: border-box;
     border-radius: 10px;
 }
+
 .notificationscontainer{
-    /* height: 400px; */
     margin: 0px 20px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
+
 .notification{
     border-radius: 10px;
     padding: 10px 30px;
@@ -52,45 +56,109 @@
     background-color: rgb(37, 37, 37);
     color: white;
 }
+
+/* ---------------- Skeleton Styles ---------------- */
+
+.skeletonText,
+.skeletonPrice,
+.skeletonDesc{
+    position: relative;
+    overflow: hidden;
+    background-color: #333;
+    border-radius: 5px;
+}
+
+/* shimmer effect */
+.skeletonText::before,
+.skeletonPrice::before,
+.skeletonDesc::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #333 15%, #2C2C2C 30%, #272727 45%);
+    animation: shimmer 1.5s infinite linear;
+}
+
+/* stats skeleton label */
+.skeletonText{
+    height: 14px;
+    width: 120px;
+}
+
+/* stats skeleton number */
+.skeletonPrice{
+    height: 14px;
+    width: 40px;
+}
+
+/* notification skeleton */
+.skeletonDesc{
+    height: 50px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: rgb(37, 37, 37);
+}
+
+/* animation */
+@keyframes shimmer{
+    100%{
+        left: 100%;
+    }
+}
+
+/* ---------------- Responsive ---------------- */
+
 @media(max-width: 700px){
+
     .uprDiv{
         grid-template-columns: 1fr;
         grid-template-rows: repeat(2, 1fr);
     }
+
     .notification{
         gap: 15px;
         padding: 10px 15px;
         font-size: 16px;
     }
+
 }
+
 @media(max-width: 600px){
+
     .title{
-    margin: 0px 0px;
-    font-size: 24px;
-    padding: 10px 20px;
-    box-sizing: border-box;
+        margin: 0px 0px;
+        font-size: 24px;
+        padding: 10px 20px;
+        box-sizing: border-box;
     }
+
     .dataDiv{
         font-size: 16px;
-    background-color: rgb(37, 37, 37);
-    width: 100%;
-    height: 50px;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0px 10px;
-    box-sizing: border-box;
-    border-radius: 10px;
+        background-color: rgb(37, 37, 37);
+        width: 100%;
+        height: 50px;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0px 10px;
+        box-sizing: border-box;
+        border-radius: 10px;
     }
-.notificationscontainer{
-    margin: 0px 20px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.notification{
-    font-size: 16px;
-}
+
+    .notificationscontainer{
+        margin: 0px 20px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .notification{
+        font-size: 16px;
+    }
+
 }
