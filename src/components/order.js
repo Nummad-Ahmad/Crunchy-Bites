@@ -1,6 +1,7 @@
 import style from '../styles/order.module.css';
 import CheesyFries from '../images/chessyfries.jpg';
 import FrenchFries from '../images/frenchfries.jpg';
+import OrderPlaced from '../images/orderPlaced.png';
 import Roll from '../images/roll.jpg';
 import Samosa from '../images/samosa.jpg';
 import Lemonade from '../images/lemonade.jpg';
@@ -11,9 +12,13 @@ import { setCheesyFries, setChocoMilk, setFries, setLemonade, setRoll, setSamosa
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Order() {
     const [dayName, setDayName] = useState("");
+    const navigate = useNavigate();
+    const [showOrderModal, setShowOrderModal] = useState(false);
+    const [orderNumber, setOrderNumber] = useState("");
     useEffect(() => {
         const today = new Date();
         const localDay = new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'Asia/Karachi' }).format(today);
@@ -71,7 +76,9 @@ export default function Order() {
                     if (res.status === 201) {
                         toast.dismiss(loadingToast);
                         console.log(res.data)
-                        toast.success(`Order number is ${res.data.orderNumber}`);
+                        // toast.success(`Order number is ${res.data.orderNumber}`);
+                        setOrderNumber(res.data.orderNumber);
+                        setShowOrderModal(true);
                         isOrdering(false);
                         setInputValues({
                             samosa: 0,
@@ -157,6 +164,13 @@ export default function Order() {
             }
         }
     };
+
+    function handleButtonClick(){
+        setOrderNumber("");
+        setShowOrderModal(false);
+        navigate('/notifications');
+    }
+
     function getData() {
         axios.get(`${process.env.REACT_APP_BACK_END}/itemdata`)
             .then(res => {
@@ -336,6 +350,34 @@ export default function Order() {
                 </div>
                 <btn onClick={() => { !ordering && sendOrder() }} className={style.btn}>Order</btn>
             </div>
+
+            {showOrderModal && (
+  <div className={style.verificationOverlay}>
+    <div className={style.verificationContainer}>
+
+      {/* Image */}
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <img src={OrderPlaced} alt="" style={{ width: '200px' }} />
+      </div>
+
+      {/* Text */}
+      <p style={{ textAlign: 'center', marginTop: '10px' }}>
+        Your order ({orderNumber}) has been placed 🎉!
+      </p>
+
+      {/* Button */}
+      <div style={{ marginTop: '15px' }}>
+        <button
+          className={style.verifyButton}
+          onClick={() => handleButtonClick()}
+        >
+          OK
+        </button>
+      </div>
+
+    </div>
+  </div>
+)}
         </div>
     );
 }
