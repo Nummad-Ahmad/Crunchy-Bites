@@ -11,14 +11,17 @@ import ShowOrders from "./showOrders";
 import ProtectedRoute from "./protectedRoute";
 import ProtectedRoute2 from "./protectedRoute2";
 import NotFound from "./notFound";
+import PublicRoute from "./publicRoute";
 
 export default function App() {
     return (
         <Router>
             <Routes>
+<Route element={<PublicRoute />}>
     <Route element={<Signup />} path="/signup" />
     <Route element={<Login />} path="/login" />
     <Route element={<Forgotpassword />} path="/forgotpassword" />
+</Route>
     <Route element={<Home />} path="/" />
 
     <Route element={<ProtectedRoute />}>
