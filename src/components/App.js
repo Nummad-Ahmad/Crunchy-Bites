@@ -10,6 +10,7 @@ import Settings from "./settings";
 import ShowOrders from "./showOrders";
 import ProtectedRoute from "./protectedRoute";
 import ProtectedRoute2 from "./protectedRoute2";
+import NotFound from "./notFound";
 
 export default function App() {
     return (
@@ -18,7 +19,9 @@ export default function App() {
                 <Route element={<Signup />} path="/signup" />
                 <Route element={<Login />} path="/login" />
                 <Route element={<Forgotpassword />} path="/forgotpassword" />
-                <Route element={<Home />} path="/" />
+                {/* <Route element={<Home />} path="/" /> */}
+                
+                <Route element={<NotFound />} path="/" />
                 <Route element={<ProtectedRoute />}>
                     <Route element={<Order />} path="/order" />
                     <Route element={<Notifications />} path="/notifications" />

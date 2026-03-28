@@ -243,7 +243,11 @@ export default function Notifications() {
                         <>
                             {winner && winner.email === email && (
                                 <div className={style.notification}>
-                                    <FaRegEnvelope color="rgb(240, 99, 49)" style={{ marginTop: '4px' }} />
+<FaRegEnvelope 
+  color="rgb(240, 99, 49)" 
+  size={14} 
+  style={{ marginTop: '4px', minWidth: '14px' }} 
+/>
                                     <p>
                                         Congrats {winner.name}. You won this month's lucky draw 🎉🎊🥳
                                     </p>
@@ -254,9 +258,13 @@ export default function Notifications() {
 
                                 historyData.map((item, idx) => (
                                     <div key={idx} className={style.notification}>
-                                        <FaRegEnvelope color="rgb(240, 99, 49)" style={{ marginTop: '4px' }} />
+<FaRegEnvelope 
+  color="rgb(240, 99, 49)" 
+  size={14} 
+  style={{ marginTop: '4px', minWidth: '14px' }} 
+/>
                                         <p>
-                                            You ordered {getOrderedItems(item)} - ({formatDate(item.date)})
+                                            You ordered {getOrderedItems(item)} ({formatDate(item.date)})
                                         </p>
                                     </div>
                                 ))

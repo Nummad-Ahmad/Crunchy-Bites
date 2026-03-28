@@ -1,0 +1,72 @@
+.notFound{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: rgb(60, 60, 60);
+}
+.contentContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.textSection{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.heading{
+    font-size: 36px;
+    font-weight: 600;
+    color: white;
+}
+.description{
+    font-size: 20px;
+    color: rgb(190, 190, 190);
+}
+.robotimage{
+    height: 450px;
+}
+.returnButton{
+        background-color: rgb(240, 99, 49);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    width: 200px;
+    align-self: end;
+    
+        margin-top: 10px;
+}
+
+
+@media(max-width: 900px){
+    .contentContainer{
+        flex-direction: column-reverse;
+        gap: 30px;
+    }
+    .textSection{
+        width: 90%;
+    }
+    .robotimage{
+        height: 250px;
+    }
+    .heading{
+        font-size: 20px;
+    }
+    .description{
+        font-size: 16px;
+    }
+    .returnButton{
+        width: 100%;
+        margin-top: 10px;
+        align-self: center;
+    }
+}
