@@ -1,5 +1,5 @@
 import style from '../styles/footer.module.css';
-import Logo from '../images/logo.png';
+import Logo from '../assets/images/logo.png';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 

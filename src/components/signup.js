@@ -1,10 +1,10 @@
 import style from '../styles/signup.module.css';
-import Robot from '../images/robot.png';
+import Robot from '../assets/images/robot.png';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import Logo from '../images/logo.png';
+import Logo from '../assets/images/logo.png';
 export default function Signup(){  const [email, setemail] = useState("")
     const [password, setpass] = useState("")
     const [confirmPass, setConfirmPass] = useState('');

@@ -1,11 +1,11 @@
 import style from '../styles/order.module.css';
-import CheesyFries from '../images/chessyfries.jpg';
-import FrenchFries from '../images/frenchfries.jpg';
-import OrderPlaced from '../images/orderPlaced.png';
-import Roll from '../images/roll.jpg';
-import Samosa from '../images/samosa.jpg';
-import Lemonade from '../images/lemonade.jpg';
-import ChocoMilk from '../images/choco.jpg';
+import CheesyFries from '../assets/images/chessyfries.jpg';
+import FrenchFries from '../assets/images/frenchfries.jpg';
+import OrderPlaced from '../assets/images/orderPlaced.png';
+import Roll from '../assets/images/roll.jpg';
+import Samosa from '../assets/images/samosa.jpg';
+import Lemonade from '../assets/images/lemonade.jpg';
+import ChocoMilk from '../assets/images/choco.jpg';
 import Navbar from './navbar';
 import { useDispatch } from "react-redux";
 import { setCheesyFries, setChocoMilk, setFries, setLemonade, setRoll, setSamosa } from '../redux/slice';

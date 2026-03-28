@@ -1,6 +1,6 @@
 import style from '../styles/notFound.module.css';
 import Navbar from './navbar';
-import NotFoundRobot from '../images/notFound.png';
+import NotFoundRobot from '../assets/images/notFound.png';
 import { useNavigate } from 'react-router-dom';
 
 export default function NotFound() {

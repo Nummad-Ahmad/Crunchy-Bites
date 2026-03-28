@@ -1,11 +1,11 @@
 import style from '../styles/forgotpassword.module.css';
-import Robot from '../images/robot.png';
+import Robot from '../assets/images/robot.png';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { IoClose } from "react-icons/io5";
-import Logo from '../images/logo.png';
+import Logo from '../assets/images/logo.png';
 export default function Forgotpassword() {
     const [verified, setVerified] = useState(false);
     const [showVerification, setShowVerification] = useState(false);

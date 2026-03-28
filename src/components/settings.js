@@ -1,11 +1,10 @@
 import style from '../styles/settings.module.css';
 import Navbar from './navbar';
-import Cheesyfries from '../images/chessyfries.jpg';
-import Frenchfries from '../images/frenchfries.jpg';
-import Roll from '../images/roll.jpg';
-import samosa from '../images/samosa.jpg';
-import Lemonade from '../images/lemonade.jpg';
-import ChocoMilk from '../images/choco.jpg';
+import Cheesyfries from '../assets/images/chessyfries.jpg';
+import Frenchfries from '../assets/images/frenchfries.jpg';
+import samosa from '../assets/images/samosa.jpg';
+import Lemonade from '../assets/images/lemonade.jpg';
+import ChocoMilk from '../assets/images/choco.jpg';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
