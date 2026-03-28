@@ -16,22 +16,23 @@ export default function App() {
     return (
         <Router>
             <Routes>
-                <Route element={<Signup />} path="/signup" />
-                <Route element={<Login />} path="/login" />
-                <Route element={<Forgotpassword />} path="/forgotpassword" />
-                {/* <Route element={<Home />} path="/" /> */}
-                
-                <Route element={<NotFound />} path="/" />
-                <Route element={<ProtectedRoute />}>
-                    <Route element={<Order />} path="/order" />
-                    <Route element={<Notifications />} path="/notifications" />
-                </Route>
-                <Route element={<ProtectedRoute2 />}>
-                    <Route element={<Customers />} path="/customers" />
-                    <Route element={<Settings />} path="/settings" />
-                    <Route element={<ShowOrders />} path="/showorders" />
-                </Route>
-            </Routes>
+    <Route element={<Signup />} path="/signup" />
+    <Route element={<Login />} path="/login" />
+    <Route element={<Forgotpassword />} path="/forgotpassword" />
+    <Route element={<Home />} path="/" />
+
+    <Route element={<ProtectedRoute />}>
+        <Route element={<Order />} path="/order" />
+        <Route element={<Notifications />} path="/notifications" />
+    </Route>
+
+    <Route element={<ProtectedRoute2 />}>
+        <Route element={<Customers />} path="/customers" />
+        <Route element={<Settings />} path="/settings" />
+        <Route element={<ShowOrders />} path="/showorders" />
+    </Route>
+    <Route path="*" element={<NotFound />} />
+</Routes>
         </Router>
     );
 }
