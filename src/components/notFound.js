@@ -4,6 +4,7 @@ import NotFoundRobot from '../assets/images/notFound.png';
 import { useNavigate } from 'react-router-dom';
 
 export default function NotFound() {
+    
     const navigate = useNavigate();
     return (
         <>
