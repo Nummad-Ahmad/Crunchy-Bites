@@ -1,8 +1,10 @@
 import style from '../styles/notFound.module.css';
 import Navbar from './navbar';
 import NotFoundRobot from '../images/notFound.png';
+import { useNavigate } from 'react-router-dom';
 
 export default function NotFound() {
+    const navigate = useNavigate();
     return (
         <>
             <div className={style.notFound}>
@@ -15,7 +17,7 @@ export default function NotFound() {
                         <p className={style.description}>
                             Sorry, but the page you are looking for does not exist. Please return to the homepage.
                         </p>
-                        <button className={style.returnButton}>
+                        <button onClick={() => navigate('/')} className={style.returnButton}>
                             Return To Home
                         </button>
                     </div>
