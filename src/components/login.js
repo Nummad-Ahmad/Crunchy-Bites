@@ -14,7 +14,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [showVerification, setShowVerification] = useState(false);
-  const [verificationCode, setVerificationCode] = useState("");
+const [verificationCode, setVerificationCode] = useState(Array(6).fill(""));
   const navigate = useNavigate();
   const dispatch = useDispatch();
   function handleLogin(e) {
@@ -53,11 +53,11 @@ export default function Login() {
   }
 
   function handleVerification(e) {
-    if (verificationCode.trim().length === 6) {
+    if (verificationCode.join('').length === 6) {
       setVerify(true);
       axios.post(
         `${process.env.REACT_APP_BACK_END}/verify`,
-        { email, verificationCode },
+        { email, verificationCode: verificationCode.join('') },
         { withCredentials: true }
       )
         .then((response) => {
@@ -91,18 +91,37 @@ export default function Login() {
     }
   }
 
-  const handleOtpChange = (e, index) => {
-    const value = e.target.value.replace(/[^0-9]/g, ''); // allow only numbers
+const handleOtpChange = (e, index) => {
+  const value = e.target.value.replace(/[^0-9]/g, '');
 
-    const newCode = verificationCode.split('');
-    newCode[index] = value;
-    setVerificationCode(newCode.join(''));
+  if (!value) return;
 
-    // Auto focus next input
-    if (value && e.target.nextSibling) {
-      e.target.nextSibling.focus();
+  const newCode = [...verificationCode];
+  newCode[index] = value[0]; // only one digit
+  setVerificationCode(newCode);
+
+  // move to next input
+  if (e.target.nextSibling) {
+    e.target.nextSibling.focus();
+  }
+};
+
+const handleKeyDown = (e, index) => {
+  if (e.key === "Backspace") {
+    const newCode = [...verificationCode];
+
+    if (newCode[index]) {
+      // clear current
+      newCode[index] = "";
+      setVerificationCode(newCode);
+    } else if (index > 0) {
+      // move back
+      newCode[index - 1] = "";
+      setVerificationCode(newCode);
+      e.target.previousSibling.focus();
     }
-  };
+  }
+};
 
   return (
     <>
@@ -153,20 +172,21 @@ export default function Login() {
             <div style={{ display: 'flex', gap: '10px', justifyContent: 'space-between' }}>
               {[...Array(6)].map((_, index) => (
                 <input
-                  key={index}
-                  type="text"
-                  maxLength="1"
-                  className={style.verificationInput}
-                  value={verificationCode[index] || ''}
-                  onChange={(e) => handleOtpChange(e, index)}
-                  style={{
-                    color: 'white',
-                    width: '40px',
-                    height: '45px',
-                    textAlign: 'center',
-                    fontSize: '18px',
-                  }}
-                />
+  key={index}
+  type="text"
+  maxLength="1"
+  className={style.verificationInput}
+value={verificationCode[index]}
+  onChange={(e) => handleOtpChange(e, index)}
+  onKeyDown={(e) => handleKeyDown(e, index)} // 👈 ADD THIS
+  style={{
+    color: 'white',
+    width: '40px',
+    height: '45px',
+    textAlign: 'center',
+    fontSize: '18px',
+  }}
+/>
               ))}
             </div>
 
