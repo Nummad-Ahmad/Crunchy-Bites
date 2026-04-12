@@ -57,10 +57,6 @@ export default function Order() {
         return sum;
     }
     function sendOrder() {
-        if (hours > 16 || hours < 9) {
-            toast.error("Order timing is 9am to 5pm");
-            return;
-        }
         if (calculateTotal() > 0) {
             isOrdering(true);
             const loadingToast = toast.loading("Ordering ...");
