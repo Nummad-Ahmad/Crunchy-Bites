@@ -2,7 +2,7 @@ import axios from 'axios';
 import style from '../styles/notifications.module.css';
 import Navbar from './navbar';
 import { FaRegEnvelope } from "react-icons/fa";
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setWinnerNotification } from "../redux/userSlice";
 import Confetti from "react-confetti";
@@ -15,6 +15,7 @@ export default function Notifications() {
     const [winner, setWinner] = useState({});
     const [historyData, setHistoryData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const audioRef = useRef(null);
 
     const dispatch = useDispatch();
     const user = useSelector(state => state.user);
@@ -40,7 +41,7 @@ export default function Notifications() {
 
     const formatDate = (date) => {
         const d = new Date(date);
-        const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         return `${d.getDate()} ${monthNames[d.getMonth()]}`;
     };
 
@@ -123,20 +124,28 @@ export default function Notifications() {
     // ------------------ Effects ------------------ //
 
     useEffect(() => {
+        audioRef.current = new Audio(confettiSound);
+        audioRef.current.preload = "auto";
+    }, []);
 
-        if (!notificationRead) {
+    useEffect(() => {
 
-            const audio = new Audio(confettiSound);
-            audio.play();
+        const run = async () => {
+            await getData();
 
-            setTimeout(() => setShowConfetti(true), 300);
-            markNotificationRead();
+            if (!notificationRead) {
+                audioRef.current?.play().catch(() => { console.log("Audio play failed"); });
 
-            setTimeout(() => setShowConfetti(false), 6000);
-        }
+                setShowConfetti(true);
+                markNotificationRead();
 
-        if (email) getData();
+                setTimeout(() => {
+                    setShowConfetti(false);
+                }, 6000);
+            }
+        };
 
+        run();
     }, [email]);
 
     useEffect(() => {
@@ -201,9 +210,9 @@ export default function Notifications() {
                                 <p>Most ordered item</p>
                                 <p>
                                     {mostOrderedItem[0] === "" ? "No data" :
-                                    mostOrderedItem[0].toLowerCase() === 'cheesyfries' ? "Cheesy fries" :
-                                    mostOrderedItem[0].toLowerCase() === 'chocoMilk' ? "Choco Milk" :
-                                    mostOrderedItem[0].charAt(0).toUpperCase() + mostOrderedItem[0].slice(1)}
+                                        mostOrderedItem[0].toLowerCase() === 'cheesyfries' ? "Cheesy fries" :
+                                            mostOrderedItem[0].toLowerCase() === 'chocoMilk' ? "Choco Milk" :
+                                                mostOrderedItem[0].charAt(0).toUpperCase() + mostOrderedItem[0].slice(1)}
                                 </p>
                             </div>
 
@@ -243,11 +252,11 @@ export default function Notifications() {
                         <>
                             {winner && winner.email === email && (
                                 <div className={style.notification}>
-<FaRegEnvelope 
-  color="rgb(240, 99, 49)" 
-  size={14} 
-  style={{ marginTop: '4px', minWidth: '14px' }} 
-/>
+                                    <FaRegEnvelope
+                                        color="rgb(240, 99, 49)"
+                                        size={14}
+                                        style={{ marginTop: '4px', minWidth: '14px' }}
+                                    />
                                     <p>
                                         Congrats {winner.name}. You won this month's lucky draw 🎉🎊🥳
                                     </p>
@@ -258,11 +267,11 @@ export default function Notifications() {
 
                                 historyData.map((item, idx) => (
                                     <div key={idx} className={style.notification}>
-<FaRegEnvelope 
-  color="rgb(240, 99, 49)" 
-  size={14} 
-  style={{ marginTop: '4px', minWidth: '14px' }} 
-/>
+                                        <FaRegEnvelope
+                                            color="rgb(240, 99, 49)"
+                                            size={14}
+                                            style={{ marginTop: '4px', minWidth: '14px' }}
+                                        />
                                         <p>
                                             You ordered {getOrderedItems(item)} ({formatDate(item.date)})
                                         </p>
@@ -273,7 +282,7 @@ export default function Notifications() {
 
                                 winner &&
                                 winner.email !== email &&
-                                (![1,2,3].includes(parseInt(day))) && (
+                                (![1, 2, 3].includes(parseInt(day))) && (
 
                                     <div className={style.notification}>
                                         <FaRegEnvelope color="rgb(240, 99, 49)" />
