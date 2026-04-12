@@ -1,5 +1,5 @@
 import style from '../styles/navbar.module.css';
-import Logo from '../assets/images/logo.png';
+import Logo from '../assets/images/fries.png';
 import { FaRegBell } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { IoHomeOutline } from "react-icons/io5";
