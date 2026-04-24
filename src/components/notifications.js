@@ -64,6 +64,8 @@ export default function Notifications() {
             if (res.status === 200) setWinner(res.data.winner);
         } catch (err) {
             console.log(err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -93,8 +95,6 @@ export default function Notifications() {
 
         } catch (err) {
             console.log(err);
-        } finally {
-            setLoading(false);
         }
     };
 
