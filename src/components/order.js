@@ -344,7 +344,7 @@ export default function Order() {
                     <p>Total items</p>
                     <p>{getItems()}</p>
                 </div>
-                <btn onClick={() => { !ordering && sendOrder() }} className={style.btn}>Order</btn>
+                <div onClick={() => { !ordering && sendOrder() }} className={style.btn}>Order</div>
             </div>
 
             {showOrderModal && (

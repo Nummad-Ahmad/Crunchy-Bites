@@ -11,3 +11,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Prevent overflow outside screen */
+.react-datepicker-popper {
+  z-index: 9999 !important;
+  max-width: 100vw;
+}
+
+/* Make it mobile friendly */
+@media (max-width: 768px) {
+  .react-datepicker-popper {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 95vw !important;
+  }
+
+  .react-datepicker {
+    width: 100% !important;
+  }
+}
+
+/* Optional: nicer input */
+.custom-input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+}

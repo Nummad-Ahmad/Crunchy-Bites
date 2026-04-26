@@ -10,9 +10,14 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import QrScanner from "react-qr-scanner";
 import { BsQrCodeScan } from "react-icons/bs";
+import DealBox from './DealBox';
+import { getFoodItems } from '../constants/foodItems';
 
 export default function Settings() {
     const [check, setChecked] = useState(false);
+    
+    const [deals, setDeals] = useState([]);
+    const [dealQty, setDealQty] = useState({}); 
     const handleScan = (data) => {
         if (data) {
             try {
@@ -180,93 +185,80 @@ export default function Settings() {
             });
     }
 
+    const getDealsData = async () => {
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_BACK_END}/deals?isAdmin=true`);
+            const data = res.data.data;
+
+            setDeals(data);
+
+            const initial = Object.fromEntries(data.map(d => [d._id, 0]));
+            setDealQty(initial);
+
+        } catch {
+            toast.error("Failed to load deals");
+        }
+    };
+
     useEffect(() => {
         getData();
+        getDealsData();
     }, []);
     const now = new Date();
     const month = now.getMonth() + 1;
-    console.log(inputValues);
+    
+    const foodItems = getFoodItems(month);
+
     return (
         <div className={style.settings}>
             <Navbar />
             <div className={style.foodboxcontainer}>
-                <div className={style.foodbox}>
-                    <img src={samosa} className={style.foodimg} alt='' />
-                    <p className={style.itemname}>Samosa</p>
-                    <p className={style.itemdesc}>Our crispy and flavorful samosas filled with spiced potatoes, wrapped in a golden, flaky crust. A perfect snack.</p>
-                    <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <p style={{ fontWeight: 'bold', color: "rgb(240, 99, 49)" }}>Price</p>
-                        <div style={{ display: 'flex', gap: '20px', alignItems: 'center', color: 'white' }}>
-                            <p style={{ cursor: 'pointer' }} onClick={() => decrement("samosa")}>-</p>
-                            <p style={{ fontWeight: 'bold' }}>{inputValues.samosa}</p>
-                            <p style={{ cursor: 'pointer' }} onClick={() => increment("samosa")}>+</p>
-                        </div>
-                    </div>
-                    <button onClick={() => updatePrice('samosa', inputValues.samosa)} className={style.btn}>Change</button>
+    {foodItems.map(item => (
+        <div key={item.key} className={style.foodbox}>
+
+            <img src={item.img} className={style.foodimg} alt='' />
+
+            <p className={style.itemname}>{item.name}</p>
+
+            <p className={style.itemdesc}>{item.desc}</p>
+
+            <div style={{
+                padding: '10px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+            }}>
+                <p style={{ fontWeight: 'bold', color: "rgb(240, 99, 49)" }}>
+                    Price
+                </p>
+
+                <div style={{ display: 'flex', gap: '20px', alignItems: 'center', color: 'white' }}>
+                    <p style={{ cursor: 'pointer' }} onClick={() => decrement(item.key)}>-</p>
+
+                    <p style={{ fontWeight: 'bold' }}>
+                        {inputValues[item.key]}
+                    </p>
+
+                    <p style={{ cursor: 'pointer' }} onClick={() => increment(item.key)}>+</p>
                 </div>
-                <div className={style.foodbox}>
-                    <img src={Cheesyfries} className={style.foodimg} alt='' />
-                    <p className={style.itemname}>Cheesy fries</p>
-                    <p className={style.itemdesc}>Our cheesy and crispy fries loaded with rich, melted cheese and creamy mayo. A perfect blend of cheesy goodness.</p>
-                    <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <p style={{ fontWeight: 'bold', color: "rgb(240, 99, 49)" }}>Price</p>
-                        <div style={{ display: 'flex', gap: '20px', alignItems: 'center', color: 'white' }}>
-                            <p style={{ cursor: 'pointer' }} onClick={() => decrement("cheesyFries")}>-</p>
-                            <p style={{ fontWeight: 'bold' }}>{inputValues.cheesyFries}</p>
-                            <p style={{ cursor: 'pointer' }} onClick={() => increment("cheesyFries")}>+</p>
-                        </div>
-                    </div>
-                    <button onClick={() => updatePrice('cheesyFries', inputValues.cheesyFries)} className={style.btn}>Change</button>
-                </div>
-                <div className={style.foodbox}>
-                    <img src={Frenchfries} className={style.foodimg} alt='' />
-                    <p className={style.itemname}>French fries</p>
-                    <p className={style.itemdesc}>Crispy and golden, our French fries are perfectly seasoned and fried to perfection. Light, crunchy and quick snack.</p>
-                    <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <p style={{ fontWeight: 'bold', color: "rgb(240, 99, 49)" }}>Price</p>
-                        <div style={{ display: 'flex', gap: '20px', alignItems: 'center', color: 'white' }}>
-                            <p style={{ cursor: 'pointer' }} onClick={() => decrement("fries")}>-</p>
-                            <p style={{ fontWeight: 'bold' }}>{inputValues.fries}</p>
-                            <p style={{ cursor: 'pointer' }} onClick={() => increment("fries")}>+</p>
-                        </div>
-                    </div>
-                    <button onClick={() => updatePrice('fries', inputValues.fries)} className={style.btn}>Change</button>
-                </div>
-                {
-                    (month <= 10 && month > 2) &&
-                    <div className={style.foodbox}>
-                        <img src={Lemonade} className={style.foodimg} alt='' />
-                        <p className={style.itemname}>Lemonade</p>
-                        <p className={style.itemdesc}>Refreshingly sweet and tangy lemonade, bursting with fresh citrus flavor in every sip. Perfect for battling the summer heat.</p>
-                        <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <p style={{ fontWeight: 'bold', color: "rgb(240, 99, 49)" }}>Price</p>
-                            <div style={{ display: 'flex', gap: '20px', alignItems: 'center', color: 'white' }}>
-                                <p style={{ cursor: 'pointer' }} onClick={() => decrement("lemonade")}>-</p>
-                                <p style={{ fontWeight: 'bold' }}>{inputValues.lemonade}</p>
-                                <p style={{ cursor: 'pointer' }} onClick={() => increment("lemonade")}>+</p>
-                            </div>
-                        </div>
-                        <button onClick={() => updatePrice('lemonade', inputValues.lemonade)} className={style.btn}>Change</button>
-                    </div>
-                }
-                {
-                    (month > 10 || month < 3) &&
-                    <div className={style.foodbox}>
-                        <img src={ChocoMilk} className={style.foodimg} alt='' />
-                        <p className={style.itemname}>Hot Choco Milk</p>
-                        <p className={style.itemdesc}>Rich and creamy hot chocolate milk, blending smooth cocoa with velvety warmth. Perfect for cozy moments and chilly days.</p>
-                        <div style={{ padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                            <p style={{ fontWeight: 'bold', color: "rgb(240, 99, 49)" }}>Price</p>
-                            <div style={{ display: 'flex', gap: '20px', alignItems: 'center', color: 'white' }}>
-                                <p style={{ cursor: 'pointer' }} onClick={() => decrement("chocoMilk")}>-</p>
-                                <p style={{ fontWeight: 'bold' }}>{inputValues.chocoMilk}</p>
-                                <p style={{ cursor: 'pointer' }} onClick={() => increment("chocoMilk")}>+</p>
-                            </div>
-                        </div>
-                        <button onClick={() => updatePrice('chocoMilk', inputValues.chocoMilk)} className={style.btn}>Change</button>
-                    </div>
-                }
             </div>
+
+            <button
+                onClick={() => updatePrice(item.key, inputValues[item.key])}
+                className={style.btn}
+            >
+                Change
+            </button>
+
+        </div>
+    ))}
+</div>
+
+            <DealBox
+                            deals={deals}
+                            dealQty={dealQty}
+                            mode="settings" //home, settings, deals
+                        />
 
             {
                 check ?

@@ -11,6 +11,8 @@ import ShowOrders from "./showOrders";
 import ProtectedRoute from "./protectedRoute";
 import ProtectedRoute2 from "./protectedRoute2";
 import NotFound from "./notFound";
+import CreateDeal from "./createDeals";
+import Deals from "./deals";
 import PublicRoute from "./publicRoute";
 
 export default function App() {
@@ -33,6 +35,8 @@ export default function App() {
         <Route element={<Customers />} path="/customers" />
         <Route element={<Settings />} path="/settings" />
         <Route element={<ShowOrders />} path="/showorders" />
+        <Route element={<CreateDeal />} path="/createdeals" />
+        <Route element={<Deals />} path="/deals" />
     </Route>
     <Route path="*" element={<NotFound />} />
 </Routes>

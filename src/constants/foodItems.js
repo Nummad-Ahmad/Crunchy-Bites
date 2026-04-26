@@ -5,18 +5,21 @@ import Lemonade from '../assets/images/lemonade.jpg';
 import ChocoMilk from '../assets/images/choco.jpg';
 
 export function getFoodItems(month) {
-    const foodItems = [
+    const baseItems = [
         {
+            key: "samosa",
             name: "Samosa",
             img: Samosa,
             desc: "Crispy and flavorful samosas filled with spiced potatoes, wrapped in a golden, flaky crust. A perfect snack."
         },
         {
+            key: "cheesyFries",
             name: "Cheesy Fries",
             img: CheesyFries,
             desc: "Our cheesy and crispy fries loaded with rich, melted cheese and creamy mayo. A perfect blend of crunch and cheesy goodness."
         },
         {
+            key: "fries",
             name: "French Fries",
             img: FrenchFries,
             desc: "Crispy and golden, our French fries are perfectly seasoned and fried to perfection. Light, crunchy and quick snack."
@@ -26,15 +29,17 @@ export function getFoodItems(month) {
     const seasonalItem =
         (month <= 10 && month > 2)
             ? {
+                key: "lemonade",
                 name: "Lemonade",
                 img: Lemonade,
-                desc: "Refreshingly sweet and tangy lemonade, bursting with fresh citrus flavor in every sip. Perfect for battling the summer heat."
+                desc: "Refreshingly sweet and tangy lemonade, bursting with fresh citrus flavor in every sip. Perfect for summer heat."
             }
             : {
+                key: "chocoMilk",
                 name: "Hot Choco Milk",
                 img: ChocoMilk,
-                desc: "Rich and creamy hot chocolate milk, blending smooth cocoa with velvety warmth. Perfect for cozy moments and chilly days."
+                desc: "Rich and creamy hot chocolate milk, blending smooth cocoa with velvety warmth. Perfect for cozy moments."
             };
 
-    return [...foodItems, seasonalItem];
+    return [...baseItems, seasonalItem];
 }
