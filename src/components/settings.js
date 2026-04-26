@@ -254,6 +254,8 @@ export default function Settings() {
     ))}
 </div>
 
+        <p className={style.tagline}>Our Deals</p>
+
             <DealBox
                             deals={deals}
                             dealQty={dealQty}

@@ -137,15 +137,19 @@ export default function Home() {
 
             
             {/* ================= DEALS SECTION ================= */}
-            <p className={style.tagline}>Our Deals</p>
+            {deals.length > 0 && (
+    <>
+        <p className={style.tagline}>Our Deals</p>
 
-            <DealBox
-                deals={deals}
-                dealQty={dealQty}
-                incrementDeal={incrementDeal}
-                decrementDeal={decrementDeal}
-                mode="home"
-            />
+        <DealBox
+            deals={deals}
+            dealQty={dealQty}
+            incrementDeal={incrementDeal}
+            decrementDeal={decrementDeal}
+            mode="home"
+        />
+    </>
+)}
 
             <p className={style.tagline}>Best Taste & Quality</p>
 

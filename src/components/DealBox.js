@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import style from '../styles/deals.module.css';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import axios from 'axios';
 
 export default function DealBox({
@@ -54,32 +55,38 @@ export default function DealBox({
         setLocalDeals(deals);
     }, [deals]);
 
-    const handleToggle = async (deal) => {
-        try {
-            const res = await axios.patch(
-                `${process.env.REACT_APP_BACK_END}/deals/toggleStatus`,
-                {
-                    dealName: deal.dealName
-                },
-                { withCredentials: true }
-            );
+const handleToggle = async (deal) => {
+    const loadingToast = toast.loading("Updating status...");
 
-            const data = res.data.data;
-            console.log("Updated deal:", data);
-            setLocalDeals(prev =>
-                prev.map(d =>
-                    d._id === deal._id
-                        ? { ...d, status: !d.status }
-                        : d
-                )
-            );
+    try {
+        const res = await axios.patch(
+            `${process.env.REACT_APP_BACK_END}/deals/toggleStatus`,
+            {
+                dealName: deal.dealName
+            },
+            { withCredentials: true }
+        );
 
-        } catch (e) {
-            console.log("Toggle error:", e);
-        } finally {
+        const data = res.data.data;
 
-        }
-    };
+        setLocalDeals(prev =>
+            prev.map(d =>
+                d._id === deal._id
+                    ? { ...d, status: !d.status }
+                    : d
+            )
+        );
+
+        toast.dismiss(loadingToast);
+        toast.success("Status updated successfully");
+
+    } catch (e) {
+        toast.dismiss(loadingToast);
+        toast.error("Failed to update status");
+
+        console.log("Toggle error:", e);
+    }
+};
 
     return (
         <div
