@@ -159,7 +159,6 @@ export default function Home() {
                     foodItems.map((item, i) => (
                         <div
                             key={i}
-                            onClick={() => navigate('/order')}
                             className={style.foodbox}
                         >
                             <img src={item.img} className={style.foodimg} alt='' />

@@ -7,6 +7,8 @@ import Cookies from 'js-cookie';
 import { IoSettingsOutline } from "react-icons/io5";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { FaUsers } from "react-icons/fa6";
+import { FaGift } from "react-icons/fa";
 import { useSelector } from 'react-redux';
 
 export default function Navbar() {
@@ -47,9 +49,14 @@ export default function Navbar() {
                 {
                     email !== null ?
                         email === "nummad222@gmail.com" ?
+                        <>
                             <div onClick={() => navigate('/showorders')} style={{ cursor: 'pointer' }}>
                                 <FaRegBell color='white' size={20} />
-                            </div> :
+                            </div>
+                            <div onClick={() => navigate('/createdeals')} style={{ cursor: 'pointer' }}>
+                                <FaGift color='white' size={20} />
+                            </div>
+                            </> :
                             <div onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
                                 <IoHomeOutline color='white' size={20} />
                             </div> : null
@@ -75,8 +82,8 @@ export default function Navbar() {
                             Order
                         </div> :
                         email === "nummad222@gmail.com" ?
-                            <div className={style.orderbtn} onClick={() => navigate('/customers')}>
-                                Customers
+                            <div onClick={() => navigate('/customers')} style={{ cursor: 'pointer' }}>
+                                <FaUsers color='white' size={20}/>
                             </div> :
                             <div className={style.orderbtn} onClick={() => navigate('/order')}>
                                 Order
