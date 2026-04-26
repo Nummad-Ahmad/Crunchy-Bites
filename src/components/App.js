@@ -27,6 +27,7 @@ export default function App() {
     <Route element={<Home />} path="/" />
 
     <Route element={<ProtectedRoute />}>
+        <Route element={<Deals />} path="/deals" />
         <Route element={<Order />} path="/order" />
         <Route element={<Notifications />} path="/notifications" />
     </Route>
@@ -36,7 +37,6 @@ export default function App() {
         <Route element={<Settings />} path="/settings" />
         <Route element={<ShowOrders />} path="/showorders" />
         <Route element={<CreateDeal />} path="/createdeals" />
-        <Route element={<Deals />} path="/deals" />
     </Route>
     <Route path="*" element={<NotFound />} />
 </Routes>
