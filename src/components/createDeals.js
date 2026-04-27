@@ -122,24 +122,27 @@ export default function CreateDeal() {
     }));
   };
 
-  const handleSubmit = () => {
+const handleSubmit = async () => {
 
-    if (!form.dealName.trim()) {
-      return toast.error("Deal name is required");
-    }
+  if (!form.dealName.trim()) {
+    return toast.error("Deal name is required");
+  }
 
-    if (!form.dealPrice || form.dealPrice <= 0) {
-      return toast.error("Deal price is required");
-    }
+  if (!form.dealPrice || form.dealPrice <= 0) {
+    return toast.error("Deal price is required");
+  }
 
-    const selectedItems = Object.keys(quantities)
-      .filter(key => quantities[key] > 0)
-      .map(key => ({
-        name: key,
-        quantity: quantities[key]
-      }));
+  const selectedItems = Object.keys(quantities)
+    .filter(key => quantities[key] > 0)
+    .map(key => ({
+      name: key,
+      quantity: quantities[key]
+    }));
 
-    axios.post(`${process.env.REACT_APP_BACK_END}/deals/create`, {
+  const loadingToast = toast.loading("Creating deal...");
+
+  try {
+    await axios.post(`${process.env.REACT_APP_BACK_END}/deals/create`, {
       dealName: form.dealName,
       description: form.description,
       dealPrice: Number(form.dealPrice),
@@ -148,26 +151,32 @@ export default function CreateDeal() {
       image: preview,
       enableAt: form.enableAt,
       expiryAt: form.expiryAt
-    }, { withCredentials: true })
-      .then(() => {
-        toast.success("Deal created successfully");
+    }, { withCredentials: true });
 
-        setForm({
-          dealName: "",
-          description: "",
-          dealPrice: 0,
-          enableAt: "",
-          expiryAt: ""
-        });
+    toast.success("Deal created successfully 🎉", {
+      id: loadingToast
+    });
 
-        setPreview(null);
+    setForm({
+      dealName: "",
+      description: "",
+      dealPrice: 0,
+      enableAt: "",
+      expiryAt: ""
+    });
 
-        setQuantities(
-          Object.fromEntries(Object.keys(quantities).map(k => [k, 0]))
-        );
-      })
-      .catch(() => toast.error("Error creating deal"));
-  };
+    setPreview(null);
+
+    setQuantities(
+      Object.fromEntries(Object.keys(quantities).map(k => [k, 0]))
+    );
+
+  } catch (err) {
+    toast.error("Error creating deal ❌", {
+      id: loadingToast
+    });
+  }
+};
 
   const formatName = (str) => {
   return str
